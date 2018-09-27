@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="70fb4ece447248678a72ec300a7a0d5e" Name="Diagram1">
+        <EntityTypeShape EntityType="LincolnDBModel.Carry" Width="1.5" PointX="5.25" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LincolnDBModel.Client" Width="1.5" PointX="6" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LincolnDBModel.Connotary" Width="1.5" PointX="3" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LincolnDBModel.Login" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LincolnDBModel.Notary" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LincolnDBModel.Protocol" Width="1.5" PointX="3" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LincolnDBModel.Writing" Width="1.5" PointX="8.25" PointY="6.625" IsExpanded="true" />
+        <AssociationConnector Association="LincolnDBModel.FK__Carry__IDProtoco__5812160E" ManuallyRouted="false" />
+        <AssociationConnector Association="LincolnDBModel.FK__Writing__IDClien__5165187F" ManuallyRouted="false" />
+        <AssociationConnector Association="LincolnDBModel.FK__Connotary__IDNot__5441852A" ManuallyRouted="false" />
+        <AssociationConnector Association="LincolnDBModel.FK__Connotary__IDWri__5535A963" ManuallyRouted="false" />
+        <AssociationConnector Association="LincolnDBModel.FK__Protocol__IDNota__4BAC3F29" ManuallyRouted="false" />
+        <AssociationConnector Association="LincolnDBModel.FK__Writing__IDProto__5070F446" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

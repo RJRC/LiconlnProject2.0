@@ -1,0 +1,14 @@
+C:\Users\Rolndo\source\repos\LincolnProject\AccessDataLayer\obj\Debug\AccessDataLayer.csprojAssemblyReference.cache
+C:\Users\Rolndo\source\repos\LincolnProject\AccessDataLayer\obj\Debug\AccessDataLayer.csproj.CoreCompileInputs.cache
+C:\Users\Rolndo\source\repos\LincolnProject\AccessDataLayer\bin\Debug\AccessDataLayer.dll.config
+C:\Users\Rolndo\source\repos\LincolnProject\AccessDataLayer\bin\Debug\AccessDataLayer.dll
+C:\Users\Rolndo\source\repos\LincolnProject\AccessDataLayer\bin\Debug\AccessDataLayer.pdb
+C:\Users\Rolndo\source\repos\LincolnProject\AccessDataLayer\bin\Debug\Entities.dll
+C:\Users\Rolndo\source\repos\LincolnProject\AccessDataLayer\bin\Debug\EntityFramework.dll
+C:\Users\Rolndo\source\repos\LincolnProject\AccessDataLayer\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Rolndo\source\repos\LincolnProject\AccessDataLayer\bin\Debug\Entities.pdb
+C:\Users\Rolndo\source\repos\LincolnProject\AccessDataLayer\bin\Debug\EntityFramework.xml
+C:\Users\Rolndo\source\repos\LincolnProject\AccessDataLayer\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Rolndo\source\repos\LincolnProject\AccessDataLayer\obj\Debug\AccessDataLayer.csproj.CopyComplete
+C:\Users\Rolndo\source\repos\LincolnProject\AccessDataLayer\obj\Debug\AccessDataLayer.dll
+C:\Users\Rolndo\source\repos\LincolnProject\AccessDataLayer\obj\Debug\AccessDataLayer.pdb

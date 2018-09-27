@@ -1,0 +1,14 @@
+C:\Users\Rolndo\source\repos\LincolnProject\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.csprojAssemblyReference.cache
+C:\Users\Rolndo\source\repos\LincolnProject\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.csproj.CoreCompileInputs.cache
+C:\Users\Rolndo\source\repos\LincolnProject\BusinessLogicLayer\bin\Debug\BusinessLogicLayer.dll
+C:\Users\Rolndo\source\repos\LincolnProject\BusinessLogicLayer\bin\Debug\BusinessLogicLayer.pdb
+C:\Users\Rolndo\source\repos\LincolnProject\BusinessLogicLayer\bin\Debug\AccessDataLayer.dll
+C:\Users\Rolndo\source\repos\LincolnProject\BusinessLogicLayer\bin\Debug\Entities.dll
+C:\Users\Rolndo\source\repos\LincolnProject\BusinessLogicLayer\bin\Debug\EntityFramework.dll
+C:\Users\Rolndo\source\repos\LincolnProject\BusinessLogicLayer\bin\Debug\AccessDataLayer.pdb
+C:\Users\Rolndo\source\repos\LincolnProject\BusinessLogicLayer\bin\Debug\AccessDataLayer.dll.config
+C:\Users\Rolndo\source\repos\LincolnProject\BusinessLogicLayer\bin\Debug\Entities.pdb
+C:\Users\Rolndo\source\repos\LincolnProject\BusinessLogicLayer\bin\Debug\EntityFramework.xml
+C:\Users\Rolndo\source\repos\LincolnProject\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.csproj.CopyComplete
+C:\Users\Rolndo\source\repos\LincolnProject\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.dll
+C:\Users\Rolndo\source\repos\LincolnProject\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.pdb
