@@ -21,15 +21,15 @@ namespace BusinessLogicLayer
 
             foreach (Login login in list)
             {
-                if (userName == login.Username)
+                if (userName == login.UserName)
                 {
                     if (pass == login.PasswordLogin)
                     {
-                        if (login.TypeOfUser == "a")
+                        if (login.TypeOfUser == "admin")
                         {
                             return 1;
                         }
-                        if (login.TypeOfUser == "o")
+                        if (login.TypeOfUser == "user")
                         {
                             return 2;
                         }

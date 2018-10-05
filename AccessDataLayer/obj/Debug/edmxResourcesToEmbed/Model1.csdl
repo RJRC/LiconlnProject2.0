@@ -1,41 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="LincolnDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-  <EntityType Name="Carry">
-    <Key>
-      <PropertyRef Name="IDCarry" />
-    </Key>
-    <Property Name="IDCarry" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="IDProtocolFK" Type="Int32" Nullable="false" />
-    <Property Name="CarryBalance" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Protocol" Relationship="Self.FK__Carry__IDProtoco__5812160E" FromRole="Carry" ToRole="Protocol" />
-  </EntityType>
   <EntityType Name="Client">
     <Key>
-      <PropertyRef Name="IDClient" />
+      <PropertyRef Name="ClientID" />
     </Key>
-    <Property Name="IDClient" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="NameClient" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-    <NavigationProperty Name="Writing" Relationship="Self.FK__Writing__IDClien__5165187F" FromRole="Client" ToRole="Writing" />
-  </EntityType>
-  <EntityType Name="Connotary">
-    <Key>
-      <PropertyRef Name="IDNotaryFKPK" />
-      <PropertyRef Name="IDWritingFKPK" />
-    </Key>
-    <Property Name="IDNotaryFKPK" Type="Int32" Nullable="false" />
-    <Property Name="IDWritingFKPK" Type="Int32" Nullable="false" />
-    <Property Name="BilledAmount" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Notary" Relationship="Self.FK__Connotary__IDNot__5441852A" FromRole="Connotary" ToRole="Notary" />
-    <NavigationProperty Name="Writing" Relationship="Self.FK__Connotary__IDWri__5535A963" FromRole="Connotary" ToRole="Writing" />
+    <Property Name="ClientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClientName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Writing" Relationship="Self.FK_Writing_Client" FromRole="Client" ToRole="Writing" />
   </EntityType>
   <EntityType Name="Login">
     <Key>
-      <PropertyRef Name="IDLogin" />
+      <PropertyRef Name="LoginID" />
     </Key>
-    <Property Name="IDLogin" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="PasswordLogin" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="TypeOfUser" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="LoginID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="PasswordLogin" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TypeOfUser" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Movement">
+    <Key>
+      <PropertyRef Name="MovementID" />
+    </Key>
+    <Property Name="MovementID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProtocolID" Type="Int32" Nullable="false" />
+    <Property Name="WritingID" Type="Int32" Nullable="false" />
+    <Property Name="TotalHonorary" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="BilledAmount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <NavigationProperty Name="Protocol" Relationship="Self.FK_Movement_Protocol" FromRole="Movement" ToRole="Protocol" />
+    <NavigationProperty Name="Writing" Relationship="Self.FK_Movement_Writing" FromRole="Movement" ToRole="Writing" />
   </EntityType>
   <EntityType Name="Notary">
     <Key>
@@ -43,88 +36,71 @@
     </Key>
     <Property Name="IDNotary" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="NotaryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="EnabledRBT" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
-    <Property Name="NotaryAvailability" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
-    <NavigationProperty Name="Connotary" Relationship="Self.FK__Connotary__IDNot__5441852A" FromRole="Notary" ToRole="Connotary" />
-    <NavigationProperty Name="Protocol" Relationship="Self.FK__Protocol__IDNota__4BAC3F29" FromRole="Notary" ToRole="Protocol" />
+    <Property Name="RBTEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="NotaryAvailable" Type="Boolean" Nullable="false" />
+    <Property Name="BalanceLimit" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <NavigationProperty Name="Protocol" Relationship="Self.FK_Protocol_Notary" FromRole="Notary" ToRole="Protocol" />
   </EntityType>
   <EntityType Name="Protocol">
     <Key>
-      <PropertyRef Name="IDProtocol" />
+      <PropertyRef Name="ProtocolID" />
     </Key>
-    <Property Name="IDProtocol" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="IDNotaryFK" Type="Int32" Nullable="false" />
-    <Property Name="LimitBalance" Type="Int32" Nullable="false" />
-    <Property Name="ActualBalance" Type="Int32" Nullable="false" />
-    <Property Name="MonthProtocol" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <NavigationProperty Name="Carry" Relationship="Self.FK__Carry__IDProtoco__5812160E" FromRole="Protocol" ToRole="Carry" />
-    <NavigationProperty Name="Notary" Relationship="Self.FK__Protocol__IDNota__4BAC3F29" FromRole="Protocol" ToRole="Notary" />
-    <NavigationProperty Name="Writing" Relationship="Self.FK__Writing__IDProto__5070F446" FromRole="Protocol" ToRole="Writing" />
+    <Property Name="ProtocolID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NotaryID" Type="Int32" Nullable="false" />
+    <Property Name="ActualBalance" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="Month" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Year" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Movement" Relationship="Self.FK_Movement_Protocol" FromRole="Protocol" ToRole="Movement" />
+    <NavigationProperty Name="Notary" Relationship="Self.FK_Protocol_Notary" FromRole="Protocol" ToRole="Notary" />
   </EntityType>
   <EntityType Name="Writing">
     <Key>
-      <PropertyRef Name="IDWriting" />
+      <PropertyRef Name="WritingID" />
     </Key>
-    <Property Name="IDWriting" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="IDProtocolFK" Type="Int32" Nullable="false" />
-    <Property Name="IDClientFK" Type="Int32" Nullable="false" />
-    <Property Name="EventWriting" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="HonoraryTotal" Type="Int32" Nullable="false" />
-    <Property Name="HonoraryByNotary" Type="Int32" Nullable="false" />
+    <Property Name="WritingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClientID" Type="Int32" Nullable="false" />
     <Property Name="DateWriting" Type="DateTime" Nullable="false" Precision="0" />
-    <NavigationProperty Name="Client" Relationship="Self.FK__Writing__IDClien__5165187F" FromRole="Writing" ToRole="Client" />
-    <NavigationProperty Name="Connotary" Relationship="Self.FK__Connotary__IDWri__5535A963" FromRole="Writing" ToRole="Connotary" />
-    <NavigationProperty Name="Protocol" Relationship="Self.FK__Writing__IDProto__5070F446" FromRole="Writing" ToRole="Protocol" />
+    <Property Name="EventWriting" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Client" Relationship="Self.FK_Writing_Client" FromRole="Writing" ToRole="Client" />
+    <NavigationProperty Name="Movement" Relationship="Self.FK_Movement_Writing" FromRole="Writing" ToRole="Movement" />
   </EntityType>
-  <Association Name="FK__Carry__IDProtoco__5812160E">
-    <End Role="Protocol" Type="Self.Protocol" Multiplicity="1" />
-    <End Role="Carry" Type="Self.Carry" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Protocol">
-        <PropertyRef Name="IDProtocol" />
-      </Principal>
-      <Dependent Role="Carry">
-        <PropertyRef Name="IDProtocolFK" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK__Writing__IDClien__5165187F">
+  <Association Name="FK_Writing_Client">
     <End Role="Client" Type="Self.Client" Multiplicity="1" />
     <End Role="Writing" Type="Self.Writing" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Client">
-        <PropertyRef Name="IDClient" />
+        <PropertyRef Name="ClientID" />
       </Principal>
       <Dependent Role="Writing">
-        <PropertyRef Name="IDClientFK" />
+        <PropertyRef Name="ClientID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Connotary__IDNot__5441852A">
-    <End Role="Notary" Type="Self.Notary" Multiplicity="1" />
-    <End Role="Connotary" Type="Self.Connotary" Multiplicity="*" />
+  <Association Name="FK_Movement_Protocol">
+    <End Role="Protocol" Type="Self.Protocol" Multiplicity="1" />
+    <End Role="Movement" Type="Self.Movement" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Notary">
-        <PropertyRef Name="IDNotary" />
+      <Principal Role="Protocol">
+        <PropertyRef Name="ProtocolID" />
       </Principal>
-      <Dependent Role="Connotary">
-        <PropertyRef Name="IDNotaryFKPK" />
+      <Dependent Role="Movement">
+        <PropertyRef Name="ProtocolID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Connotary__IDWri__5535A963">
+  <Association Name="FK_Movement_Writing">
     <End Role="Writing" Type="Self.Writing" Multiplicity="1" />
-    <End Role="Connotary" Type="Self.Connotary" Multiplicity="*" />
+    <End Role="Movement" Type="Self.Movement" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Writing">
-        <PropertyRef Name="IDWriting" />
+        <PropertyRef Name="WritingID" />
       </Principal>
-      <Dependent Role="Connotary">
-        <PropertyRef Name="IDWritingFKPK" />
+      <Dependent Role="Movement">
+        <PropertyRef Name="WritingID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Protocol__IDNota__4BAC3F29">
+  <Association Name="FK_Protocol_Notary">
     <End Role="Notary" Type="Self.Notary" Multiplicity="1" />
     <End Role="Protocol" Type="Self.Protocol" Multiplicity="*" />
     <ReferentialConstraint>
@@ -132,76 +108,59 @@
         <PropertyRef Name="IDNotary" />
       </Principal>
       <Dependent Role="Protocol">
-        <PropertyRef Name="IDNotaryFK" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK__Writing__IDProto__5070F446">
-    <End Role="Protocol" Type="Self.Protocol" Multiplicity="1" />
-    <End Role="Writing" Type="Self.Writing" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Protocol">
-        <PropertyRef Name="IDProtocol" />
-      </Principal>
-      <Dependent Role="Writing">
-        <PropertyRef Name="IDProtocolFK" />
+        <PropertyRef Name="NotaryID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="LincolnDBEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="Carry" EntityType="Self.Carry" />
     <EntitySet Name="Client" EntityType="Self.Client" />
-    <EntitySet Name="Connotary" EntityType="Self.Connotary" />
     <EntitySet Name="Login" EntityType="Self.Login" />
+    <EntitySet Name="Movement" EntityType="Self.Movement" />
     <EntitySet Name="Notary" EntityType="Self.Notary" />
     <EntitySet Name="Protocol" EntityType="Self.Protocol" />
     <EntitySet Name="Writing" EntityType="Self.Writing" />
-    <AssociationSet Name="FK__Carry__IDProtoco__5812160E" Association="Self.FK__Carry__IDProtoco__5812160E">
-      <End Role="Protocol" EntitySet="Protocol" />
-      <End Role="Carry" EntitySet="Carry" />
-    </AssociationSet>
-    <AssociationSet Name="FK__Writing__IDClien__5165187F" Association="Self.FK__Writing__IDClien__5165187F">
+    <AssociationSet Name="FK_Writing_Client" Association="Self.FK_Writing_Client">
       <End Role="Client" EntitySet="Client" />
       <End Role="Writing" EntitySet="Writing" />
     </AssociationSet>
-    <AssociationSet Name="FK__Connotary__IDNot__5441852A" Association="Self.FK__Connotary__IDNot__5441852A">
-      <End Role="Notary" EntitySet="Notary" />
-      <End Role="Connotary" EntitySet="Connotary" />
+    <AssociationSet Name="FK_Movement_Protocol" Association="Self.FK_Movement_Protocol">
+      <End Role="Protocol" EntitySet="Protocol" />
+      <End Role="Movement" EntitySet="Movement" />
     </AssociationSet>
-    <AssociationSet Name="FK__Connotary__IDWri__5535A963" Association="Self.FK__Connotary__IDWri__5535A963">
+    <AssociationSet Name="FK_Movement_Writing" Association="Self.FK_Movement_Writing">
       <End Role="Writing" EntitySet="Writing" />
-      <End Role="Connotary" EntitySet="Connotary" />
+      <End Role="Movement" EntitySet="Movement" />
     </AssociationSet>
-    <AssociationSet Name="FK__Protocol__IDNota__4BAC3F29" Association="Self.FK__Protocol__IDNota__4BAC3F29">
+    <AssociationSet Name="FK_Protocol_Notary" Association="Self.FK_Protocol_Notary">
       <End Role="Notary" EntitySet="Notary" />
       <End Role="Protocol" EntitySet="Protocol" />
-    </AssociationSet>
-    <AssociationSet Name="FK__Writing__IDProto__5070F446" Association="Self.FK__Writing__IDProto__5070F446">
-      <End Role="Protocol" EntitySet="Protocol" />
-      <End Role="Writing" EntitySet="Writing" />
     </AssociationSet>
     <FunctionImport Name="proc_Create_Notary">
       <Parameter Name="name" Mode="In" Type="String" />
-      <Parameter Name="enabled" Mode="In" Type="String" />
-      <Parameter Name="availability" Mode="In" Type="String" />
+      <Parameter Name="enabled" Mode="In" Type="Boolean" />
+      <Parameter Name="availability" Mode="In" Type="Boolean" />
+      <Parameter Name="balanceLimit" Mode="In" Type="Decimal" />
     </FunctionImport>
     <FunctionImport Name="proc_Get_Notaries" ReturnType="Collection(LincolnDBModel.proc_Get_Notaries_Result)" />
     <FunctionImport Name="proc_Insert_UserLogin">
       <Parameter Name="username" Mode="In" Type="String" />
       <Parameter Name="password" Mode="In" Type="String" />
       <Parameter Name="type" Mode="In" Type="String" />
+      <Parameter Name="email" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="proc_Update_Notary">
-      <Parameter Name="name" Mode="In" Type="String" />
-      <Parameter Name="enabled" Mode="In" Type="String" />
-      <Parameter Name="availability" Mode="In" Type="String" />
       <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="name" Mode="In" Type="String" />
+      <Parameter Name="enabled" Mode="In" Type="Boolean" />
+      <Parameter Name="availability" Mode="In" Type="Boolean" />
+      <Parameter Name="balanceLimit" Mode="In" Type="Decimal" />
     </FunctionImport>
   </EntityContainer>
   <ComplexType Name="proc_Get_Notaries_Result">
     <Property Type="Int32" Name="Codigo_Notario" Nullable="false" />
     <Property Type="String" Name="Nombre" Nullable="false" MaxLength="50" />
-    <Property Type="String" Name="Cartular_RBT" Nullable="false" MaxLength="1" />
-    <Property Type="String" Name="Habilitado" Nullable="false" MaxLength="1" />
+    <Property Type="Boolean" Name="Cartula_RBT" Nullable="false" />
+    <Property Type="Boolean" Name="Habilitado" Nullable="false" />
+    <Property Type="Decimal" Name="Monto_Mensual" Nullable="false" Precision="19" />
   </ComplexType>
 </Schema>

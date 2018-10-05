@@ -23,15 +23,15 @@ namespace AccessDataLayer
 
         public void changePassword(String user, String password)
         {
-            Login login = database.Login.Single(u => u.Username == user);
+            Login login = database.Login.Single(u => u.UserName == user);
             login.PasswordLogin = password;
             database.SaveChanges();
         }
 
         public void changeUserName(String user)
         {
-            Login login = database.Login.Single(u => u.Username == user);
-            login.Username = user;
+            Login login = database.Login.Single(u => u.UserName == user);
+            login.UserName = user;
             database.SaveChanges();
         }
 

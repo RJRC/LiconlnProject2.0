@@ -14,9 +14,10 @@ namespace Entities
     
     public partial class Login
     {
-        public int IDLogin { get; set; }
-        public string Username { get; set; }
+        public int LoginID { get; set; }
+        public string UserName { get; set; }
         public string PasswordLogin { get; set; }
         public string TypeOfUser { get; set; }
+        public string Email { get; set; }
     }
 }

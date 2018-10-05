@@ -1,39 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="LincolnDBModelStoreContainer" CdmEntityContainer="LincolnDBEntities">
-    <EntitySetMapping Name="Carry">
-      <EntityTypeMapping TypeName="LincolnDBModel.Carry">
-        <MappingFragment StoreEntitySet="Carry">
-          <ScalarProperty Name="IDCarry" ColumnName="IDCarry" />
-          <ScalarProperty Name="IDProtocolFK" ColumnName="IDProtocolFK" />
-          <ScalarProperty Name="CarryBalance" ColumnName="CarryBalance" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Client">
       <EntityTypeMapping TypeName="LincolnDBModel.Client">
         <MappingFragment StoreEntitySet="Client">
-          <ScalarProperty Name="IDClient" ColumnName="IDClient" />
-          <ScalarProperty Name="NameClient" ColumnName="NameClient" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Connotary">
-      <EntityTypeMapping TypeName="LincolnDBModel.Connotary">
-        <MappingFragment StoreEntitySet="Connotary">
-          <ScalarProperty Name="IDNotaryFKPK" ColumnName="IDNotaryFKPK" />
-          <ScalarProperty Name="IDWritingFKPK" ColumnName="IDWritingFKPK" />
-          <ScalarProperty Name="BilledAmount" ColumnName="BilledAmount" />
+          <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+          <ScalarProperty Name="ClientName" ColumnName="ClientName" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Login">
       <EntityTypeMapping TypeName="LincolnDBModel.Login">
         <MappingFragment StoreEntitySet="Login">
-          <ScalarProperty Name="IDLogin" ColumnName="IDLogin" />
-          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="LoginID" ColumnName="LoginID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
           <ScalarProperty Name="PasswordLogin" ColumnName="PasswordLogin" />
           <ScalarProperty Name="TypeOfUser" ColumnName="TypeOfUser" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Movement">
+      <EntityTypeMapping TypeName="LincolnDBModel.Movement">
+        <MappingFragment StoreEntitySet="Movement">
+          <ScalarProperty Name="MovementID" ColumnName="MovementID" />
+          <ScalarProperty Name="ProtocolID" ColumnName="ProtocolID" />
+          <ScalarProperty Name="WritingID" ColumnName="WritingID" />
+          <ScalarProperty Name="TotalHonorary" ColumnName="TotalHonorary" />
+          <ScalarProperty Name="BilledAmount" ColumnName="BilledAmount" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -42,32 +36,30 @@
         <MappingFragment StoreEntitySet="Notary">
           <ScalarProperty Name="IDNotary" ColumnName="IDNotary" />
           <ScalarProperty Name="NotaryName" ColumnName="NotaryName" />
-          <ScalarProperty Name="EnabledRBT" ColumnName="EnabledRBT" />
-          <ScalarProperty Name="NotaryAvailability" ColumnName="NotaryAvailability" />
+          <ScalarProperty Name="RBTEnabled" ColumnName="RBTEnabled" />
+          <ScalarProperty Name="NotaryAvailable" ColumnName="NotaryAvailable" />
+          <ScalarProperty Name="BalanceLimit" ColumnName="BalanceLimit" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Protocol">
       <EntityTypeMapping TypeName="LincolnDBModel.Protocol">
         <MappingFragment StoreEntitySet="Protocol">
-          <ScalarProperty Name="IDProtocol" ColumnName="IDProtocol" />
-          <ScalarProperty Name="IDNotaryFK" ColumnName="IDNotaryFK" />
-          <ScalarProperty Name="LimitBalance" ColumnName="LimitBalance" />
+          <ScalarProperty Name="ProtocolID" ColumnName="ProtocolID" />
+          <ScalarProperty Name="NotaryID" ColumnName="NotaryID" />
           <ScalarProperty Name="ActualBalance" ColumnName="ActualBalance" />
-          <ScalarProperty Name="MonthProtocol" ColumnName="MonthProtocol" />
+          <ScalarProperty Name="Month" ColumnName="Month" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Writing">
       <EntityTypeMapping TypeName="LincolnDBModel.Writing">
         <MappingFragment StoreEntitySet="Writing">
-          <ScalarProperty Name="IDWriting" ColumnName="IDWriting" />
-          <ScalarProperty Name="IDProtocolFK" ColumnName="IDProtocolFK" />
-          <ScalarProperty Name="IDClientFK" ColumnName="IDClientFK" />
-          <ScalarProperty Name="EventWriting" ColumnName="EventWriting" />
-          <ScalarProperty Name="HonoraryTotal" ColumnName="HonoraryTotal" />
-          <ScalarProperty Name="HonoraryByNotary" ColumnName="HonoraryByNotary" />
+          <ScalarProperty Name="WritingID" ColumnName="WritingID" />
+          <ScalarProperty Name="ClientID" ColumnName="ClientID" />
           <ScalarProperty Name="DateWriting" ColumnName="DateWriting" />
+          <ScalarProperty Name="EventWriting" ColumnName="EventWriting" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -77,8 +69,9 @@
         <ComplexTypeMapping TypeName="LincolnDBModel.proc_Get_Notaries_Result">
           <ScalarProperty Name="Codigo_Notario" ColumnName="Codigo Notario" />
           <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-          <ScalarProperty Name="Cartular_RBT" ColumnName="Cartular RBT" />
+          <ScalarProperty Name="Cartula_RBT" ColumnName="Cartula RBT" />
           <ScalarProperty Name="Habilitado" ColumnName="Habilitado" />
+          <ScalarProperty Name="Monto_Mensual" ColumnName="Monto Mensual" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

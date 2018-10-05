@@ -27,29 +27,32 @@ namespace Entities
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Carry> Carry { get; set; }
         public virtual DbSet<Client> Client { get; set; }
-        public virtual DbSet<Connotary> Connotary { get; set; }
         public virtual DbSet<Login> Login { get; set; }
+        public virtual DbSet<Movement> Movement { get; set; }
         public virtual DbSet<Notary> Notary { get; set; }
         public virtual DbSet<Protocol> Protocol { get; set; }
         public virtual DbSet<Writing> Writing { get; set; }
     
-        public virtual int proc_Create_Notary(string name, string enabled, string availability)
+        public virtual int proc_Create_Notary(string name, Nullable<bool> enabled, Nullable<bool> availability, Nullable<decimal> balanceLimit)
         {
             var nameParameter = name != null ?
                 new ObjectParameter("name", name) :
                 new ObjectParameter("name", typeof(string));
     
-            var enabledParameter = enabled != null ?
+            var enabledParameter = enabled.HasValue ?
                 new ObjectParameter("enabled", enabled) :
-                new ObjectParameter("enabled", typeof(string));
+                new ObjectParameter("enabled", typeof(bool));
     
-            var availabilityParameter = availability != null ?
+            var availabilityParameter = availability.HasValue ?
                 new ObjectParameter("availability", availability) :
-                new ObjectParameter("availability", typeof(string));
+                new ObjectParameter("availability", typeof(bool));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("proc_Create_Notary", nameParameter, enabledParameter, availabilityParameter);
+            var balanceLimitParameter = balanceLimit.HasValue ?
+                new ObjectParameter("balanceLimit", balanceLimit) :
+                new ObjectParameter("balanceLimit", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("proc_Create_Notary", nameParameter, enabledParameter, availabilityParameter, balanceLimitParameter);
         }
     
         public virtual ObjectResult<proc_Get_Notaries_Result> proc_Get_Notaries()
@@ -57,7 +60,7 @@ namespace Entities
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<proc_Get_Notaries_Result>("proc_Get_Notaries");
         }
     
-        public virtual int proc_Insert_UserLogin(string username, string password, string type)
+        public virtual int proc_Insert_UserLogin(string username, string password, string type, string email)
         {
             var usernameParameter = username != null ?
                 new ObjectParameter("username", username) :
@@ -71,28 +74,36 @@ namespace Entities
                 new ObjectParameter("type", type) :
                 new ObjectParameter("type", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("proc_Insert_UserLogin", usernameParameter, passwordParameter, typeParameter);
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("proc_Insert_UserLogin", usernameParameter, passwordParameter, typeParameter, emailParameter);
         }
     
-        public virtual int proc_Update_Notary(string name, string enabled, string availability, Nullable<int> id)
+        public virtual int proc_Update_Notary(Nullable<int> id, string name, Nullable<bool> enabled, Nullable<bool> availability, Nullable<decimal> balanceLimit)
         {
-            var nameParameter = name != null ?
-                new ObjectParameter("name", name) :
-                new ObjectParameter("name", typeof(string));
-    
-            var enabledParameter = enabled != null ?
-                new ObjectParameter("enabled", enabled) :
-                new ObjectParameter("enabled", typeof(string));
-    
-            var availabilityParameter = availability != null ?
-                new ObjectParameter("availability", availability) :
-                new ObjectParameter("availability", typeof(string));
-    
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("proc_Update_Notary", nameParameter, enabledParameter, availabilityParameter, idParameter);
+            var nameParameter = name != null ?
+                new ObjectParameter("name", name) :
+                new ObjectParameter("name", typeof(string));
+    
+            var enabledParameter = enabled.HasValue ?
+                new ObjectParameter("enabled", enabled) :
+                new ObjectParameter("enabled", typeof(bool));
+    
+            var availabilityParameter = availability.HasValue ?
+                new ObjectParameter("availability", availability) :
+                new ObjectParameter("availability", typeof(bool));
+    
+            var balanceLimitParameter = balanceLimit.HasValue ?
+                new ObjectParameter("balanceLimit", balanceLimit) :
+                new ObjectParameter("balanceLimit", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("proc_Update_Notary", idParameter, nameParameter, enabledParameter, availabilityParameter, balanceLimitParameter);
         }
     }
 }

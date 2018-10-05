@@ -20,8 +20,8 @@ namespace Entities
             this.Writing = new HashSet<Writing>();
         }
     
-        public int IDClient { get; set; }
-        public string NameClient { get; set; }
+        public int ClientID { get; set; }
+        public string ClientName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Writing> Writing { get; set; }

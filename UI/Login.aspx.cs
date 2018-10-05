@@ -28,7 +28,7 @@ namespace UI
 
                     Session["Login"] = "1";
                     Session["UserName"] = TextBoxUser.Text;
-                    Response.Redirect("Admin.aspx");
+                    Response.Redirect("AdminModule1.aspx");
                     break;
                 case 2:
 

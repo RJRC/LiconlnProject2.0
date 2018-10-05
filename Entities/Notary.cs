@@ -17,17 +17,15 @@ namespace Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Notary()
         {
-            this.Connotary = new HashSet<Connotary>();
             this.Protocol = new HashSet<Protocol>();
         }
     
         public int IDNotary { get; set; }
         public string NotaryName { get; set; }
-        public string EnabledRBT { get; set; }
-        public string NotaryAvailability { get; set; }
+        public bool RBTEnabled { get; set; }
+        public bool NotaryAvailable { get; set; }
+        public decimal BalanceLimit { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Connotary> Connotary { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Protocol> Protocol { get; set; }
     }

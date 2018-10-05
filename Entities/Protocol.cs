@@ -17,20 +17,17 @@ namespace Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Protocol()
         {
-            this.Carry = new HashSet<Carry>();
-            this.Writing = new HashSet<Writing>();
+            this.Movement = new HashSet<Movement>();
         }
     
-        public int IDProtocol { get; set; }
-        public int IDNotaryFK { get; set; }
-        public int LimitBalance { get; set; }
-        public int ActualBalance { get; set; }
-        public string MonthProtocol { get; set; }
+        public int ProtocolID { get; set; }
+        public int NotaryID { get; set; }
+        public decimal ActualBalance { get; set; }
+        public string Month { get; set; }
+        public int Year { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Carry> Carry { get; set; }
+        public virtual ICollection<Movement> Movement { get; set; }
         public virtual Notary Notary { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Writing> Writing { get; set; }
     }
 }

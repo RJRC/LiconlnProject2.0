@@ -17,20 +17,16 @@ namespace Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Writing()
         {
-            this.Connotary = new HashSet<Connotary>();
+            this.Movement = new HashSet<Movement>();
         }
     
-        public int IDWriting { get; set; }
-        public int IDProtocolFK { get; set; }
-        public int IDClientFK { get; set; }
-        public string EventWriting { get; set; }
-        public int HonoraryTotal { get; set; }
-        public int HonoraryByNotary { get; set; }
+        public int WritingID { get; set; }
+        public int ClientID { get; set; }
         public System.DateTime DateWriting { get; set; }
+        public string EventWriting { get; set; }
     
         public virtual Client Client { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Connotary> Connotary { get; set; }
-        public virtual Protocol Protocol { get; set; }
+        public virtual ICollection<Movement> Movement { get; set; }
     }
 }

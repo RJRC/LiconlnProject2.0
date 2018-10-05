@@ -12,13 +12,15 @@ namespace Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class Connotary
+    public partial class Movement
     {
-        public int IDNotaryFKPK { get; set; }
-        public int IDWritingFKPK { get; set; }
-        public int BilledAmount { get; set; }
+        public int MovementID { get; set; }
+        public int ProtocolID { get; set; }
+        public int WritingID { get; set; }
+        public decimal TotalHonorary { get; set; }
+        public decimal BilledAmount { get; set; }
     
-        public virtual Notary Notary { get; set; }
+        public virtual Protocol Protocol { get; set; }
         public virtual Writing Writing { get; set; }
     }
 }
