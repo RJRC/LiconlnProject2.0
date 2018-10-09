@@ -18,6 +18,7 @@
             <br/>
             <br/>
             RESUMEN Anual AQUI!!!
+            <a href="NotaryCRUD.aspx" > Notarios</a>
 			<br/>
             <br/>
             <br/>

@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AdminModule1.aspx" />
+    <Content Include="css\addStyle.css" />
     <Content Include="css\bootstrap.css" />
     <Content Include="css\chocolat.css" />
     <Content Include="css\font-awesome.css" />
@@ -89,6 +90,7 @@
     <Content Include="js\responsiveslides.min.js" />
     <Content Include="js\SmoothScroll.min.js" />
     <Content Include="Login.aspx" />
+    <Content Include="NotaryCRUD.aspx" />
     <Content Include="User.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -116,6 +118,20 @@
     <Compile Include="MenuMaster.Master.designer.cs">
       <DependentUpon>MenuMaster.Master</DependentUpon>
     </Compile>
+    <Compile Include="MenuMaster2.Master.cs">
+      <DependentUpon>MenuMaster2.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MenuMaster2.Master.designer.cs">
+      <DependentUpon>MenuMaster2.Master</DependentUpon>
+    </Compile>
+    <Compile Include="NotaryCRUD.aspx.cs">
+      <DependentUpon>NotaryCRUD.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NotaryCRUD.aspx.designer.cs">
+      <DependentUpon>NotaryCRUD.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User.aspx.cs">
       <DependentUpon>User.aspx</DependentUpon>
@@ -127,6 +143,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="MenuMaster.Master" />
+    <Content Include="MenuMaster2.Master" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
