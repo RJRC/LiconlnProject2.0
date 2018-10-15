@@ -27,20 +27,21 @@
             <PropertyRef Name="MovementID" />
           </Key>
           <Property Name="MovementID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ProtocolID" Type="int" Nullable="false" />
           <Property Name="WritingID" Type="int" Nullable="false" />
-          <Property Name="TotalHonorary" Type="money" Nullable="false" />
+          <Property Name="ProtocolID" Type="int" Nullable="false" />
           <Property Name="BilledAmount" Type="money" Nullable="false" />
+          <Property Name="Co_Notary" Type="nvarchar" MaxLength="2" Nullable="false" />
         </EntityType>
         <EntityType Name="Notary">
           <Key>
-            <PropertyRef Name="IDNotary" />
+            <PropertyRef Name="NotaryID" />
           </Key>
-          <Property Name="IDNotary" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NotaryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NotaryName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="RBTEnabled" Type="bit" Nullable="false" />
-          <Property Name="NotaryAvailable" Type="bit" Nullable="false" />
+          <Property Name="RBTEnabled" Type="nvarchar" MaxLength="2" Nullable="false" />
+          <Property Name="NotaryAvailable" Type="nvarchar" MaxLength="2" Nullable="false" />
           <Property Name="BalanceLimit" Type="money" Nullable="false" />
+          <Property Name="Eliminated" Type="nvarchar" MaxLength="2" Nullable="false" />
         </EntityType>
         <EntityType Name="Protocol">
           <Key>
@@ -57,11 +58,13 @@
             <PropertyRef Name="WritingID" />
           </Key>
           <Property Name="WritingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProtocolID" Type="int" Nullable="false" />
           <Property Name="ClientID" Type="int" Nullable="false" />
           <Property Name="DateWriting" Type="date" Nullable="false" />
           <Property Name="EventWriting" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Eliminated" Type="nvarchar" MaxLength="2" Nullable="false" />
         </EntityType>
-        <Association Name="FK_Movement_Protocol">
+        <Association Name="FK__Movement__Protoc__5441852A">
           <End Role="Protocol" Type="Self.Protocol" Multiplicity="1" />
           <End Role="Movement" Type="Self.Movement" Multiplicity="*" />
           <ReferentialConstraint>
@@ -73,7 +76,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Movement_Writing">
+        <Association Name="FK__Movement__Writin__5535A963">
           <End Role="Writing" Type="Self.Writing" Multiplicity="1" />
           <End Role="Movement" Type="Self.Movement" Multiplicity="*" />
           <ReferentialConstraint>
@@ -85,19 +88,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Protocol_Notary">
+        <Association Name="FK__Protocol__Notary__4BAC3F29">
           <End Role="Notary" Type="Self.Notary" Multiplicity="1" />
           <End Role="Protocol" Type="Self.Protocol" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Notary">
-              <PropertyRef Name="IDNotary" />
+              <PropertyRef Name="NotaryID" />
             </Principal>
             <Dependent Role="Protocol">
               <PropertyRef Name="NotaryID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Writing_Client">
+        <Association Name="FK__Writing__ClientI__5165187F">
           <End Role="Client" Type="Self.Client" Multiplicity="1" />
           <End Role="Writing" Type="Self.Writing" Multiplicity="*" />
           <ReferentialConstraint>
@@ -109,25 +112,120 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Writing__Protoco__5070F446">
+          <End Role="Protocol" Type="Self.Protocol" Multiplicity="1" />
+          <End Role="Writing" Type="Self.Writing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Protocol">
+              <PropertyRef Name="ProtocolID" />
+            </Principal>
+            <Dependent Role="Writing">
+              <PropertyRef Name="ProtocolID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="proc_Create_Client" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="clientName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="proc_Create_Movement" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="protocolID" Type="int" Mode="In" />
+          <Parameter Name="writingID" Type="int" Mode="In" />
+          <Parameter Name="billedAmount" Type="money" Mode="In" />
+        </Function>
         <Function Name="proc_Create_Notary" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="name" Type="nvarchar" Mode="In" />
-          <Parameter Name="enabled" Type="bit" Mode="In" />
-          <Parameter Name="availability" Type="bit" Mode="In" />
+          <Parameter Name="enabled" Type="nvarchar" Mode="In" />
+          <Parameter Name="availability" Type="nvarchar" Mode="In" />
           <Parameter Name="balanceLimit" Type="money" Mode="In" />
+          <Parameter Name="month" Type="nvarchar" Mode="In" />
+          <Parameter Name="year" Type="int" Mode="In" />
+        </Function>
+        <Function Name="proc_Create_Protocol" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="notaryID" Type="int" Mode="In" />
+          <Parameter Name="actualBalance" Type="money" Mode="In" />
+          <Parameter Name="month" Type="nvarchar" Mode="In" />
+          <Parameter Name="year" Type="int" Mode="In" />
+        </Function>
+        <Function Name="proc_Create_Writing" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="clientID" Type="int" Mode="In" />
+          <Parameter Name="protocolID" Type="int" Mode="In" />
+          <Parameter Name="date" Type="date" Mode="In" />
+          <Parameter Name="event" Type="nvarchar" Mode="In" />
+          <Parameter Name="billedAmount" Type="money" Mode="In" />
+        </Function>
+        <Function Name="proc_Delete_Notary" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="proc_Delete_Writing" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="writingID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="proc_Get_ALLWritings" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="proc_Get_ALLWritingsByProtocol" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="protocolID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="proc_Get_Clients" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="proc_Get_Co_NotaryWritingByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="proc_Get_Co-NotaryWritingByID">
+          <Parameter Name="writingID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="proc_Get_JustOwnWritingsByProtocol" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="protocolID" Type="int" Mode="In" />
         </Function>
         <Function Name="proc_Get_Notaries" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="proc_Get_Notaries_Eliminated" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="proc_Get_Protocols" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="proc_HonoraryWriting" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="writingID" Type="money" Mode="In" />
+        </Function>
         <Function Name="proc_Insert_UserLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="username" Type="nvarchar" Mode="In" />
           <Parameter Name="password" Type="nvarchar" Mode="In" />
           <Parameter Name="type" Type="nvarchar" Mode="In" />
           <Parameter Name="email" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="proc_ModifyActualBalance_Protocol" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="protocolID" Type="int" Mode="In" />
+          <Parameter Name="actualBalance" Type="money" Mode="In" />
+        </Function>
+        <Function Name="proc_SummaryActualMonth" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="month" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="proc_SummaryMonths" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NotaryID" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="proc_SummaryNotary" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="notaryID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="proc_SummaryPerMonth" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Month" Type="nvarchar" Mode="In" />
+          <Parameter Name="Year" Type="int" Mode="In" />
+        </Function>
+        <Function Name="proc_Update_Client" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="clientID" Type="int" Mode="In" />
+          <Parameter Name="clientName" Type="money" Mode="In" />
+        </Function>
+        <Function Name="proc_Update_Movement" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="protocolID" Type="int" Mode="In" />
+          <Parameter Name="writingID" Type="int" Mode="In" />
+          <Parameter Name="billedAmount" Type="money" Mode="In" />
+        </Function>
         <Function Name="proc_Update_Notary" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="name" Type="nvarchar" Mode="In" />
-          <Parameter Name="enabled" Type="bit" Mode="In" />
-          <Parameter Name="availability" Type="bit" Mode="In" />
+          <Parameter Name="enabled" Type="nvarchar" Mode="In" />
+          <Parameter Name="availability" Type="nvarchar" Mode="In" />
           <Parameter Name="balanceLimit" Type="money" Mode="In" />
+          <Parameter Name="eliminated" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="proc_Update_Protocol" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="protocolID" Type="int" Mode="In" />
+          <Parameter Name="actualBalance" Type="money" Mode="In" />
+          <Parameter Name="month" Type="nvarchar" Mode="In" />
+          <Parameter Name="year" Type="int" Mode="In" />
+        </Function>
+        <Function Name="proc_Update_WritingByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="writingID" Type="int" Mode="In" />
+          <Parameter Name="date" Type="date" Mode="In" />
+          <Parameter Name="eventWriting" Type="nvarchar" Mode="In" />
         </Function>
         <EntityContainer Name="LincolnDBModelStoreContainer">
           <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
@@ -136,20 +234,24 @@
           <EntitySet Name="Notary" EntityType="Self.Notary" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Protocol" EntityType="Self.Protocol" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Writing" EntityType="Self.Writing" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Movement_Protocol" Association="Self.FK_Movement_Protocol">
+          <AssociationSet Name="FK__Movement__Protoc__5441852A" Association="Self.FK__Movement__Protoc__5441852A">
             <End Role="Protocol" EntitySet="Protocol" />
             <End Role="Movement" EntitySet="Movement" />
           </AssociationSet>
-          <AssociationSet Name="FK_Movement_Writing" Association="Self.FK_Movement_Writing">
+          <AssociationSet Name="FK__Movement__Writin__5535A963" Association="Self.FK__Movement__Writin__5535A963">
             <End Role="Writing" EntitySet="Writing" />
             <End Role="Movement" EntitySet="Movement" />
           </AssociationSet>
-          <AssociationSet Name="FK_Protocol_Notary" Association="Self.FK_Protocol_Notary">
+          <AssociationSet Name="FK__Protocol__Notary__4BAC3F29" Association="Self.FK__Protocol__Notary__4BAC3F29">
             <End Role="Notary" EntitySet="Notary" />
             <End Role="Protocol" EntitySet="Protocol" />
           </AssociationSet>
-          <AssociationSet Name="FK_Writing_Client" Association="Self.FK_Writing_Client">
+          <AssociationSet Name="FK__Writing__ClientI__5165187F" Association="Self.FK__Writing__ClientI__5165187F">
             <End Role="Client" EntitySet="Client" />
+            <End Role="Writing" EntitySet="Writing" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Writing__Protoco__5070F446" Association="Self.FK__Writing__Protoco__5070F446">
+            <End Role="Protocol" EntitySet="Protocol" />
             <End Role="Writing" EntitySet="Writing" />
           </AssociationSet>
         </EntityContainer>
@@ -164,7 +266,7 @@
           </Key>
           <Property Name="ClientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ClientName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Writing" Relationship="Self.FK_Writing_Client" FromRole="Client" ToRole="Writing" />
+          <NavigationProperty Name="Writing" Relationship="Self.FK__Writing__ClientI__5165187F" FromRole="Client" ToRole="Writing" />
         </EntityType>
         <EntityType Name="Login">
           <Key>
@@ -181,23 +283,24 @@
             <PropertyRef Name="MovementID" />
           </Key>
           <Property Name="MovementID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProtocolID" Type="Int32" Nullable="false" />
           <Property Name="WritingID" Type="Int32" Nullable="false" />
-          <Property Name="TotalHonorary" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="ProtocolID" Type="Int32" Nullable="false" />
           <Property Name="BilledAmount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-          <NavigationProperty Name="Protocol" Relationship="Self.FK_Movement_Protocol" FromRole="Movement" ToRole="Protocol" />
-          <NavigationProperty Name="Writing" Relationship="Self.FK_Movement_Writing" FromRole="Movement" ToRole="Writing" />
+          <Property Name="Co_Notary" Type="String" MaxLength="2" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Protocol" Relationship="Self.FK__Movement__Protoc__5441852A" FromRole="Movement" ToRole="Protocol" />
+          <NavigationProperty Name="Writing" Relationship="Self.FK__Movement__Writin__5535A963" FromRole="Movement" ToRole="Writing" />
         </EntityType>
         <EntityType Name="Notary">
           <Key>
-            <PropertyRef Name="IDNotary" />
+            <PropertyRef Name="NotaryID" />
           </Key>
-          <Property Name="IDNotary" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NotaryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NotaryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="RBTEnabled" Type="Boolean" Nullable="false" />
-          <Property Name="NotaryAvailable" Type="Boolean" Nullable="false" />
+          <Property Name="RBTEnabled" Type="String" MaxLength="2" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NotaryAvailable" Type="String" MaxLength="2" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="BalanceLimit" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-          <NavigationProperty Name="Protocol" Relationship="Self.FK_Protocol_Notary" FromRole="Notary" ToRole="Protocol" />
+          <Property Name="Eliminated" Type="String" MaxLength="2" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Protocol" Relationship="Self.FK__Protocol__Notary__4BAC3F29" FromRole="Notary" ToRole="Protocol" />
         </EntityType>
         <EntityType Name="Protocol">
           <Key>
@@ -208,21 +311,25 @@
           <Property Name="ActualBalance" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="Month" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Year" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Movement" Relationship="Self.FK_Movement_Protocol" FromRole="Protocol" ToRole="Movement" />
-          <NavigationProperty Name="Notary" Relationship="Self.FK_Protocol_Notary" FromRole="Protocol" ToRole="Notary" />
+          <NavigationProperty Name="Movement" Relationship="Self.FK__Movement__Protoc__5441852A" FromRole="Protocol" ToRole="Movement" />
+          <NavigationProperty Name="Notary" Relationship="Self.FK__Protocol__Notary__4BAC3F29" FromRole="Protocol" ToRole="Notary" />
+          <NavigationProperty Name="Writing" Relationship="Self.FK__Writing__Protoco__5070F446" FromRole="Protocol" ToRole="Writing" />
         </EntityType>
         <EntityType Name="Writing">
           <Key>
             <PropertyRef Name="WritingID" />
           </Key>
           <Property Name="WritingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProtocolID" Type="Int32" Nullable="false" />
           <Property Name="ClientID" Type="Int32" Nullable="false" />
           <Property Name="DateWriting" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="EventWriting" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Client" Relationship="Self.FK_Writing_Client" FromRole="Writing" ToRole="Client" />
-          <NavigationProperty Name="Movement" Relationship="Self.FK_Movement_Writing" FromRole="Writing" ToRole="Movement" />
+          <Property Name="Eliminated" Type="String" MaxLength="2" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="Self.FK__Writing__ClientI__5165187F" FromRole="Writing" ToRole="Client" />
+          <NavigationProperty Name="Movement" Relationship="Self.FK__Movement__Writin__5535A963" FromRole="Writing" ToRole="Movement" />
+          <NavigationProperty Name="Protocol" Relationship="Self.FK__Writing__Protoco__5070F446" FromRole="Writing" ToRole="Protocol" />
         </EntityType>
-        <Association Name="FK_Writing_Client">
+        <Association Name="FK__Writing__ClientI__5165187F">
           <End Role="Client" Type="Self.Client" Multiplicity="1" />
           <End Role="Writing" Type="Self.Writing" Multiplicity="*" />
           <ReferentialConstraint>
@@ -234,7 +341,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Movement_Protocol">
+        <Association Name="FK__Movement__Protoc__5441852A">
           <End Role="Protocol" Type="Self.Protocol" Multiplicity="1" />
           <End Role="Movement" Type="Self.Movement" Multiplicity="*" />
           <ReferentialConstraint>
@@ -246,7 +353,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Movement_Writing">
+        <Association Name="FK__Movement__Writin__5535A963">
           <End Role="Writing" Type="Self.Writing" Multiplicity="1" />
           <End Role="Movement" Type="Self.Movement" Multiplicity="*" />
           <ReferentialConstraint>
@@ -258,15 +365,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Protocol_Notary">
+        <Association Name="FK__Protocol__Notary__4BAC3F29">
           <End Role="Notary" Type="Self.Notary" Multiplicity="1" />
           <End Role="Protocol" Type="Self.Protocol" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Notary">
-              <PropertyRef Name="IDNotary" />
+              <PropertyRef Name="NotaryID" />
             </Principal>
             <Dependent Role="Protocol">
               <PropertyRef Name="NotaryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Writing__Protoco__5070F446">
+          <End Role="Protocol" Type="Self.Protocol" Multiplicity="1" />
+          <End Role="Writing" Type="Self.Writing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Protocol">
+              <PropertyRef Name="ProtocolID" />
+            </Principal>
+            <Dependent Role="Writing">
+              <PropertyRef Name="ProtocolID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -277,49 +396,215 @@
           <EntitySet Name="Notary" EntityType="Self.Notary" />
           <EntitySet Name="Protocol" EntityType="Self.Protocol" />
           <EntitySet Name="Writing" EntityType="Self.Writing" />
-          <AssociationSet Name="FK_Writing_Client" Association="Self.FK_Writing_Client">
+          <AssociationSet Name="FK__Writing__ClientI__5165187F" Association="Self.FK__Writing__ClientI__5165187F">
             <End Role="Client" EntitySet="Client" />
             <End Role="Writing" EntitySet="Writing" />
           </AssociationSet>
-          <AssociationSet Name="FK_Movement_Protocol" Association="Self.FK_Movement_Protocol">
+          <AssociationSet Name="FK__Movement__Protoc__5441852A" Association="Self.FK__Movement__Protoc__5441852A">
             <End Role="Protocol" EntitySet="Protocol" />
             <End Role="Movement" EntitySet="Movement" />
           </AssociationSet>
-          <AssociationSet Name="FK_Movement_Writing" Association="Self.FK_Movement_Writing">
+          <AssociationSet Name="FK__Movement__Writin__5535A963" Association="Self.FK__Movement__Writin__5535A963">
             <End Role="Writing" EntitySet="Writing" />
             <End Role="Movement" EntitySet="Movement" />
           </AssociationSet>
-          <AssociationSet Name="FK_Protocol_Notary" Association="Self.FK_Protocol_Notary">
+          <AssociationSet Name="FK__Protocol__Notary__4BAC3F29" Association="Self.FK__Protocol__Notary__4BAC3F29">
             <End Role="Notary" EntitySet="Notary" />
             <End Role="Protocol" EntitySet="Protocol" />
           </AssociationSet>
+          <AssociationSet Name="FK__Writing__Protoco__5070F446" Association="Self.FK__Writing__Protoco__5070F446">
+            <End Role="Protocol" EntitySet="Protocol" />
+            <End Role="Writing" EntitySet="Writing" />
+          </AssociationSet>
+          <FunctionImport Name="proc_Create_Client">
+            <Parameter Name="clientName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="proc_Create_Movement">
+            <Parameter Name="protocolID" Mode="In" Type="Int32" />
+            <Parameter Name="writingID" Mode="In" Type="Int32" />
+            <Parameter Name="billedAmount" Mode="In" Type="Decimal" />
+          </FunctionImport>
           <FunctionImport Name="proc_Create_Notary">
             <Parameter Name="name" Mode="In" Type="String" />
-            <Parameter Name="enabled" Mode="In" Type="Boolean" />
-            <Parameter Name="availability" Mode="In" Type="Boolean" />
+            <Parameter Name="enabled" Mode="In" Type="String" />
+            <Parameter Name="availability" Mode="In" Type="String" />
             <Parameter Name="balanceLimit" Mode="In" Type="Decimal" />
+            <Parameter Name="month" Mode="In" Type="String" />
+            <Parameter Name="year" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="proc_Create_Protocol">
+            <Parameter Name="notaryID" Mode="In" Type="Int32" />
+            <Parameter Name="actualBalance" Mode="In" Type="Decimal" />
+            <Parameter Name="month" Mode="In" Type="String" />
+            <Parameter Name="year" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="proc_Create_Writing">
+            <Parameter Name="clientID" Mode="In" Type="Int32" />
+            <Parameter Name="protocolID" Mode="In" Type="Int32" />
+            <Parameter Name="date" Mode="In" Type="DateTime" />
+            <Parameter Name="event" Mode="In" Type="String" />
+            <Parameter Name="billedAmount" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="proc_Delete_Notary">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="proc_Delete_Writing">
+            <Parameter Name="writingID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="proc_Get_ALLWritings" ReturnType="Collection(LincolnDBModel.proc_Get_ALLWritings_Result)" />
+          <FunctionImport Name="proc_Get_ALLWritingsByProtocol" ReturnType="Collection(LincolnDBModel.proc_Get_ALLWritingsByProtocol_Result)">
+            <Parameter Name="protocolID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="proc_Get_Clients" ReturnType="Collection(LincolnDBModel.proc_Get_Clients_Result)" />
+          <FunctionImport Name="proc_Get_Co_NotaryWritingByID" ReturnType="Collection(LincolnDBModel.proc_Get_Co_NotaryWritingByID_Result)">
+            <Parameter Name="writingID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="proc_Get_JustOwnWritingsByProtocol" ReturnType="Collection(LincolnDBModel.proc_Get_JustOwnWritingsByProtocol_Result)">
+            <Parameter Name="protocolID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="proc_Get_Notaries" ReturnType="Collection(LincolnDBModel.proc_Get_Notaries_Result)" />
+          <FunctionImport Name="proc_Get_Notaries_Eliminated" ReturnType="Collection(LincolnDBModel.proc_Get_Notaries_Eliminated_Result)" />
+          <FunctionImport Name="proc_Get_Protocols" ReturnType="Collection(LincolnDBModel.proc_Get_Protocols_Result)" />
+          <FunctionImport Name="proc_HonoraryWriting" ReturnType="Collection(Decimal)">
+            <Parameter Name="writingID" Mode="In" Type="Decimal" />
+          </FunctionImport>
           <FunctionImport Name="proc_Insert_UserLogin">
             <Parameter Name="username" Mode="In" Type="String" />
             <Parameter Name="password" Mode="In" Type="String" />
             <Parameter Name="type" Mode="In" Type="String" />
             <Parameter Name="email" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="proc_ModifyActualBalance_Protocol">
+            <Parameter Name="protocolID" Mode="In" Type="Int32" />
+            <Parameter Name="actualBalance" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="proc_SummaryActualMonth" ReturnType="Collection(LincolnDBModel.proc_SummaryActualMonth_Result)">
+            <Parameter Name="month" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="proc_SummaryMonths" ReturnType="Collection(LincolnDBModel.proc_SummaryMonths_Result)">
+            <Parameter Name="NotaryID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="proc_SummaryNotary" ReturnType="Collection(LincolnDBModel.proc_SummaryNotary_Result)">
+            <Parameter Name="notaryID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="proc_SummaryPerMonth" ReturnType="Collection(LincolnDBModel.proc_SummaryPerMonth_Result)">
+            <Parameter Name="Month" Mode="In" Type="String" />
+            <Parameter Name="Year" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="proc_Update_Client">
+            <Parameter Name="clientID" Mode="In" Type="Int32" />
+            <Parameter Name="clientName" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="proc_Update_Movement">
+            <Parameter Name="protocolID" Mode="In" Type="Int32" />
+            <Parameter Name="writingID" Mode="In" Type="Int32" />
+            <Parameter Name="billedAmount" Mode="In" Type="Decimal" />
+          </FunctionImport>
           <FunctionImport Name="proc_Update_Notary">
             <Parameter Name="id" Mode="In" Type="Int32" />
             <Parameter Name="name" Mode="In" Type="String" />
-            <Parameter Name="enabled" Mode="In" Type="Boolean" />
-            <Parameter Name="availability" Mode="In" Type="Boolean" />
+            <Parameter Name="enabled" Mode="In" Type="String" />
+            <Parameter Name="availability" Mode="In" Type="String" />
             <Parameter Name="balanceLimit" Mode="In" Type="Decimal" />
+            <Parameter Name="eliminated" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="proc_Update_Protocol">
+            <Parameter Name="protocolID" Mode="In" Type="Int32" />
+            <Parameter Name="actualBalance" Mode="In" Type="Decimal" />
+            <Parameter Name="month" Mode="In" Type="String" />
+            <Parameter Name="year" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="proc_Update_WritingByID">
+            <Parameter Name="writingID" Mode="In" Type="Int32" />
+            <Parameter Name="date" Mode="In" Type="DateTime" />
+            <Parameter Name="eventWriting" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="proc_Get_ALLWritings_Result">
+          <Property Type="Int32" Name="Codigo_Escritura" Nullable="false" />
+          <Property Type="String" Name="Acto" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Cliente" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Notario" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="Fecha" Nullable="false" />
+          <Property Type="String" Name="Escritura_Eliminada" Nullable="false" MaxLength="2" />
+        </ComplexType>
+        <ComplexType Name="proc_Get_ALLWritingsByProtocol_Result">
+          <Property Type="Int32" Name="Codigo_Escritura" Nullable="false" />
+          <Property Type="String" Name="Acto_" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Cliente" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Notario" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="Fecha" Nullable="false" />
+          <Property Type="Decimal" Name="Facturado_por_Notario" Nullable="true" Precision="19" />
+          <Property Type="String" Name="Co_Notario" Nullable="false" MaxLength="2" />
+        </ComplexType>
+        <ComplexType Name="proc_Get_Clients_Result">
+          <Property Type="Int32" Name="Codigo" Nullable="false" />
+          <Property Type="String" Name="Nombre_del_Cliente" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="proc_Get_Co_NotaryWritingByID_Result">
+          <Property Type="Int32" Name="Codigo_Escritura" Nullable="false" />
+          <Property Type="String" Name="Acto_" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Cliente" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Notario" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="Fecha" Nullable="false" />
+          <Property Type="Decimal" Name="Facturado_por_Notario" Nullable="true" Precision="19" />
+          <Property Type="String" Name="Co_Notario" Nullable="false" MaxLength="2" />
+        </ComplexType>
+        <ComplexType Name="proc_Get_JustOwnWritingsByProtocol_Result">
+          <Property Type="Int32" Name="Codigo_Escritura" Nullable="false" />
+          <Property Type="String" Name="Acto_" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Cliente" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Notario" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="Fecha" Nullable="false" />
+          <Property Type="Decimal" Name="Facturado_por_Notario" Nullable="true" Precision="19" />
+          <Property Type="String" Name="Co_Notario" Nullable="false" MaxLength="2" />
+        </ComplexType>
         <ComplexType Name="proc_Get_Notaries_Result">
           <Property Type="Int32" Name="Codigo_Notario" Nullable="false" />
           <Property Type="String" Name="Nombre" Nullable="false" MaxLength="50" />
-          <Property Type="Boolean" Name="Cartula_RBT" Nullable="false" />
-          <Property Type="Boolean" Name="Habilitado" Nullable="false" />
-          <Property Type="Decimal" Name="Monto_Mensual" Nullable="false" Precision="19" />
+          <Property Type="String" Name="Cartula_RBT" Nullable="false" MaxLength="2" />
+          <Property Type="String" Name="Habilitado" Nullable="false" MaxLength="2" />
+          <Property Type="Decimal" Name="Saldo_Mensual" Nullable="false" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="proc_Get_Notaries_Eliminated_Result">
+          <Property Type="Int32" Name="Codigo_Notario" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Cartula_RBT" Nullable="false" MaxLength="2" />
+          <Property Type="String" Name="Habilitado" Nullable="false" MaxLength="2" />
+          <Property Type="Decimal" Name="Saldo_Mensual" Nullable="false" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="proc_Get_Protocols_Result">
+          <Property Type="Int32" Name="Codigo_Protocolo" Nullable="false" />
+          <Property Type="String" Name="Notario" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="Saldo_Total" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="Saldo_Actual" Nullable="false" Precision="19" />
+          <Property Type="String" Name="Cartula_en_RBT" Nullable="false" MaxLength="2" />
+          <Property Type="String" Name="Protocolo_disponible" Nullable="false" MaxLength="2" />
+          <Property Type="String" Name="Mes_del_Protocolo" Nullable="false" MaxLength="25" />
+          <Property Type="Int32" Name="Año_del_Protocolo" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="proc_SummaryActualMonth_Result">
+          <Property Type="Int32" Name="NotaryID" Nullable="false" />
+          <Property Type="String" Name="NotaryName" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="ActualBalance" Nullable="false" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="proc_SummaryMonths_Result">
+          <Property Type="String" Name="Month" Nullable="false" MaxLength="25" />
+          <Property Type="Int32" Name="Year" Nullable="false" />
+          <Property Type="Decimal" Name="ActualBalance" Nullable="false" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="proc_SummaryNotary_Result">
+          <Property Type="String" Name="Notario" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Mes" Nullable="false" MaxLength="25" />
+          <Property Type="Int32" Name="Año" Nullable="false" />
+          <Property Type="Decimal" Name="Saldo_Actual" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="Facturación_Total_Año_Calendario" Nullable="true" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="proc_SummaryPerMonth_Result">
+          <Property Type="String" Name="Notario" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="Saldo_Mensual" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="Escritura" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="Saldo_Actual" Nullable="false" Precision="19" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -350,21 +635,22 @@
             <EntityTypeMapping TypeName="LincolnDBModel.Movement">
               <MappingFragment StoreEntitySet="Movement">
                 <ScalarProperty Name="MovementID" ColumnName="MovementID" />
-                <ScalarProperty Name="ProtocolID" ColumnName="ProtocolID" />
                 <ScalarProperty Name="WritingID" ColumnName="WritingID" />
-                <ScalarProperty Name="TotalHonorary" ColumnName="TotalHonorary" />
+                <ScalarProperty Name="ProtocolID" ColumnName="ProtocolID" />
                 <ScalarProperty Name="BilledAmount" ColumnName="BilledAmount" />
+                <ScalarProperty Name="Co_Notary" ColumnName="Co_Notary" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Notary">
             <EntityTypeMapping TypeName="LincolnDBModel.Notary">
               <MappingFragment StoreEntitySet="Notary">
-                <ScalarProperty Name="IDNotary" ColumnName="IDNotary" />
+                <ScalarProperty Name="NotaryID" ColumnName="NotaryID" />
                 <ScalarProperty Name="NotaryName" ColumnName="NotaryName" />
                 <ScalarProperty Name="RBTEnabled" ColumnName="RBTEnabled" />
                 <ScalarProperty Name="NotaryAvailable" ColumnName="NotaryAvailable" />
                 <ScalarProperty Name="BalanceLimit" ColumnName="BalanceLimit" />
+                <ScalarProperty Name="Eliminated" ColumnName="Eliminated" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -383,13 +669,80 @@
             <EntityTypeMapping TypeName="LincolnDBModel.Writing">
               <MappingFragment StoreEntitySet="Writing">
                 <ScalarProperty Name="WritingID" ColumnName="WritingID" />
+                <ScalarProperty Name="ProtocolID" ColumnName="ProtocolID" />
                 <ScalarProperty Name="ClientID" ColumnName="ClientID" />
                 <ScalarProperty Name="DateWriting" ColumnName="DateWriting" />
                 <ScalarProperty Name="EventWriting" ColumnName="EventWriting" />
+                <ScalarProperty Name="Eliminated" ColumnName="Eliminated" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="proc_Create_Client" FunctionName="LincolnDBModel.Store.proc_Create_Client" />
+          <FunctionImportMapping FunctionImportName="proc_Create_Movement" FunctionName="LincolnDBModel.Store.proc_Create_Movement" />
           <FunctionImportMapping FunctionImportName="proc_Create_Notary" FunctionName="LincolnDBModel.Store.proc_Create_Notary" />
+          <FunctionImportMapping FunctionImportName="proc_Create_Protocol" FunctionName="LincolnDBModel.Store.proc_Create_Protocol" />
+          <FunctionImportMapping FunctionImportName="proc_Create_Writing" FunctionName="LincolnDBModel.Store.proc_Create_Writing" />
+          <FunctionImportMapping FunctionImportName="proc_Delete_Notary" FunctionName="LincolnDBModel.Store.proc_Delete_Notary" />
+          <FunctionImportMapping FunctionImportName="proc_Delete_Writing" FunctionName="LincolnDBModel.Store.proc_Delete_Writing" />
+          <FunctionImportMapping FunctionImportName="proc_Get_ALLWritings" FunctionName="LincolnDBModel.Store.proc_Get_ALLWritings">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LincolnDBModel.proc_Get_ALLWritings_Result">
+                <ScalarProperty Name="Codigo_Escritura" ColumnName="Codigo Escritura" />
+                <ScalarProperty Name="Acto" ColumnName="Acto" />
+                <ScalarProperty Name="Cliente" ColumnName="Cliente" />
+                <ScalarProperty Name="Notario" ColumnName="Notario" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Escritura_Eliminada" ColumnName="Escritura Eliminada" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="proc_Get_ALLWritingsByProtocol" FunctionName="LincolnDBModel.Store.proc_Get_ALLWritingsByProtocol">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LincolnDBModel.proc_Get_ALLWritingsByProtocol_Result">
+                <ScalarProperty Name="Codigo_Escritura" ColumnName="Codigo Escritura" />
+                <ScalarProperty Name="Acto_" ColumnName="Acto " />
+                <ScalarProperty Name="Cliente" ColumnName="Cliente" />
+                <ScalarProperty Name="Notario" ColumnName="Notario" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Facturado_por_Notario" ColumnName="Facturado por Notario" />
+                <ScalarProperty Name="Co_Notario" ColumnName="Co-Notario" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="proc_Get_Clients" FunctionName="LincolnDBModel.Store.proc_Get_Clients">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LincolnDBModel.proc_Get_Clients_Result">
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Nombre_del_Cliente" ColumnName="Nombre del Cliente" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="proc_Get_Co_NotaryWritingByID" FunctionName="LincolnDBModel.Store.proc_Get_Co_NotaryWritingByID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LincolnDBModel.proc_Get_Co_NotaryWritingByID_Result">
+                <ScalarProperty Name="Codigo_Escritura" ColumnName="Codigo Escritura" />
+                <ScalarProperty Name="Acto_" ColumnName="Acto " />
+                <ScalarProperty Name="Cliente" ColumnName="Cliente" />
+                <ScalarProperty Name="Notario" ColumnName="Notario" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Facturado_por_Notario" ColumnName="Facturado por Notario" />
+                <ScalarProperty Name="Co_Notario" ColumnName="Co-Notario" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="proc_Get_JustOwnWritingsByProtocol" FunctionName="LincolnDBModel.Store.proc_Get_JustOwnWritingsByProtocol">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LincolnDBModel.proc_Get_JustOwnWritingsByProtocol_Result">
+                <ScalarProperty Name="Codigo_Escritura" ColumnName="Codigo Escritura" />
+                <ScalarProperty Name="Acto_" ColumnName="Acto " />
+                <ScalarProperty Name="Cliente" ColumnName="Cliente" />
+                <ScalarProperty Name="Notario" ColumnName="Notario" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Facturado_por_Notario" ColumnName="Facturado por Notario" />
+                <ScalarProperty Name="Co_Notario" ColumnName="Co-Notario" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="proc_Get_Notaries" FunctionName="LincolnDBModel.Store.proc_Get_Notaries">
             <ResultMapping>
               <ComplexTypeMapping TypeName="LincolnDBModel.proc_Get_Notaries_Result">
@@ -397,12 +750,82 @@
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="Cartula_RBT" ColumnName="Cartula RBT" />
                 <ScalarProperty Name="Habilitado" ColumnName="Habilitado" />
-                <ScalarProperty Name="Monto_Mensual" ColumnName="Monto Mensual" />
+                <ScalarProperty Name="Saldo_Mensual" ColumnName="Saldo Mensual" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="proc_Get_Notaries_Eliminated" FunctionName="LincolnDBModel.Store.proc_Get_Notaries_Eliminated">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LincolnDBModel.proc_Get_Notaries_Eliminated_Result">
+                <ScalarProperty Name="Codigo_Notario" ColumnName="Codigo Notario" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Cartula_RBT" ColumnName="Cartula RBT" />
+                <ScalarProperty Name="Habilitado" ColumnName="Habilitado" />
+                <ScalarProperty Name="Saldo_Mensual" ColumnName="Saldo Mensual" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="proc_Get_Protocols" FunctionName="LincolnDBModel.Store.proc_Get_Protocols">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LincolnDBModel.proc_Get_Protocols_Result">
+                <ScalarProperty Name="Codigo_Protocolo" ColumnName="Codigo Protocolo" />
+                <ScalarProperty Name="Notario" ColumnName="Notario" />
+                <ScalarProperty Name="Saldo_Total" ColumnName="Saldo Total" />
+                <ScalarProperty Name="Saldo_Actual" ColumnName="Saldo Actual" />
+                <ScalarProperty Name="Cartula_en_RBT" ColumnName="Cartula en RBT" />
+                <ScalarProperty Name="Protocolo_disponible" ColumnName="Protocolo disponible" />
+                <ScalarProperty Name="Mes_del_Protocolo" ColumnName="Mes del Protocolo" />
+                <ScalarProperty Name="Año_del_Protocolo" ColumnName="Año del Protocolo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="proc_HonoraryWriting" FunctionName="LincolnDBModel.Store.proc_HonoraryWriting" />
           <FunctionImportMapping FunctionImportName="proc_Insert_UserLogin" FunctionName="LincolnDBModel.Store.proc_Insert_UserLogin" />
+          <FunctionImportMapping FunctionImportName="proc_ModifyActualBalance_Protocol" FunctionName="LincolnDBModel.Store.proc_ModifyActualBalance_Protocol" />
+          <FunctionImportMapping FunctionImportName="proc_SummaryActualMonth" FunctionName="LincolnDBModel.Store.proc_SummaryActualMonth">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LincolnDBModel.proc_SummaryActualMonth_Result">
+                <ScalarProperty Name="NotaryID" ColumnName="NotaryID" />
+                <ScalarProperty Name="NotaryName" ColumnName="NotaryName" />
+                <ScalarProperty Name="ActualBalance" ColumnName="ActualBalance" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="proc_SummaryMonths" FunctionName="LincolnDBModel.Store.proc_SummaryMonths">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LincolnDBModel.proc_SummaryMonths_Result">
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="ActualBalance" ColumnName="ActualBalance" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="proc_SummaryNotary" FunctionName="LincolnDBModel.Store.proc_SummaryNotary">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LincolnDBModel.proc_SummaryNotary_Result">
+                <ScalarProperty Name="Notario" ColumnName="Notario" />
+                <ScalarProperty Name="Mes" ColumnName="Mes" />
+                <ScalarProperty Name="Año" ColumnName="Año" />
+                <ScalarProperty Name="Saldo_Actual" ColumnName="Saldo Actual" />
+                <ScalarProperty Name="Facturación_Total_Año_Calendario" ColumnName="Facturación Total Año Calendario" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="proc_SummaryPerMonth" FunctionName="LincolnDBModel.Store.proc_SummaryPerMonth">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LincolnDBModel.proc_SummaryPerMonth_Result">
+                <ScalarProperty Name="Notario" ColumnName="Notario" />
+                <ScalarProperty Name="Saldo_Mensual" ColumnName="Saldo Mensual" />
+                <ScalarProperty Name="Escritura" ColumnName="Escritura" />
+                <ScalarProperty Name="Saldo_Actual" ColumnName="Saldo Actual" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="proc_Update_Client" FunctionName="LincolnDBModel.Store.proc_Update_Client" />
+          <FunctionImportMapping FunctionImportName="proc_Update_Movement" FunctionName="LincolnDBModel.Store.proc_Update_Movement" />
           <FunctionImportMapping FunctionImportName="proc_Update_Notary" FunctionName="LincolnDBModel.Store.proc_Update_Notary" />
+          <FunctionImportMapping FunctionImportName="proc_Update_Protocol" FunctionName="LincolnDBModel.Store.proc_Update_Protocol" />
+          <FunctionImportMapping FunctionImportName="proc_Update_WritingByID" FunctionName="LincolnDBModel.Store.proc_Update_WritingByID" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

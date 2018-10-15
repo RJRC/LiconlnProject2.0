@@ -9,14 +9,14 @@
 <!-- css files -->
 <link href="//fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&amp;subset=devanagari,latin-ext" rel="stylesheet">
 <link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese" rel="stylesheet">
-    <link href="css/addStyle.css" rel="stylesheet" />
+<link href="css/addStyle.css" rel="stylesheet" />
 <!-- //css files -->
 
 <link rel="stylesheet" href="css/font-awesomeBox.css"> <!-- Font-Awesome-Icons-CSS -->
     
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="contentBody" runat="server">
-
+    <form id="form2" runat="server">
     <!-- welcome -->
 	<div class="contact" id="contact">
 		<div class="container">
@@ -28,7 +28,10 @@
             <br/>
             <br/>
             <br/>
-           Datos
+                Datos Aqui
+
+               <asp:GridView ID="GridView1" runat="server"></asp:GridView>
+             
 			<br/>
             <br/>
             <br/>
@@ -52,8 +55,6 @@
 			<div class="register-in">
 				<h2><span class="fa fa-pencil"></span>Agregar Notario</h2>
 				<div class="register-form">
-
-					<form id="formADD" runat="server"> 
 
 						<div class="fields-grid">
 							<div class="styled-input agile-styled-input-top"> 
@@ -98,7 +99,7 @@
 							
 						</div>
                         <asp:Button ID="AddNotaryButton" runat="server" value="Agregar" Text="Agregar" />
-					</form>
+				
 				
                 </div>
 			</div>
@@ -110,12 +111,8 @@
 
 </section>
 
-
-
-
-
             <div class="clearfix"> </div>
 		</div>
 	</div>
-   
+    </form>
 </asp:Content>

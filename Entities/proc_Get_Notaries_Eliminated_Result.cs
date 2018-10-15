@@ -10,17 +10,13 @@
 namespace Entities
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Movement
+    public partial class proc_Get_Notaries_Eliminated_Result
     {
-        public int MovementID { get; set; }
-        public int WritingID { get; set; }
-        public int ProtocolID { get; set; }
-        public decimal BilledAmount { get; set; }
-        public string Co_Notary { get; set; }
-    
-        public virtual Protocol Protocol { get; set; }
-        public virtual Writing Writing { get; set; }
+        public int Codigo_Notario { get; set; }
+        public string Nombre { get; set; }
+        public string Cartula_RBT { get; set; }
+        public string Habilitado { get; set; }
+        public decimal Saldo_Mensual { get; set; }
     }
 }

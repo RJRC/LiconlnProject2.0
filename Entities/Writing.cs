@@ -21,12 +21,15 @@ namespace Entities
         }
     
         public int WritingID { get; set; }
+        public int ProtocolID { get; set; }
         public int ClientID { get; set; }
         public System.DateTime DateWriting { get; set; }
         public string EventWriting { get; set; }
+        public string Eliminated { get; set; }
     
         public virtual Client Client { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Movement> Movement { get; set; }
+        public virtual Protocol Protocol { get; set; }
     }
 }

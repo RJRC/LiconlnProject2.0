@@ -22,20 +22,21 @@
       <PropertyRef Name="MovementID" />
     </Key>
     <Property Name="MovementID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="ProtocolID" Type="int" Nullable="false" />
     <Property Name="WritingID" Type="int" Nullable="false" />
-    <Property Name="TotalHonorary" Type="money" Nullable="false" />
+    <Property Name="ProtocolID" Type="int" Nullable="false" />
     <Property Name="BilledAmount" Type="money" Nullable="false" />
+    <Property Name="Co_Notary" Type="nvarchar" MaxLength="2" Nullable="false" />
   </EntityType>
   <EntityType Name="Notary">
     <Key>
-      <PropertyRef Name="IDNotary" />
+      <PropertyRef Name="NotaryID" />
     </Key>
-    <Property Name="IDNotary" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NotaryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="NotaryName" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="RBTEnabled" Type="bit" Nullable="false" />
-    <Property Name="NotaryAvailable" Type="bit" Nullable="false" />
+    <Property Name="RBTEnabled" Type="nvarchar" MaxLength="2" Nullable="false" />
+    <Property Name="NotaryAvailable" Type="nvarchar" MaxLength="2" Nullable="false" />
     <Property Name="BalanceLimit" Type="money" Nullable="false" />
+    <Property Name="Eliminated" Type="nvarchar" MaxLength="2" Nullable="false" />
   </EntityType>
   <EntityType Name="Protocol">
     <Key>
@@ -52,11 +53,13 @@
       <PropertyRef Name="WritingID" />
     </Key>
     <Property Name="WritingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProtocolID" Type="int" Nullable="false" />
     <Property Name="ClientID" Type="int" Nullable="false" />
     <Property Name="DateWriting" Type="date" Nullable="false" />
     <Property Name="EventWriting" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Eliminated" Type="nvarchar" MaxLength="2" Nullable="false" />
   </EntityType>
-  <Association Name="FK_Movement_Protocol">
+  <Association Name="FK__Movement__Protoc__5441852A">
     <End Role="Protocol" Type="Self.Protocol" Multiplicity="1" />
     <End Role="Movement" Type="Self.Movement" Multiplicity="*" />
     <ReferentialConstraint>
@@ -68,7 +71,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Movement_Writing">
+  <Association Name="FK__Movement__Writin__5535A963">
     <End Role="Writing" Type="Self.Writing" Multiplicity="1" />
     <End Role="Movement" Type="Self.Movement" Multiplicity="*" />
     <ReferentialConstraint>
@@ -80,19 +83,19 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Protocol_Notary">
+  <Association Name="FK__Protocol__Notary__4BAC3F29">
     <End Role="Notary" Type="Self.Notary" Multiplicity="1" />
     <End Role="Protocol" Type="Self.Protocol" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Notary">
-        <PropertyRef Name="IDNotary" />
+        <PropertyRef Name="NotaryID" />
       </Principal>
       <Dependent Role="Protocol">
         <PropertyRef Name="NotaryID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Writing_Client">
+  <Association Name="FK__Writing__ClientI__5165187F">
     <End Role="Client" Type="Self.Client" Multiplicity="1" />
     <End Role="Writing" Type="Self.Writing" Multiplicity="*" />
     <ReferentialConstraint>
@@ -104,25 +107,120 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__Writing__Protoco__5070F446">
+    <End Role="Protocol" Type="Self.Protocol" Multiplicity="1" />
+    <End Role="Writing" Type="Self.Writing" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Protocol">
+        <PropertyRef Name="ProtocolID" />
+      </Principal>
+      <Dependent Role="Writing">
+        <PropertyRef Name="ProtocolID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="proc_Create_Client" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="clientName" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="proc_Create_Movement" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="protocolID" Type="int" Mode="In" />
+    <Parameter Name="writingID" Type="int" Mode="In" />
+    <Parameter Name="billedAmount" Type="money" Mode="In" />
+  </Function>
   <Function Name="proc_Create_Notary" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="name" Type="nvarchar" Mode="In" />
-    <Parameter Name="enabled" Type="bit" Mode="In" />
-    <Parameter Name="availability" Type="bit" Mode="In" />
+    <Parameter Name="enabled" Type="nvarchar" Mode="In" />
+    <Parameter Name="availability" Type="nvarchar" Mode="In" />
     <Parameter Name="balanceLimit" Type="money" Mode="In" />
+    <Parameter Name="month" Type="nvarchar" Mode="In" />
+    <Parameter Name="year" Type="int" Mode="In" />
+  </Function>
+  <Function Name="proc_Create_Protocol" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="notaryID" Type="int" Mode="In" />
+    <Parameter Name="actualBalance" Type="money" Mode="In" />
+    <Parameter Name="month" Type="nvarchar" Mode="In" />
+    <Parameter Name="year" Type="int" Mode="In" />
+  </Function>
+  <Function Name="proc_Create_Writing" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="clientID" Type="int" Mode="In" />
+    <Parameter Name="protocolID" Type="int" Mode="In" />
+    <Parameter Name="date" Type="date" Mode="In" />
+    <Parameter Name="event" Type="nvarchar" Mode="In" />
+    <Parameter Name="billedAmount" Type="money" Mode="In" />
+  </Function>
+  <Function Name="proc_Delete_Notary" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="proc_Delete_Writing" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="writingID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="proc_Get_ALLWritings" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="proc_Get_ALLWritingsByProtocol" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="protocolID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="proc_Get_Clients" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="proc_Get_Co_NotaryWritingByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="proc_Get_Co-NotaryWritingByID">
+    <Parameter Name="writingID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="proc_Get_JustOwnWritingsByProtocol" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="protocolID" Type="int" Mode="In" />
   </Function>
   <Function Name="proc_Get_Notaries" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="proc_Get_Notaries_Eliminated" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="proc_Get_Protocols" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="proc_HonoraryWriting" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="writingID" Type="money" Mode="In" />
+  </Function>
   <Function Name="proc_Insert_UserLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="username" Type="nvarchar" Mode="In" />
     <Parameter Name="password" Type="nvarchar" Mode="In" />
     <Parameter Name="type" Type="nvarchar" Mode="In" />
     <Parameter Name="email" Type="nvarchar" Mode="In" />
   </Function>
+  <Function Name="proc_ModifyActualBalance_Protocol" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="protocolID" Type="int" Mode="In" />
+    <Parameter Name="actualBalance" Type="money" Mode="In" />
+  </Function>
+  <Function Name="proc_SummaryActualMonth" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="month" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="proc_SummaryMonths" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NotaryID" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="proc_SummaryNotary" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="notaryID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="proc_SummaryPerMonth" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Month" Type="nvarchar" Mode="In" />
+    <Parameter Name="Year" Type="int" Mode="In" />
+  </Function>
+  <Function Name="proc_Update_Client" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="clientID" Type="int" Mode="In" />
+    <Parameter Name="clientName" Type="money" Mode="In" />
+  </Function>
+  <Function Name="proc_Update_Movement" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="protocolID" Type="int" Mode="In" />
+    <Parameter Name="writingID" Type="int" Mode="In" />
+    <Parameter Name="billedAmount" Type="money" Mode="In" />
+  </Function>
   <Function Name="proc_Update_Notary" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
     <Parameter Name="name" Type="nvarchar" Mode="In" />
-    <Parameter Name="enabled" Type="bit" Mode="In" />
-    <Parameter Name="availability" Type="bit" Mode="In" />
+    <Parameter Name="enabled" Type="nvarchar" Mode="In" />
+    <Parameter Name="availability" Type="nvarchar" Mode="In" />
     <Parameter Name="balanceLimit" Type="money" Mode="In" />
+    <Parameter Name="eliminated" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="proc_Update_Protocol" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="protocolID" Type="int" Mode="In" />
+    <Parameter Name="actualBalance" Type="money" Mode="In" />
+    <Parameter Name="month" Type="nvarchar" Mode="In" />
+    <Parameter Name="year" Type="int" Mode="In" />
+  </Function>
+  <Function Name="proc_Update_WritingByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="writingID" Type="int" Mode="In" />
+    <Parameter Name="date" Type="date" Mode="In" />
+    <Parameter Name="eventWriting" Type="nvarchar" Mode="In" />
   </Function>
   <EntityContainer Name="LincolnDBModelStoreContainer">
     <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
@@ -131,20 +229,24 @@
     <EntitySet Name="Notary" EntityType="Self.Notary" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Protocol" EntityType="Self.Protocol" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Writing" EntityType="Self.Writing" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK_Movement_Protocol" Association="Self.FK_Movement_Protocol">
+    <AssociationSet Name="FK__Movement__Protoc__5441852A" Association="Self.FK__Movement__Protoc__5441852A">
       <End Role="Protocol" EntitySet="Protocol" />
       <End Role="Movement" EntitySet="Movement" />
     </AssociationSet>
-    <AssociationSet Name="FK_Movement_Writing" Association="Self.FK_Movement_Writing">
+    <AssociationSet Name="FK__Movement__Writin__5535A963" Association="Self.FK__Movement__Writin__5535A963">
       <End Role="Writing" EntitySet="Writing" />
       <End Role="Movement" EntitySet="Movement" />
     </AssociationSet>
-    <AssociationSet Name="FK_Protocol_Notary" Association="Self.FK_Protocol_Notary">
+    <AssociationSet Name="FK__Protocol__Notary__4BAC3F29" Association="Self.FK__Protocol__Notary__4BAC3F29">
       <End Role="Notary" EntitySet="Notary" />
       <End Role="Protocol" EntitySet="Protocol" />
     </AssociationSet>
-    <AssociationSet Name="FK_Writing_Client" Association="Self.FK_Writing_Client">
+    <AssociationSet Name="FK__Writing__ClientI__5165187F" Association="Self.FK__Writing__ClientI__5165187F">
       <End Role="Client" EntitySet="Client" />
+      <End Role="Writing" EntitySet="Writing" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Writing__Protoco__5070F446" Association="Self.FK__Writing__Protoco__5070F446">
+      <End Role="Protocol" EntitySet="Protocol" />
       <End Role="Writing" EntitySet="Writing" />
     </AssociationSet>
   </EntityContainer>

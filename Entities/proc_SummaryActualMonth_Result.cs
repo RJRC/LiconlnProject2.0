@@ -10,17 +10,11 @@
 namespace Entities
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Movement
+    public partial class proc_SummaryActualMonth_Result
     {
-        public int MovementID { get; set; }
-        public int WritingID { get; set; }
-        public int ProtocolID { get; set; }
-        public decimal BilledAmount { get; set; }
-        public string Co_Notary { get; set; }
-    
-        public virtual Protocol Protocol { get; set; }
-        public virtual Writing Writing { get; set; }
+        public int NotaryID { get; set; }
+        public string NotaryName { get; set; }
+        public decimal ActualBalance { get; set; }
     }
 }

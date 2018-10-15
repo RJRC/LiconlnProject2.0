@@ -10,17 +10,16 @@
 namespace Entities
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Movement
+    public partial class proc_Get_Protocols_Result
     {
-        public int MovementID { get; set; }
-        public int WritingID { get; set; }
-        public int ProtocolID { get; set; }
-        public decimal BilledAmount { get; set; }
-        public string Co_Notary { get; set; }
-    
-        public virtual Protocol Protocol { get; set; }
-        public virtual Writing Writing { get; set; }
+        public int Codigo_Protocolo { get; set; }
+        public string Notario { get; set; }
+        public decimal Saldo_Total { get; set; }
+        public decimal Saldo_Actual { get; set; }
+        public string Cartula_en_RBT { get; set; }
+        public string Protocolo_disponible { get; set; }
+        public string Mes_del_Protocolo { get; set; }
+        public int Año_del_Protocolo { get; set; }
     }
 }

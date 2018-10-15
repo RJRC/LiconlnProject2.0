@@ -18,6 +18,7 @@ namespace Entities
         public Protocol()
         {
             this.Movement = new HashSet<Movement>();
+            this.Writing = new HashSet<Writing>();
         }
     
         public int ProtocolID { get; set; }
@@ -29,5 +30,7 @@ namespace Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Movement> Movement { get; set; }
         public virtual Notary Notary { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Writing> Writing { get; set; }
     }
 }

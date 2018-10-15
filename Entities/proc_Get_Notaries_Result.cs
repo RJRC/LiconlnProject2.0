@@ -15,8 +15,8 @@ namespace Entities
     {
         public int Codigo_Notario { get; set; }
         public string Nombre { get; set; }
-        public bool Cartula_RBT { get; set; }
-        public bool Habilitado { get; set; }
-        public decimal Monto_Mensual { get; set; }
+        public string Cartula_RBT { get; set; }
+        public string Habilitado { get; set; }
+        public decimal Saldo_Mensual { get; set; }
     }
 }
