@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AccessDataLayer;
 using Entities;
+using System.Data;
 
 namespace BusinessLogicLayer
 {
@@ -41,5 +42,71 @@ namespace BusinessLogicLayer
             return 0; /*si no coincide retorna 0*/
         }
 
+
+        public DataTable showSummaryMonth() {
+
+            return accessDataLayer.showSummaryMonth();
+        }
+
+        public DataTable showSummaryYear() {
+            return accessDataLayer.showSummaryYear();
+        }
+
+        public String getMonth(String month)
+        {
+            String var = "";
+            switch (month)
+            {
+                case "01":
+                    var = "Enero";
+                    break;
+                case "02":
+                    var = "Febrero";
+                    break;
+                case "03":
+                    var = "Marzo";
+                    break;
+                case "04":
+                    var = "Abril";
+                    break;
+                case "05":
+                    var = "Mayo";
+                    break;
+                case "06":
+                    var = "Junio";
+                    break;
+                case "07":
+                    var = "Julio";
+                    break;
+                case "08":
+                    var = "Agosto";
+                    break;
+                case "09":
+                    var = "Setiembre";
+                    break;
+                case "10":
+                    var = "Octubre";
+                    break;
+                case "11":
+                    var = "Noviembre";
+                    break;
+                case "12":
+                    var = "Diciembre";
+                    break;
+
+            }
+
+            return var;
+        }
+
+
+        public DataTable showNotaries() {
+            return accessDataLayer.showNotaries();
+        }
+        public DataTable showProtocols()
+        {
+            return accessDataLayer.showProtocols();
+        }
+        
     }
 }

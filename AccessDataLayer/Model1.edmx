@@ -189,9 +189,7 @@
         <Function Name="proc_SummaryActualMonth" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="month" Type="nvarchar" Mode="In" />
         </Function>
-        <Function Name="proc_SummaryMonths" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="NotaryID" Type="nvarchar" Mode="In" />
-        </Function>
+        <Function Name="proc_SummaryMonths" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="proc_SummaryNotary" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="notaryID" Type="int" Mode="In" />
         </Function>
@@ -481,9 +479,7 @@
           <FunctionImport Name="proc_SummaryActualMonth" ReturnType="Collection(LincolnDBModel.proc_SummaryActualMonth_Result)">
             <Parameter Name="month" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="proc_SummaryMonths" ReturnType="Collection(LincolnDBModel.proc_SummaryMonths_Result)">
-            <Parameter Name="NotaryID" Mode="In" Type="String" />
-          </FunctionImport>
+          <FunctionImport Name="proc_SummaryMonths" ReturnType="Collection(LincolnDBModel.proc_SummaryMonths_Result)" />
           <FunctionImport Name="proc_SummaryNotary" ReturnType="Collection(LincolnDBModel.proc_SummaryNotary_Result)">
             <Parameter Name="notaryID" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -589,9 +585,9 @@
           <Property Type="Decimal" Name="ActualBalance" Nullable="false" Precision="19" />
         </ComplexType>
         <ComplexType Name="proc_SummaryMonths_Result">
+          <Property Type="String" Name="Notario" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="Month" Nullable="false" MaxLength="25" />
-          <Property Type="Int32" Name="Year" Nullable="false" />
-          <Property Type="Decimal" Name="ActualBalance" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="Facturación_Total_Año" Nullable="true" Precision="19" />
         </ComplexType>
         <ComplexType Name="proc_SummaryNotary_Result">
           <Property Type="String" Name="Notario" Nullable="false" MaxLength="50" />
@@ -794,9 +790,9 @@
           <FunctionImportMapping FunctionImportName="proc_SummaryMonths" FunctionName="LincolnDBModel.Store.proc_SummaryMonths">
             <ResultMapping>
               <ComplexTypeMapping TypeName="LincolnDBModel.proc_SummaryMonths_Result">
+                <ScalarProperty Name="Notario" ColumnName="Notario" />
                 <ScalarProperty Name="Month" ColumnName="Month" />
-                <ScalarProperty Name="Year" ColumnName="Year" />
-                <ScalarProperty Name="ActualBalance" ColumnName="ActualBalance" />
+                <ScalarProperty Name="Facturación_Total_Año" ColumnName="Facturación Total Año" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
+    "",
+    "\\AccessDataLayer",
     "\\Entities"
   ],
-  "SelectedNode": "\\UI",
+  "SelectedNode": "\\AccessDataLayer\\packages.config",
   "PreviewInSolutionExplorer": false
 }

@@ -10,42 +10,33 @@
 namespace UI {
     
     
-    public partial class AdminModule1 {
+    public partial class MenuMasterProtocol {
         
         /// <summary>
-        /// Control LabelYear.
+        /// Control contentTitle.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelYear;
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder contentTitle;
         
         /// <summary>
-        /// Control GridViewYear.
+        /// Control contentHead.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridViewYear;
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder contentHead;
         
         /// <summary>
-        /// Control LabelMonth.
+        /// Control contentBody.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelMonth;
-        
-        /// <summary>
-        /// Control GridViewMonth.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridViewMonth;
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder contentBody;
     }
 }

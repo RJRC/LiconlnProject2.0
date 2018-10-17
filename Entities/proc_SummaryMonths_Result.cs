@@ -13,8 +13,8 @@ namespace Entities
     
     public partial class proc_SummaryMonths_Result
     {
+        public string Notario { get; set; }
         public string Month { get; set; }
-        public int Year { get; set; }
-        public decimal ActualBalance { get; set; }
+        public Nullable<decimal> Facturación_Total_Año { get; set; }
     }
 }

@@ -22,16 +22,24 @@
 <!--//header-->
 
 <!--main-->
+
+    
 <div class="main-content-agile">
 	<div class="sub-main-w3">	
 		<form id="formLogin" runat="server">
+            <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                 <ContentTemplate> 
             <asp:TextBox ID="TextBoxUser" type="text" placeholder="Usuario" class="user" runat="server"  required=""></asp:TextBox><br/>
             <asp:TextBox ID="TextBoxPassword" type="password" placeholder="Contraseña" class="pass" runat="server"  required=""></asp:TextBox><br/>
             <asp:Button ID="ButtonLogin"  runat="server" OnClick="ButtonLogin_Click"  />
-
+            </ContentTemplate>  
+         </asp:UpdatePanel>
         </form>
 	</div>
 </div>
+
+       
 <!--//main-->
 
 <!--footer-->

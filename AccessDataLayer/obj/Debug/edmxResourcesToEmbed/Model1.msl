@@ -183,9 +183,9 @@
     <FunctionImportMapping FunctionImportName="proc_SummaryMonths" FunctionName="LincolnDBModel.Store.proc_SummaryMonths">
       <ResultMapping>
         <ComplexTypeMapping TypeName="LincolnDBModel.proc_SummaryMonths_Result">
+          <ScalarProperty Name="Notario" ColumnName="Notario" />
           <ScalarProperty Name="Month" ColumnName="Month" />
-          <ScalarProperty Name="Year" ColumnName="Year" />
-          <ScalarProperty Name="ActualBalance" ColumnName="ActualBalance" />
+          <ScalarProperty Name="Facturación_Total_Año" ColumnName="Facturación Total Año" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

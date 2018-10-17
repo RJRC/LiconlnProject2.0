@@ -1,8 +1,8 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MenuMaster.master.cs" Inherits="UI.MenuMaster" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MenuMasterProtocol.master.cs" Inherits="UI.MenuMasterProtocol" %>
 
 <!DOCTYPE html>
 
-<html lang="zxx">
+<html>
 <head runat="server">
 
     <title>
@@ -47,11 +47,8 @@
 	<!-- //web-fonts -->
 
 
-
-
 </head>
 <body>
-    <form id="form1" runat="server">
 
         <!-- header -->
 	<div class="header">
@@ -84,24 +81,16 @@
 								<li >
 									<a href="AdminModule1.aspx" class="hvr-overline-from-center">Inicio</a>
 							    </li>
-								<!-- <li>
-									<a href="#about" class="hvr-overline-from-center scroll">Resumen Anual</a>
-								</li> -->
-								<li>
-									<a href="#services" class="hvr-overline-from-center scroll">Resumen Mensual</a>
+						        <li>
+									<a href="#services" class="hvr-overline-from-center scroll">Lista de Protocolos</a>
 								</li>
+								
 								<li>
 									<a href="NotaryCRUD.aspx" class="hvr-overline-from-center">Notarios</a>
 								</li>
-								<li>
-									<a href="Protocol.aspx" class="hvr-overline-from-center ">Protocolos</a>
-								</li>
-                                <li>
-									<a href="#" class="hvr-overline-from-center ">Registrar Usuarios</a>
-								</li>
-                                <li>
-									<a href="Login.aspx" class="hvr-overline-from-center ">Cerrar Sesión</a>
-								</li>
+
+
+
 							</ul>
 						</nav>
 
@@ -123,8 +112,6 @@
             </asp:ContentPlaceHolder>
         </div>
 
-    </form>
-
     <!-- footer -->
     <footer>
 	<div class="footer">
@@ -133,7 +120,9 @@
 			<div class="w3agile_footer_copy">
 				<p>&copy; 2018 INVICTA Legal. Todos los derechos reservados 
                     | Plataforma Diseñada por <a href="#">Estudiantes UCR</a>
+
 				</p>
+			
 			</div>
 		</div>
 	</div>

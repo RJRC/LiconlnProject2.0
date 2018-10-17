@@ -257,13 +257,9 @@ namespace Entities
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<proc_SummaryActualMonth_Result>("proc_SummaryActualMonth", monthParameter);
         }
     
-        public virtual ObjectResult<proc_SummaryMonths_Result> proc_SummaryMonths(string notaryID)
+        public virtual ObjectResult<proc_SummaryMonths_Result> proc_SummaryMonths()
         {
-            var notaryIDParameter = notaryID != null ?
-                new ObjectParameter("NotaryID", notaryID) :
-                new ObjectParameter("NotaryID", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<proc_SummaryMonths_Result>("proc_SummaryMonths", notaryIDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<proc_SummaryMonths_Result>("proc_SummaryMonths");
         }
     
         public virtual ObjectResult<proc_SummaryNotary_Result> proc_SummaryNotary(Nullable<int> notaryID)
