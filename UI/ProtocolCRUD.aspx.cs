@@ -5,11 +5,10 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using BusinessLogicLayer;
-using System.Data;
 
 namespace UI
 {
-    public partial class Protocol : System.Web.UI.Page
+    public partial class ProtocolCRUD : System.Web.UI.Page
     {
         private BLL bll = new BLL();
 
@@ -24,13 +23,6 @@ namespace UI
             GridViewProtocols.DataBind();
 
         }
-
-        protected void GridViewProtocols_SelectedIndexChanged(object sender, EventArgs e)
-        {
-  
-        }
-
-
 
         private void alert(String message)
         {
@@ -48,18 +40,17 @@ namespace UI
             ScriptManager.RegisterStartupScript(this, typeof(Page), "alerta", script, false);
         }
 
-        protected void GridViewProtocols_RowCommand(object sender, GridViewCommandEventArgs e)
+        protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "buttonDetail")
+            if (e.CommandName == "writingButton")
             {
                 /*Button Update*/
-                // int crow;
-                //crow = Convert.ToInt32(e.CommandArgument.ToString());
-                /* string email = GridView1.Rows[crow].Cells[3].Text;*/ //obtener un dato de la tabla 
+                int crow;
+                crow = Convert.ToInt32(e.CommandArgument.ToString());
+                string code = GridViewProtocols.Rows[crow].Cells[1].Text; //obtener un dato de la tabla 
 
 
-                //Response.Redirect("UpdateUser.aspx?email=" + email);
-                alert("Se esta trabajando en esta sección");
+                Response.Redirect("WritingCRUD.aspx");
             }
         }
     }

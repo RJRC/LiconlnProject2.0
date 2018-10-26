@@ -205,11 +205,11 @@ namespace Entities
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<proc_Get_Protocols_Result>("proc_Get_Protocols");
         }
     
-        public virtual ObjectResult<Nullable<decimal>> proc_HonoraryWriting(Nullable<decimal> writingID)
+        public virtual ObjectResult<Nullable<decimal>> proc_HonoraryWriting(Nullable<int> writingID)
         {
             var writingIDParameter = writingID.HasValue ?
                 new ObjectParameter("writingID", writingID) :
-                new ObjectParameter("writingID", typeof(decimal));
+                new ObjectParameter("writingID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("proc_HonoraryWriting", writingIDParameter);
         }
@@ -343,7 +343,7 @@ namespace Entities
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("proc_Update_Notary", idParameter, nameParameter, enabledParameter, availabilityParameter, balanceLimitParameter, eliminatedParameter);
         }
     
-        public virtual int proc_Update_Protocol(Nullable<int> protocolID, Nullable<decimal> actualBalance, string month, Nullable<int> year)
+        public virtual int proc_Update_Protocol(Nullable<int> protocolID, Nullable<decimal> actualBalance, string month, Nullable<int> year, Nullable<decimal> carry)
         {
             var protocolIDParameter = protocolID.HasValue ?
                 new ObjectParameter("protocolID", protocolID) :
@@ -361,7 +361,11 @@ namespace Entities
                 new ObjectParameter("year", year) :
                 new ObjectParameter("year", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("proc_Update_Protocol", protocolIDParameter, actualBalanceParameter, monthParameter, yearParameter);
+            var carryParameter = carry.HasValue ?
+                new ObjectParameter("carry", carry) :
+                new ObjectParameter("carry", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("proc_Update_Protocol", protocolIDParameter, actualBalanceParameter, monthParameter, yearParameter, carryParameter);
         }
     
         public virtual int proc_Update_WritingByID(Nullable<int> writingID, Nullable<System.DateTime> date, string eventWriting)

@@ -9,7 +9,7 @@
 <!-- css files -->
 <link href="//fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&amp;subset=devanagari,latin-ext" rel="stylesheet">
 <link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese" rel="stylesheet">
-    <link href="css/addStyles.css" rel="stylesheet" />
+<link href="css/notaryUpdate.css" rel="stylesheet" /> 
 <!-- //css files -->
 
 <link rel="stylesheet" href="css/font-awesomeBox.css"> <!-- Font-Awesome-Icons-CSS -->
@@ -24,8 +24,7 @@
 				<img src="images/logo2.png" alt="" />
 			</h3>
 
-	        <br/>
-            <br/>
+	      
             <br/>
             <br/>
                 
@@ -54,25 +53,28 @@
 
             </ContentTemplate>  
          </asp:UpdatePanel>
-			<br/>
-            <br/>
-            <br/>
-            <br/>
+
 
 
 
             <div class="clearfix"> </div>
+            <br/>
+            <br/>
+            <br/>
+
 		</div>
 	</div>
 	<!-- //welcome -->
 
+
+             <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                 <ContentTemplate> 
+
      <div class="addNotary" id="about">
 		<div class="container">
-			<h3 class="title">Agregar
+			<h3 class="title">Agregar</h3>
 
-			</h3>
-
-            <section class="register">
+         <!--   <section class="register">
 	<div class="register-full">
 		
 		<div class="register-right">
@@ -122,7 +124,7 @@
 							<div class="clear"> </div>
 							
 						</div>
-                        <asp:Button ID="AddNotaryButton" runat="server" value="Agregar" Text="Agregar" />
+                        <asp:Button ID="AddNotaryButton" runat="server" value="Agregar" Text="Agregar" OnClick="AddNotaryButton_Click" />
 				
 				
                 </div>
@@ -133,12 +135,67 @@
 	<div class="clear"> </div>
 	</div>
 
-</section>
+</section> -->
+            <br/>
+            <br/>
+ <div class="formWeb">
 
-            <div class="clearfix"> </div>
+
+ 	
+
+			        <div class="w3l-signup8">
+					
+								<div class="img">
+                                    <br>
+									<h3><span>Agregar Notario </span></h3>
+									<br>
+                                    <br>
+								</div>
+
+                                <asp:TextBox ID="TextBoxName" runat="server" type="text" placeholder="Nombre Completo" required=""></asp:TextBox>
+                                <asp:TextBox ID="TextBoxMoney" runat="server" type="text" placeholder="Saldo Mensual" required=""></asp:TextBox>
+                                <asp:TextBox ID="TextBoxIniciales" runat="server" type="text" placeholder="Iniciales del Notario" required=""></asp:TextBox>
+							
+								
+								
+								<div class="clear"></div>
+								<div class="gender">
+									<label class="w3l-gen">Cartula RBT </label>
+                                    <br>
+
+                                    <asp:RadioButtonList ID="RadioButtonListRBT" runat="server">
+                                        <asp:ListItem>SI</asp:ListItem>
+                                        <asp:ListItem>NO</asp:ListItem>
+                                    </asp:RadioButtonList>
+
+
+								</div>
+								<div class="gender">
+										<label class="w3l-gen">Habilitado </label>
+                                    <br>
+                                   
+                                    <asp:RadioButtonList ID="RadioButtonListEnabled" runat="server">
+                                        <asp:ListItem>SI</asp:ListItem>
+                                        <asp:ListItem>NO</asp:ListItem>
+                                    </asp:RadioButtonList>
+											
+									</div>
+	                                <br>
+                                <asp:Button ID="ButtonAdd" class="btnn" runat="server" Text="Agregar" OnClick="ButtonUpdate_Click" />
+
+				<!--<div class="clear"></div> -->
+			          </div>
+</div>	
+
+
+            <div class="clear"> </div>
 		</div>
 	</div>
 
+
+
+         </ContentTemplate>  
+         </asp:UpdatePanel>
         <br/>
         <br/>
         <br/>

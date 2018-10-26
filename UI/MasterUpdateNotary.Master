@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterIndex.master.cs" Inherits="UI.MasterIndex" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterUpdateNotary.master.cs" Inherits="UI.MasterUpdateNotary" %>
 
 <!DOCTYPE html>
 
@@ -85,10 +85,10 @@
 								</li>
 
 								<li>
-									<a href="#contact" class="hvr-overline-from-center scroll">Lista de Notarios</a>
+									<a href="#contact" class="hvr-overline-from-center scroll">Modificar Notario</a>
 								</li>
                                 <li>
-									<a href="#about" class="hvr-overline-from-center scroll">Agregar Notario</a>
+									<a href="NotaryCRUD.aspx" class="hvr-overline-from-center ">Notarios</a>
 								</li>
 								<li>
 									<a href="ProtocolCRUD.aspx" class="hvr-overline-from-center">Protocolos</a>

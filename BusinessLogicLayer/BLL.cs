@@ -107,6 +107,41 @@ namespace BusinessLogicLayer
         {
             return accessDataLayer.showProtocols();
         }
-        
+
+        public Boolean checkNotary(String name)
+        {
+            List<proc_Get_Notaries_Result> notaries = accessDataLayer.getNotaries();
+            foreach (proc_Get_Notaries_Result item in notaries)
+            {
+                if (name == item.Nombre)
+                {
+                    return true;
+                }
+            }
+            return false;
+
+        }
+
+
+
+        public void addNotary(String name, String saldo, String rbt, String enabled)
+        {
+            string numberOfMonth = DateTime.Now.ToString("MM");
+            string month = getMonth(numberOfMonth);
+            accessDataLayer.addNotary(name, saldo, rbt, enabled, month);
+        }
+
+        public Boolean validateNumber(String number) {
+
+            try {
+                Double.Parse(number);
+                return true;
+            } catch (Exception e) {
+                return false;
+            }
+
+
+        }
+
     }
 }

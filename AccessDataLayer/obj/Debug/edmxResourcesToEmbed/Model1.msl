@@ -51,6 +51,7 @@
           <ScalarProperty Name="ActualBalance" ColumnName="ActualBalance" />
           <ScalarProperty Name="Month" ColumnName="Month" />
           <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="Carry" ColumnName="Carry" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

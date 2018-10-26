@@ -1,7 +1,6 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MenuMaster.master.cs" Inherits="UI.MenuMaster" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterIndex.master.cs" Inherits="UI.MasterIndex" %>
 
 <!DOCTYPE html>
-
 <html lang="zxx">
 <head runat="server">
 
@@ -51,16 +50,15 @@
 
 </head>
 <body>
-    <form id="form1" runat="server">
+
 
         <!-- header -->
 	<div class="header">
 		<div class="header-left">
 			<div class="container">
-
 				<nav class="navbar navbar-default">
 					<!-- Brand and toggle get grouped for better mobile display -->
-					<div class="navbar-header">
+					<div class="navbar-header" >
 						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
 							<span class="sr-only">Toggle navigation</span>
 							<span class="icon-bar"></span>
@@ -78,11 +76,11 @@
 					</div>
 
 					<!-- Collect the nav links, forms, and other content for toggling -->
-					<div class="" id="bs-example-navbar-collapse-1">
+					<div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
 						<nav class="link-effect-9" id="link-effect-9">
 							<ul class="nav navbar-nav">
 								<li >
-									<a href="AdminModule1.aspx" class="hvr-overline-from-center">Inicio</a>
+									<a href="AdminModule.aspx" class="hvr-overline-from-center">Inicio</a>
 							    </li>
 								<!-- <li>
 									<a href="#about" class="hvr-overline-from-center scroll">Resumen Anual</a>
@@ -94,7 +92,7 @@
 									<a href="NotaryCRUD.aspx" class="hvr-overline-from-center">Notarios</a>
 								</li>
 								<li>
-									<a href="Protocol.aspx" class="hvr-overline-from-center ">Protocolos</a>
+									<a href="ProtocolCRUD.aspx" class="hvr-overline-from-center ">Protocolos</a>
 								</li>
                                 <li>
 									<a href="#" class="hvr-overline-from-center ">Registrar Usuarios</a>
@@ -102,12 +100,11 @@
                                 <li>
 									<a href="Login.aspx" class="hvr-overline-from-center ">Cerrar Sesión</a>
 								</li>
+
+                                
+                                
 							</ul>
 						</nav>
-
-                       
-									
-							
 					</div>
 					<!-- /.navbar-collapse -->
 				</nav>
@@ -123,7 +120,6 @@
             </asp:ContentPlaceHolder>
         </div>
 
-    </form>
 
     <!-- footer -->
     <footer>
@@ -132,8 +128,8 @@
 			
 			<div class="w3agile_footer_copy">
 				<p>&copy; 2018 INVICTA Legal. Todos los derechos reservados 
-                    | Plataforma Diseñada por <a href="#">Estudiantes UCR</a>
-				</p>
+                    | Plataforma Diseñada por <a href="#">Estudiantes UCR</a></p>
+
 			</div>
 		</div>
 	</div>

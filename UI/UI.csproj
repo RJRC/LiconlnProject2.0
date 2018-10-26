@@ -68,11 +68,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AdminModule1.aspx" />
+    <Content Include="AdminModule.aspx" />
     <Content Include="css\addStyles.css" />
     <Content Include="css\bootstrap.css" />
     <Content Include="css\chocolat.css" />
     <Content Include="css\font-awesome.css" />
+    <Content Include="css\notaryUpdate.css" />
     <Content Include="css\popuo-box.css" />
     <Content Include="css\style.css" />
     <Content Include="css\styleLogin.css" />
@@ -91,19 +92,21 @@
     <Content Include="js\SmoothScroll.min.js" />
     <Content Include="Login.aspx" />
     <Content Include="NotaryCRUD.aspx" />
-    <Content Include="Protocol.aspx" />
+    <Content Include="NotaryUpdate.aspx" />
+    <Content Include="ProtocolCRUD.aspx" />
     <Content Include="User.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="WritingCRUD.aspx" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdminModule1.aspx.cs">
-      <DependentUpon>AdminModule1.aspx</DependentUpon>
+    <Compile Include="AdminModule.aspx.cs">
+      <DependentUpon>AdminModule.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AdminModule1.aspx.designer.cs">
-      <DependentUpon>AdminModule1.aspx</DependentUpon>
+    <Compile Include="AdminModule.aspx.designer.cs">
+      <DependentUpon>AdminModule.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
@@ -112,12 +115,33 @@
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
-    <Compile Include="MenuMaster.Master.cs">
-      <DependentUpon>MenuMaster.Master</DependentUpon>
+    <Compile Include="MasterIndex.Master.cs">
+      <DependentUpon>MasterIndex.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="MenuMaster.Master.designer.cs">
-      <DependentUpon>MenuMaster.Master</DependentUpon>
+    <Compile Include="MasterIndex.Master.designer.cs">
+      <DependentUpon>MasterIndex.Master</DependentUpon>
+    </Compile>
+    <Compile Include="MasterProtocol.Master.cs">
+      <DependentUpon>MasterProtocol.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MasterProtocol.Master.designer.cs">
+      <DependentUpon>MasterProtocol.Master</DependentUpon>
+    </Compile>
+    <Compile Include="MasterUpdateNotary.Master.cs">
+      <DependentUpon>MasterUpdateNotary.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MasterUpdateNotary.Master.designer.cs">
+      <DependentUpon>MasterUpdateNotary.Master</DependentUpon>
+    </Compile>
+    <Compile Include="MasterWriting.Master.cs">
+      <DependentUpon>MasterWriting.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MasterWriting.Master.designer.cs">
+      <DependentUpon>MasterWriting.Master</DependentUpon>
     </Compile>
     <Compile Include="MenuMaster2.Master.cs">
       <DependentUpon>MenuMaster2.Master</DependentUpon>
@@ -126,13 +150,6 @@
     <Compile Include="MenuMaster2.Master.designer.cs">
       <DependentUpon>MenuMaster2.Master</DependentUpon>
     </Compile>
-    <Compile Include="MenuMasterProtocol.Master.cs">
-      <DependentUpon>MenuMasterProtocol.Master</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="MenuMasterProtocol.Master.designer.cs">
-      <DependentUpon>MenuMasterProtocol.Master</DependentUpon>
-    </Compile>
     <Compile Include="NotaryCRUD.aspx.cs">
       <DependentUpon>NotaryCRUD.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -140,13 +157,20 @@
     <Compile Include="NotaryCRUD.aspx.designer.cs">
       <DependentUpon>NotaryCRUD.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Protocol.aspx.cs">
-      <DependentUpon>Protocol.aspx</DependentUpon>
+    <Compile Include="NotaryUpdate.aspx.cs">
+      <DependentUpon>NotaryUpdate.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Protocol.aspx.designer.cs">
-      <DependentUpon>Protocol.aspx</DependentUpon>
+    <Compile Include="NotaryUpdate.aspx.designer.cs">
+      <DependentUpon>NotaryUpdate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProtocolCRUD.aspx.cs">
+      <DependentUpon>ProtocolCRUD.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProtocolCRUD.aspx.designer.cs">
+      <DependentUpon>ProtocolCRUD.aspx</DependentUpon>
     </Compile>
     <Compile Include="User.aspx.cs">
       <DependentUpon>User.aspx</DependentUpon>
@@ -155,11 +179,20 @@
     <Compile Include="User.aspx.designer.cs">
       <DependentUpon>User.aspx</DependentUpon>
     </Compile>
+    <Compile Include="WritingCRUD.aspx.cs">
+      <DependentUpon>WritingCRUD.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WritingCRUD.aspx.designer.cs">
+      <DependentUpon>WritingCRUD.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="MenuMaster.Master" />
     <Content Include="MenuMaster2.Master" />
-    <Content Include="MenuMasterProtocol.Master" />
+    <Content Include="MasterProtocol.Master" />
+    <Content Include="MasterIndex.Master" />
+    <Content Include="MasterUpdateNotary.Master" />
+    <Content Include="MasterWriting.Master" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

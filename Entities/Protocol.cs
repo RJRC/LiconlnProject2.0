@@ -26,6 +26,7 @@ namespace Entities
         public decimal ActualBalance { get; set; }
         public string Month { get; set; }
         public int Year { get; set; }
+        public decimal Carry { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Movement> Movement { get; set; }

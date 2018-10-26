@@ -47,6 +47,7 @@
     <Property Name="ActualBalance" Type="money" Nullable="false" />
     <Property Name="Month" Type="nvarchar" MaxLength="25" Nullable="false" />
     <Property Name="Year" Type="int" Nullable="false" />
+    <Property Name="Carry" Type="money" Nullable="false" />
   </EntityType>
   <EntityType Name="Writing">
     <Key>
@@ -169,7 +170,7 @@
   <Function Name="proc_Get_Notaries_Eliminated" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="proc_Get_Protocols" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="proc_HonoraryWriting" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="writingID" Type="money" Mode="In" />
+    <Parameter Name="writingID" Type="int" Mode="In" />
   </Function>
   <Function Name="proc_Insert_UserLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="username" Type="nvarchar" Mode="In" />
@@ -214,6 +215,7 @@
     <Parameter Name="actualBalance" Type="money" Mode="In" />
     <Parameter Name="month" Type="nvarchar" Mode="In" />
     <Parameter Name="year" Type="int" Mode="In" />
+    <Parameter Name="carry" Type="money" Mode="In" />
   </Function>
   <Function Name="proc_Update_WritingByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="writingID" Type="int" Mode="In" />

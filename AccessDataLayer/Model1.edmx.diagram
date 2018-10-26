@@ -4,12 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="0a8f5f953a7f4c40b09c618e8e54b75c" Name="Diagram1">
+      <Diagram DiagramId="ec1f48b1f9404a849a1722c7f2163b03" Name="Diagram1">
         <EntityTypeShape EntityType="LincolnDBModel.Client" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="LincolnDBModel.Login" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
         <EntityTypeShape EntityType="LincolnDBModel.Movement" Width="1.5" PointX="5.25" PointY="3.375" IsExpanded="true" />
         <EntityTypeShape EntityType="LincolnDBModel.Notary" Width="1.5" PointX="0.75" PointY="3.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="LincolnDBModel.Protocol" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LincolnDBModel.Protocol" Width="1.5" PointX="3" PointY="3.125" IsExpanded="true" />
         <EntityTypeShape EntityType="LincolnDBModel.Writing" Width="1.5" PointX="8.25" PointY="3.125" IsExpanded="true" />
         <AssociationConnector Association="LincolnDBModel.FK__Writing__ClientI__5165187F" ManuallyRouted="false" />
         <AssociationConnector Association="LincolnDBModel.FK__Movement__Protoc__5441852A" ManuallyRouted="false" />

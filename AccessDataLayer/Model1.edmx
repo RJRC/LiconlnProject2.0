@@ -52,6 +52,7 @@
           <Property Name="ActualBalance" Type="money" Nullable="false" />
           <Property Name="Month" Type="nvarchar" MaxLength="25" Nullable="false" />
           <Property Name="Year" Type="int" Nullable="false" />
+          <Property Name="Carry" Type="money" Nullable="false" />
         </EntityType>
         <EntityType Name="Writing">
           <Key>
@@ -174,7 +175,7 @@
         <Function Name="proc_Get_Notaries_Eliminated" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="proc_Get_Protocols" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="proc_HonoraryWriting" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="writingID" Type="money" Mode="In" />
+          <Parameter Name="writingID" Type="int" Mode="In" />
         </Function>
         <Function Name="proc_Insert_UserLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="username" Type="nvarchar" Mode="In" />
@@ -219,6 +220,7 @@
           <Parameter Name="actualBalance" Type="money" Mode="In" />
           <Parameter Name="month" Type="nvarchar" Mode="In" />
           <Parameter Name="year" Type="int" Mode="In" />
+          <Parameter Name="carry" Type="money" Mode="In" />
         </Function>
         <Function Name="proc_Update_WritingByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="writingID" Type="int" Mode="In" />
@@ -309,6 +311,7 @@
           <Property Name="ActualBalance" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="Month" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Year" Type="Int32" Nullable="false" />
+          <Property Name="Carry" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <NavigationProperty Name="Movement" Relationship="Self.FK__Movement__Protoc__5441852A" FromRole="Protocol" ToRole="Movement" />
           <NavigationProperty Name="Notary" Relationship="Self.FK__Protocol__Notary__4BAC3F29" FromRole="Protocol" ToRole="Notary" />
           <NavigationProperty Name="Writing" Relationship="Self.FK__Writing__Protoco__5070F446" FromRole="Protocol" ToRole="Writing" />
@@ -464,7 +467,7 @@
           <FunctionImport Name="proc_Get_Notaries_Eliminated" ReturnType="Collection(LincolnDBModel.proc_Get_Notaries_Eliminated_Result)" />
           <FunctionImport Name="proc_Get_Protocols" ReturnType="Collection(LincolnDBModel.proc_Get_Protocols_Result)" />
           <FunctionImport Name="proc_HonoraryWriting" ReturnType="Collection(Decimal)">
-            <Parameter Name="writingID" Mode="In" Type="Decimal" />
+            <Parameter Name="writingID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="proc_Insert_UserLogin">
             <Parameter Name="username" Mode="In" Type="String" />
@@ -509,6 +512,7 @@
             <Parameter Name="actualBalance" Mode="In" Type="Decimal" />
             <Parameter Name="month" Mode="In" Type="String" />
             <Parameter Name="year" Mode="In" Type="Int32" />
+            <Parameter Name="carry" Mode="In" Type="Decimal" />
           </FunctionImport>
           <FunctionImport Name="proc_Update_WritingByID">
             <Parameter Name="writingID" Mode="In" Type="Int32" />
@@ -658,6 +662,7 @@
                 <ScalarProperty Name="ActualBalance" ColumnName="ActualBalance" />
                 <ScalarProperty Name="Month" ColumnName="Month" />
                 <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Carry" ColumnName="Carry" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

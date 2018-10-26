@@ -37,7 +37,7 @@ namespace AccessDataLayer
 
         public DataTable showSummaryMonth() {       
             int year = int.Parse(DateTime.Now.ToString("yyyy")) ;
-            string month = DateTime.Now.ToString("MM"); ;
+            string month = DateTime.Now.ToString("MM"); 
             string realMonth = getMonth(month);
             var summary = database.proc_SummaryPerMonth(realMonth, year);
             DataTable table = new DataTable();
@@ -158,5 +158,21 @@ namespace AccessDataLayer
             return table;
 
         }
+
+        public List<proc_Get_Notaries_Result> getNotaries()
+        {
+            return database.proc_Get_Notaries().ToList();
+
+        }
+
+
+        public void addNotary(String name, String saldo, String rbt, String enabled, String month)
+        {
+
+            database.proc_Create_Notary(name, rbt, enabled, Convert.ToDecimal(saldo), month, int.Parse(DateTime.Now.ToString("yyyy")));
+            database.SaveChanges();
+        }
+
+
     }
 }
