@@ -12,24 +12,17 @@ namespace Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class Protocol
+    public partial class Affair
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Protocol()
+        public Affair()
         {
-            this.Movement = new HashSet<Movement>();
             this.Writing = new HashSet<Writing>();
         }
     
-        public int ProtocolID { get; set; }
-        public int NotaryID { get; set; }
-        public int ActualBalance { get; set; }
-        public string Month { get; set; }
-        public int Year { get; set; }
+        public int AffairID { get; set; }
+        public string AffairName { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Movement> Movement { get; set; }
-        public virtual Notary Notary { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Writing> Writing { get; set; }
     }

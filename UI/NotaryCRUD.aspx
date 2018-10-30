@@ -74,68 +74,7 @@
 		<div class="container">
 			<h3 class="title">Agregar</h3>
 
-         <!--   <section class="register">
-	<div class="register-full">
-		
-		<div class="register-right">
-			<div class="register-in">
-				<h2><span class="fa fa-pencil"></span>Agregar Notario</h2>
-				<div class="register-form">
-
-						<div class="fields-grid">
-							<div class="styled-input agile-styled-input-top"> 
-                                <asp:TextBox ID="TextBox1" type="text" name="First name" required="" runat="server"></asp:TextBox>
-								<label>Nombre Completo</label>
-								<span></span>
-							</div>
-
-							<div class="styled-input agile-styled-input-top">
-                                <asp:TextBox ID="TextBox2" type="text" name="Saldo" required="" runat="server"></asp:TextBox>
-								<label>Saldo Mensual</label>
-								<span></span>
-							</div>
-						
-							<div class="styled-input agile-styled-input-top">
-									<a style="color:white">Cartula RBT</a>
-                               <div style="color:white">
-                                <asp:DropDownList ID="DropDownListRBT" runat="server">
-                                    <asp:ListItem Value="Si">Si</asp:ListItem>
-                                    <asp:ListItem Value="No">No</asp:ListItem>
-                                </asp:DropDownList>
-                                 </div>
-								
-								<span></span>
-							</div>
-
-							<div class="styled-input agile-styled-input-top">
-									<a style="color:white">Habilitado</a>
-
-                                <div style="color:white">
-                                <asp:DropDownList ID="DropDownListEnabled" runat="server">
-                                    <asp:ListItem Value="Si">Si</asp:ListItem>
-                                    <asp:ListItem Value="No">No</asp:ListItem>
-                                </asp:DropDownList>
-                                 </div>
-
-								
-								<span></span>
-							</div>
-
-							<div class="clear"> </div>
-							
-						</div>
-                        <asp:Button ID="AddNotaryButton" runat="server" value="Agregar" Text="Agregar" OnClick="AddNotaryButton_Click" />
-				
-				
-                </div>
-			</div>
-			<div class="clear"> </div>
-            <br/>
-		</div>
-	<div class="clear"> </div>
-	</div>
-
-</section> -->
+  
             <br/>
             <br/>
  <div class="formWeb">

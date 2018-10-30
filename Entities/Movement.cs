@@ -17,7 +17,7 @@ namespace Entities
         public int MovementID { get; set; }
         public int WritingID { get; set; }
         public int ProtocolID { get; set; }
-        public decimal BilledAmount { get; set; }
+        public int BilledAmount { get; set; }
         public string Co_Notary { get; set; }
     
         public virtual Protocol Protocol { get; set; }

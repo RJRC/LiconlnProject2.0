@@ -14,7 +14,8 @@ namespace Entities
     public partial class proc_SummaryMonths_Result
     {
         public string Notario { get; set; }
+        public int NotaryID { get; set; }
         public string Month { get; set; }
-        public Nullable<decimal> Facturación_Total_Año { get; set; }
+        public Nullable<int> Limite_Anual { get; set; }
     }
 }

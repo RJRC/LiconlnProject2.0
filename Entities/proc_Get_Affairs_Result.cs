@@ -11,12 +11,9 @@ namespace Entities
 {
     using System;
     
-    public partial class proc_SummaryNotary_Result
+    public partial class proc_Get_Affairs_Result
     {
-        public string Notario { get; set; }
-        public string Mes { get; set; }
-        public int Año { get; set; }
-        public decimal Saldo_Actual { get; set; }
-        public Nullable<decimal> Facturación_Total_Año_Calendario { get; set; }
+        public int Codigo { get; set; }
+        public string Asunto { get; set; }
     }
 }

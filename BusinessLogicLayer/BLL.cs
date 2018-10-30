@@ -48,6 +48,13 @@ namespace BusinessLogicLayer
             return accessDataLayer.showSummaryMonth();
         }
 
+        public DataTable showSummaryMonth(String month, int year) {
+            
+
+            return accessDataLayer.showSummaryMonth(month, year);
+
+        }
+
         public DataTable showSummaryYear() {
             return accessDataLayer.showSummaryYear();
         }
@@ -124,11 +131,11 @@ namespace BusinessLogicLayer
 
 
 
-        public void addNotary(String name, String saldo, String rbt, String enabled)
+        public void addNotary(String name, String saldo, String rbt, String enabled, String initials)
         {
             string numberOfMonth = DateTime.Now.ToString("MM");
             string month = getMonth(numberOfMonth);
-            accessDataLayer.addNotary(name, saldo, rbt, enabled, month);
+            accessDataLayer.addNotary(name, saldo, rbt, enabled, month, initials);
         }
 
         public Boolean validateNumber(String number) {
@@ -141,6 +148,16 @@ namespace BusinessLogicLayer
             }
 
 
+        }
+
+        public void updateNotary(String id, String nombre, String saldo, String iniciales, String rbt, String habilitado)
+        {
+            accessDataLayer.updateNotary(Convert.ToInt32(id), nombre, Convert.ToInt32(saldo), iniciales, rbt, habilitado);
+        }
+
+        public void deleteNotary(String id)
+        {
+            accessDataLayer.deleteNotary(Convert.ToInt32(id));
         }
 
     }

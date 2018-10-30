@@ -75,8 +75,10 @@
     <Content Include="css\font-awesome.css" />
     <Content Include="css\notaryUpdate.css" />
     <Content Include="css\popuo-box.css" />
+    <Content Include="css\searchStyles.css" />
     <Content Include="css\style.css" />
     <Content Include="css\styleLogin.css" />
+    <Content Include="Global.asax" />
     <Content Include="images\arrow.png" />
     <Content Include="images\bg2.jpg" />
     <Content Include="images\logo4.png" />
@@ -107,6 +109,9 @@
     </Compile>
     <Compile Include="AdminModule.aspx.designer.cs">
       <DependentUpon>AdminModule.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>

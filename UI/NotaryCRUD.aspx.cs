@@ -33,8 +33,8 @@ namespace UI
                  int crow;
                 crow = Convert.ToInt32(e.CommandArgument.ToString());
                  string code = GridViewNotaries.Rows[crow].Cells[2].Text; //obtener un dato de la tabla 
-
-                Response.Redirect("NotaryUpdate.aspx");
+                Session["NotaryID"] = code;
+                Response.Redirect("NotaryUpdate.aspx?id=code");
                 //alert("Se esta trabajando en esta sección " + "Codigo del Notario > " + code);
             }
 
@@ -44,9 +44,14 @@ namespace UI
                 int crow;
                 crow = Convert.ToInt32(e.CommandArgument.ToString());
                 string code = GridViewNotaries.Rows[crow].Cells[2].Text; //obtener un dato de la tabla 
-           
-                //Response.Redirect("");
-                alert("Se esta trabajando en esta sección " + "Codigo del Notario > " + code);
+
+                bll.deleteNotary(code);
+
+                load();
+
+                alert("Se ha eliminado correctamente");
+
+
             }
         }
 
@@ -107,7 +112,7 @@ namespace UI
                         enabled = "NO";
                     }
 
-                    bll.addNotary(TextBoxName.Text, TextBoxMoney.Text, rbt, enabled);
+                    bll.addNotary(TextBoxName.Text, TextBoxMoney.Text, rbt, enabled, TextBoxIniciales.Text);
                     alert("Se agrego correctamente");
                     clear();
                     load();

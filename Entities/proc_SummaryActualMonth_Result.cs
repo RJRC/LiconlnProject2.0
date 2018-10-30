@@ -15,6 +15,7 @@ namespace Entities
     {
         public int NotaryID { get; set; }
         public string NotaryName { get; set; }
-        public decimal ActualBalance { get; set; }
+        public int ActualBalance { get; set; }
+        public Nullable<int> Column1 { get; set; }
     }
 }

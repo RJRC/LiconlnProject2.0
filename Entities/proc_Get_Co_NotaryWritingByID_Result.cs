@@ -15,10 +15,11 @@ namespace Entities
     {
         public int Codigo_Escritura { get; set; }
         public string Acto_ { get; set; }
+        public string Asunto { get; set; }
         public string Cliente { get; set; }
         public string Notario { get; set; }
         public System.DateTime Fecha { get; set; }
-        public Nullable<decimal> Facturado_por_Notario { get; set; }
+        public Nullable<int> Facturado_por_Notario { get; set; }
         public string Co_Notario { get; set; }
     }
 }

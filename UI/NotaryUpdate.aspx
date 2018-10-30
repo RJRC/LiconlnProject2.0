@@ -77,7 +77,7 @@ function hideURLbar(){ window.scrollTo(0,1); }</script>
 											
 									</div>
 	                                <br>
-                                <asp:Button ID="ButtonUpdate" class="btnn" runat="server" Text="Modificar" />
+                                <asp:Button ID="ButtonUpdate" class="btnn" runat="server" Text="Modificar" OnClick="ButtonUpdate_Click" />
 							</form>
 						</div>
 					</div>

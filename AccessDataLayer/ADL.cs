@@ -42,17 +42,38 @@ namespace AccessDataLayer
             var summary = database.proc_SummaryPerMonth(realMonth, year);
             DataTable table = new DataTable();
             table.Columns.Add("Notario");
-            table.Columns.Add("Saldo Mensual");
-            table.Columns.Add("Escritura");
+            
+            table.Columns.Add("Facturación Mensual");
             table.Columns.Add("Saldo Actual");
+            table.Columns.Add("Limite Mensual"); //Limite Mensual + Carry
 
             foreach (proc_SummaryPerMonth_Result item in summary.ToList()) {
 
-                table.Rows.Add(item.Notario, item.Saldo_Mensual, item.Escritura, item.Saldo_Actual);
+                table.Rows.Add(item.Notario, item.Facturado, item.Saldo_Actual, item.Saldo_Mensual);
             }
 
             return table;
 
+        }
+
+        public DataTable showSummaryMonth(String month, int year) {
+            
+
+            var summary = database.proc_SummaryPerMonth(month, year);
+            DataTable table = new DataTable();
+            table.Columns.Add("Notario");
+
+            table.Columns.Add("Facturación Mensual");
+            table.Columns.Add("Saldo Actual");
+            table.Columns.Add("Limite Mensual"); //Limite Mensual + Carry
+
+            foreach (proc_SummaryPerMonth_Result item in summary.ToList())
+            {
+
+                table.Rows.Add(item.Notario, item.Facturado, item.Saldo_Actual, item.Saldo_Mensual);
+            }
+
+            return table;
         }
 
         private String getMonth(String month) {
@@ -106,17 +127,25 @@ namespace AccessDataLayer
             var summary = database.proc_SummaryMonths();
             DataTable table = new DataTable();
             table.Columns.Add("Notario");
-            table.Columns.Add("Facturación Total Año");
+            table.Columns.Add("Facturación Anual");
+            table.Columns.Add("Saldo Anual");
+            table.Columns.Add("Limite Anual");
 
             foreach (proc_SummaryMonths_Result item in summary.ToList())
             {
+                var movementsSummaryYear = database.proc_SummaryMovementsByNotaryID(item.NotaryID);
+                int allMovements = 0;
+                foreach (int item2 in movementsSummaryYear.ToList())
+                {
+                     allMovements = item2;
+                }
 
-                table.Rows.Add(item.Notario, item.Facturación_Total_Año);
+                table.Rows.Add(item.Notario, allMovements, (item.Limite_Anual - allMovements) ,item.Limite_Anual );
             }
 
             return table;
         }
-
+            
         public DataTable showNotaries() {
             var summary = database.proc_Get_Notaries();
             DataTable table = new DataTable();
@@ -143,15 +172,16 @@ namespace AccessDataLayer
             DataTable table = new DataTable();
             table.Columns.Add("Codigo");
             table.Columns.Add("Notario");
-            table.Columns.Add("Saldo Total");
+            table.Columns.Add("Saldo Mensual");
             table.Columns.Add("Saldo Actual");
+            table.Columns.Add("Saldo Anual");
             table.Columns.Add("Cartula RBT");
             table.Columns.Add("Habilitado");
 
             foreach (proc_Get_Protocols_Result item in summary.ToList())
             {
 
-                table.Rows.Add(item.Codigo_Protocolo, item.Notario, item.Saldo_Total, item.Saldo_Actual,
+                table.Rows.Add(item.Codigo_Protocolo, item.Notario, item.Saldo_Mensual, item.Saldo_Actual, item.Saldo_Anual,
                     item.Cartula_en_RBT, item.Protocolo_disponible);
             }
 
@@ -166,13 +196,35 @@ namespace AccessDataLayer
         }
 
 
-        public void addNotary(String name, String saldo, String rbt, String enabled, String month)
+        public void addNotary(String name, String saldo, String rbt, String enabled, String month, String initials)
         {
 
-            database.proc_Create_Notary(name, rbt, enabled, Convert.ToDecimal(saldo), month, int.Parse(DateTime.Now.ToString("yyyy")));
+            database.proc_Create_Notary(name, initials, rbt, enabled, int.Parse(saldo), month, int.Parse(DateTime.Now.ToString("yyyy")));
             database.SaveChanges();
         }
 
+
+        public void updateNotary(int id, String nombre, int saldo, String iniciales, String rbt, String habilitado)
+        {
+
+            /*Creo q se debe usar el Stored Procedure*/
+            Notary notary = database.Notary.Single(u => u.NotaryID == id);
+            notary.NotaryName = nombre;
+            notary.BalanceLimitMonth = saldo;
+            notary.NotaryInitials = iniciales;
+            notary.RBTEnabled = rbt;
+            notary.NotaryAvailable = habilitado;
+            database.SaveChanges();
+        }
+
+
+
+        public void deleteNotary(int id)
+        {
+            Notary notary = database.Notary.Single(u => u.NotaryID == id);
+            notary.Eliminated = "SI";
+            database.SaveChanges();
+        }
 
     }
 }

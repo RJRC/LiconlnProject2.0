@@ -15,8 +15,9 @@ namespace Entities
     {
         public int Codigo_Protocolo { get; set; }
         public string Notario { get; set; }
-        public decimal Saldo_Total { get; set; }
-        public decimal Saldo_Actual { get; set; }
+        public int Saldo_Mensual { get; set; }
+        public Nullable<int> Saldo_Anual { get; set; }
+        public int Saldo_Actual { get; set; }
         public string Cartula_en_RBT { get; set; }
         public string Protocolo_disponible { get; set; }
         public string Mes_del_Protocolo { get; set; }

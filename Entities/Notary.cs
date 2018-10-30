@@ -22,9 +22,10 @@ namespace Entities
     
         public int NotaryID { get; set; }
         public string NotaryName { get; set; }
+        public string NotaryInitials { get; set; }
         public string RBTEnabled { get; set; }
         public string NotaryAvailable { get; set; }
-        public decimal BalanceLimit { get; set; }
+        public int BalanceLimitMonth { get; set; }
         public string Eliminated { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -15,8 +15,13 @@ namespace Entities
     {
         public int Codigo_Escritura { get; set; }
         public string Acto { get; set; }
+        public string Asunto { get; set; }
         public string Cliente { get; set; }
         public string Notario { get; set; }
+        public string Partes { get; set; }
+        public string Cedula_a_Facturar { get; set; }
+        public string Domilicio_a_Facturar { get; set; }
+        public string Correo_a_Facturar { get; set; }
         public System.DateTime Fecha { get; set; }
         public string Escritura_Eliminada { get; set; }
     }
