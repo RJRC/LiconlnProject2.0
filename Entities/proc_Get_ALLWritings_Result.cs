@@ -13,7 +13,8 @@ namespace Entities
     
     public partial class proc_Get_ALLWritings_Result
     {
-        public int Codigo_Escritura { get; set; }
+        public int Codigo { get; set; }
+        public string Numero_de_Escritura { get; set; }
         public string Acto { get; set; }
         public string Asunto { get; set; }
         public string Cliente { get; set; }

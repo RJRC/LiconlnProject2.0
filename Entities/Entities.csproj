@@ -94,6 +94,9 @@
     <Compile Include="proc_SummaryMonths_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="proc_SummaryNotary_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="proc_SummaryPerMonth_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

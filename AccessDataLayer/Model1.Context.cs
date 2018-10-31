@@ -124,7 +124,7 @@ namespace Entities
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("proc_Create_Protocol", notaryIDParameter, actualBalanceParameter, monthParameter, yearParameter);
         }
     
-        public virtual int proc_Create_Writing(Nullable<int> clientID, Nullable<int> protocolID, Nullable<int> affairID, string billingNumber, string billingAddress, string billingEmail, Nullable<System.DateTime> date, string @event, Nullable<decimal> billedAmount, string parts)
+        public virtual int proc_Create_Writing(Nullable<int> clientID, Nullable<int> protocolID, Nullable<int> affairID, string billingNumber, string billingAddress, string billingEmail, Nullable<System.DateTime> date, string @event, Nullable<decimal> billedAmount, string parts, string writingNumber)
         {
             var clientIDParameter = clientID.HasValue ?
                 new ObjectParameter("clientID", clientID) :
@@ -166,7 +166,11 @@ namespace Entities
                 new ObjectParameter("parts", parts) :
                 new ObjectParameter("parts", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("proc_Create_Writing", clientIDParameter, protocolIDParameter, affairIDParameter, billingNumberParameter, billingAddressParameter, billingEmailParameter, dateParameter, eventParameter, billedAmountParameter, partsParameter);
+            var writingNumberParameter = writingNumber != null ?
+                new ObjectParameter("writingNumber", writingNumber) :
+                new ObjectParameter("writingNumber", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("proc_Create_Writing", clientIDParameter, protocolIDParameter, affairIDParameter, billingNumberParameter, billingAddressParameter, billingEmailParameter, dateParameter, eventParameter, billedAmountParameter, partsParameter, writingNumberParameter);
         }
     
         public virtual int proc_Delete_Notary(Nullable<int> id)
@@ -310,6 +314,15 @@ namespace Entities
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("proc_SummaryMovementsByNotaryID", notaryIDParameter);
         }
     
+        public virtual ObjectResult<proc_SummaryNotary_Result> proc_SummaryNotary(Nullable<int> notaryID)
+        {
+            var notaryIDParameter = notaryID.HasValue ?
+                new ObjectParameter("notaryID", notaryID) :
+                new ObjectParameter("notaryID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<proc_SummaryNotary_Result>("proc_SummaryNotary", notaryIDParameter);
+        }
+    
         public virtual ObjectResult<proc_SummaryPerMonth_Result> proc_SummaryPerMonth(string month, Nullable<int> year)
         {
             var monthParameter = month != null ?
@@ -349,7 +362,24 @@ namespace Entities
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("proc_Update_Client", clientIDParameter, clientNameParameter);
         }
     
-        public virtual int proc_Update_Notary(Nullable<int> id, string name, string initials, string enabled, string availability, Nullable<int> balanceLimitMonth, string eliminated)
+        public virtual int proc_Update_Movement(Nullable<int> protocolID, Nullable<int> writingID, Nullable<decimal> billedAmount)
+        {
+            var protocolIDParameter = protocolID.HasValue ?
+                new ObjectParameter("protocolID", protocolID) :
+                new ObjectParameter("protocolID", typeof(int));
+    
+            var writingIDParameter = writingID.HasValue ?
+                new ObjectParameter("writingID", writingID) :
+                new ObjectParameter("writingID", typeof(int));
+    
+            var billedAmountParameter = billedAmount.HasValue ?
+                new ObjectParameter("billedAmount", billedAmount) :
+                new ObjectParameter("billedAmount", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("proc_Update_Movement", protocolIDParameter, writingIDParameter, billedAmountParameter);
+        }
+    
+        public virtual int proc_Update_Notary(Nullable<int> id, string name, string initials, string enabled, string availability, Nullable<int> balanceLimitMonth, string eliminated, string month, Nullable<int> year)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
@@ -379,7 +409,15 @@ namespace Entities
                 new ObjectParameter("eliminated", eliminated) :
                 new ObjectParameter("eliminated", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("proc_Update_Notary", idParameter, nameParameter, initialsParameter, enabledParameter, availabilityParameter, balanceLimitMonthParameter, eliminatedParameter);
+            var monthParameter = month != null ?
+                new ObjectParameter("month", month) :
+                new ObjectParameter("month", typeof(string));
+    
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("year", year) :
+                new ObjectParameter("year", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("proc_Update_Notary", idParameter, nameParameter, initialsParameter, enabledParameter, availabilityParameter, balanceLimitMonthParameter, eliminatedParameter, monthParameter, yearParameter);
         }
     
         public virtual int proc_Update_Protocol(Nullable<int> protocolID, Nullable<decimal> actualBalance, string month, Nullable<int> year)

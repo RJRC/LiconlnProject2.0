@@ -18,7 +18,7 @@ namespace Entities
         public string Iniciales { get; set; }
         public string Cartula_RBT { get; set; }
         public string Habilitado { get; set; }
-        public int Saldo_Mensual { get; set; }
+        public int Saldo_Mensual_Ideal { get; set; }
         public Nullable<int> Saldo_Anual { get; set; }
     }
 }

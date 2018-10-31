@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Entities;
 
+
 namespace AccessDataLayer
 {
     public class ADL
@@ -153,12 +154,12 @@ namespace AccessDataLayer
             table.Columns.Add("Notario");
             table.Columns.Add("Cartula RBT");
             table.Columns.Add("Habilitado");
-            table.Columns.Add("Saldo Mensual");
+            table.Columns.Add("Saldo Mensual Ideal");
 
             foreach (proc_Get_Notaries_Result item in summary.ToList())
             {
 
-                table.Rows.Add(item.Codigo_Notario, item.Nombre, item.Cartula_RBT, item.Habilitado, item.Saldo_Mensual);
+                table.Rows.Add(item.Codigo_Notario, item.Nombre, item.Cartula_RBT, item.Habilitado, item.Saldo_Mensual_Ideal);
             }
 
             return table;
@@ -172,7 +173,7 @@ namespace AccessDataLayer
             DataTable table = new DataTable();
             table.Columns.Add("Codigo");
             table.Columns.Add("Notario");
-            table.Columns.Add("Saldo Mensual");
+            table.Columns.Add("Saldo Mensual Ideal");
             table.Columns.Add("Saldo Actual");
             table.Columns.Add("Saldo Anual");
             table.Columns.Add("Cartula RBT");
@@ -181,7 +182,7 @@ namespace AccessDataLayer
             foreach (proc_Get_Protocols_Result item in summary.ToList())
             {
 
-                table.Rows.Add(item.Codigo_Protocolo, item.Notario, item.Saldo_Mensual, item.Saldo_Actual, item.Saldo_Anual,
+                table.Rows.Add(item.Codigo_Protocolo, item.Notario, item.Saldo_Mensual_Ideal, item.Saldo_Actual, item.Saldo_Anual,
                     item.Cartula_en_RBT, item.Protocolo_disponible);
             }
 
@@ -204,16 +205,14 @@ namespace AccessDataLayer
         }
 
 
-        public void updateNotary(int id, String nombre, int saldo, String iniciales, String rbt, String habilitado)
+        public void updateNotary(int id, String name, int saldo, String intials, String rbt, String enabled)
         {
 
-            /*Creo q se debe usar el Stored Procedure*/
-            Notary notary = database.Notary.Single(u => u.NotaryID == id);
-            notary.NotaryName = nombre;
-            notary.BalanceLimitMonth = saldo;
-            notary.NotaryInitials = iniciales;
-            notary.RBTEnabled = rbt;
-            notary.NotaryAvailable = habilitado;
+            int year = int.Parse(DateTime.Now.ToString("yyyy"));
+            string month = DateTime.Now.ToString("MM");
+            string realMonth = getMonth(month);
+            database.proc_Update_Notary(id, name, intials, rbt, enabled, saldo, "NO", realMonth, year);
+
             database.SaveChanges();
         }
 
@@ -224,6 +223,10 @@ namespace AccessDataLayer
             Notary notary = database.Notary.Single(u => u.NotaryID == id);
             notary.Eliminated = "SI";
             database.SaveChanges();
+        }
+
+        public Notary loadNotary(int id) {
+            return database.Notary.Single(u => u.NotaryID == id);
         }
 
     }

@@ -11,16 +11,12 @@ namespace Entities
 {
     using System;
     
-    public partial class proc_Get_Protocols_Result
+    public partial class proc_SummaryNotary_Result
     {
-        public int Codigo_Protocolo { get; set; }
         public string Notario { get; set; }
-        public int Saldo_Mensual_Ideal { get; set; }
-        public Nullable<int> Saldo_Anual { get; set; }
+        public string Mes { get; set; }
+        public int Año { get; set; }
         public int Saldo_Actual { get; set; }
-        public string Cartula_en_RBT { get; set; }
-        public string Protocolo_disponible { get; set; }
-        public string Mes_del_Protocolo { get; set; }
-        public int Año_del_Protocolo { get; set; }
+        public Nullable<int> Facturación_Total_Año_Calendario { get; set; }
     }
 }

@@ -55,6 +55,8 @@ namespace BusinessLogicLayer
 
         }
 
+
+
         public DataTable showSummaryYear() {
             return accessDataLayer.showSummaryYear();
         }
@@ -150,14 +152,19 @@ namespace BusinessLogicLayer
 
         }
 
-        public void updateNotary(String id, String nombre, String saldo, String iniciales, String rbt, String habilitado)
+        public void updateNotary(String id, String name, String saldo, String initials, String rbt, String enabled)
         {
-            accessDataLayer.updateNotary(Convert.ToInt32(id), nombre, Convert.ToInt32(saldo), iniciales, rbt, habilitado);
+            accessDataLayer.updateNotary(Convert.ToInt32(id), name, Convert.ToInt32(saldo), initials, rbt, enabled);
         }
+
 
         public void deleteNotary(String id)
         {
             accessDataLayer.deleteNotary(Convert.ToInt32(id));
+        }
+
+        public Notary loadNotary(String id) {
+            return accessDataLayer.loadNotary(int.Parse(id));
         }
 
     }

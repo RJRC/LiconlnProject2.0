@@ -25,6 +25,7 @@ namespace Entities
         public int ClientID { get; set; }
         public int AffairID { get; set; }
         public string Parts { get; set; }
+        public string WritingNumber { get; set; }
         public string BillingNumber { get; set; }
         public string BillingAddress { get; set; }
         public string BillingEmail { get; set; }
