@@ -36,7 +36,7 @@
                 <asp:GridView ID="GridViewProtocols" class="table " runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Width="679px" OnRowCommand="GridView1_RowCommand">
                     <AlternatingRowStyle BackColor="White" />
                     <Columns>
-                        <asp:ButtonField ButtonType="Button" CommandName="writingButton" Text="Escrituras" ControlStyle-CssClass="btn btn-success" />
+                        <asp:ButtonField ButtonType="Button" CommandName="writingButton" Text="Facturación" ControlStyle-CssClass="btn btn-warning" />
                     </Columns>
                     <FooterStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
                     <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />

@@ -79,10 +79,19 @@
     <Compile Include="proc_Get_JustOwnWritingsByProtocol_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="proc_Get_NotariesWithOutOneById_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="proc_Get_Notaries_Eliminated_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="proc_Get_Notaries_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="proc_Get_ProtocolInfo_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="proc_Get_ProtocolsByMonth_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="proc_Get_Protocols_Result.cs">

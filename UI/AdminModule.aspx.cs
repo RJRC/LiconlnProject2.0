@@ -14,7 +14,10 @@ namespace UI
         private string monthToSearch = "";
         protected void Page_Load(object sender, EventArgs e)
         {
-            load();
+            if (!Page.IsPostBack)
+            {
+                load();
+            }
         }
 
         private void load()
@@ -24,6 +27,26 @@ namespace UI
             GridViewMonth.DataBind();
             GridViewYear.DataBind();
             labels();
+
+            GridViewEachMonth.DataSource = bll.showSummaryYearPerMonthsInAdminModule(int.Parse(DateTime.Now.ToString("yyyy")));
+            GridViewEachMonth.DataBind();
+
+            loadDropDown();
+
+        }
+
+        private void loadDropDown() {
+            List<int> listOfYear = bll.getYears();
+            foreach (int i in listOfYear) {
+                ListItem lst = new ListItem(i + "");
+                DropDownListYear.Items.Add(lst);
+                DropDownListYearsMonth.Items.Add(lst);
+
+            }
+
+
+
+
 
         }
 
@@ -35,6 +58,11 @@ namespace UI
 
         }
 
+        private void loadSummaryYears(int year) {
+            GridViewEachMonth.DataSource = bll.showSummaryYearPerMonthsInAdminModule(year);
+            GridViewEachMonth.DataBind();
+        }
+
         private void labels()
         {
             string month = DateTime.Now.ToString("MM");
@@ -42,12 +70,7 @@ namespace UI
             LabelYear.Text = DateTime.Now.ToString("yyyy");
         }
 
-        private void labels2()
-        {
-            string month = DateTime.Now.ToString("MM");
-            TextBoxMonth.Text = bll.getMonth(month);
-            TextBoxYear.Text = DateTime.Now.ToString("yyyy");
-        }
+    
 
         private void labels(String month, String year)
         {
@@ -61,8 +84,8 @@ namespace UI
 
 
         private void validateSearch() {
-            monthToSearch = TextBoxMonth.Text.Trim();
-            String year = TextBoxYear.Text.Trim();
+            monthToSearch = DropDownListMonths.SelectedItem.ToString();
+            String year = DropDownListYearsMonth.SelectedItem.ToString(); ;
             if (validateMonth())
             {
                 int var = 0;
@@ -72,13 +95,13 @@ namespace UI
                          
                         int realyear = int.Parse(year);
 
-                        if (realyear > 2017 && realyear < 2040)
+                        if (realyear > 2000 && realyear < 2050)
                         {
                             load(bll.showSummaryMonth(monthToSearch, realyear), monthToSearch, year);
                           
                         }
                         else {
-                            alert("Ingrese un año entre 2018 y 2040");
+                            alert("Ingrese un año entre 2010 y 2045");
                            
                         }
                         var = 1;
@@ -180,7 +203,18 @@ namespace UI
         protected void Button2_Click(object sender, EventArgs e)
         {
             load();
-            labels2();
+        }
+
+        protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void Button3_Click(object sender, EventArgs e)
+        {
+           string year = DropDownListYear.SelectedItem.ToString();
+
+            loadSummaryYears(int.Parse(year));
         }
     }
 }

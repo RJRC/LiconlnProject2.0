@@ -35,6 +35,13 @@
                 <asp:Label ID="LabelYear" runat="server" Text=""></asp:Label>
 			</h3>
 
+           
+            <asp:DropDownList ID="DropDownListYear" style="color: darkgray;"  runat="server" Width="168px" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged" BackColor="White">
+            </asp:DropDownList> 
+            <br>
+            <br>
+            <asp:Button ID="Button3" runat="server" CssClass="btn btn-lg btn-default" Text="Filtrar por año" OnClick="Button3_Click" />
+
             
             <br/>
             <br/>
@@ -53,12 +60,25 @@
                 </asp:GridView>
             </div>
 
+            <br>
+            <div class="table-responsive">
+                <asp:GridView ID="GridViewEachMonth" class="table " runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Width="680px">
+                    <AlternatingRowStyle BackColor="White" />
+                    <FooterStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
+                    <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
+                    <PagerStyle BackColor="#FFCC66" ForeColor="#333333" HorizontalAlign="Center" />
+                    <RowStyle BackColor="#FFFBD6" ForeColor="#333333" />
+                    <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="Navy" />
+                    <SortedAscendingCellStyle BackColor="#FDF5AC" />
+                    <SortedAscendingHeaderStyle BackColor="#4D0000" />
+                    <SortedDescendingCellStyle BackColor="#FCF6C0" />
+                    <SortedDescendingHeaderStyle BackColor="#820000" />
+                </asp:GridView>
+            </div>
             
 
             <div class="clearfix"> </div>
-            <br/>
-            <br/>
-            <br/>
+
 		</div>
 	</div>
 	<!-- //welcome -->
@@ -76,31 +96,40 @@
 
             <div class = "searchContainer">
 
-                <div class="">
                         <div class="col-12 col-md-10 col-lg-8">
                             <div class="card card-sm">
                                 <div class="card-body row no-gutters align-items-center">
                                     
-                                    <!--end of col-->
-                                    <div class="col">
-                                        <asp:TextBox ID="TextBoxMonth" runat="server" placeholder="Buscar por Mes " type="search" class="form-control form-control-lg form-control-borderless"></asp:TextBox>
-                                        <br/>
-                                        <asp:TextBox ID="TextBoxYear" runat="server" placeholder="Buscar por Año " type="search" class="form-control form-control-lg form-control-borderless"></asp:TextBox>
-                                         <br/>
-                                    </div>
-
                                    
+
+                                    <asp:DropDownList ID="DropDownListMonths" style="color: darkgray;"  runat="server" Width="176px" BackColor="White" CssClass="color: White">
+                                        
+                                        <asp:ListItem>Enero</asp:ListItem>
+                                        <asp:ListItem>Febrero</asp:ListItem>
+                                        <asp:ListItem>Marzo</asp:ListItem>
+                                        <asp:ListItem>Abril</asp:ListItem>
+                                        <asp:ListItem>Mayo</asp:ListItem>
+                                        <asp:ListItem>Junio</asp:ListItem>
+                                        <asp:ListItem>Julio</asp:ListItem>
+                                        <asp:ListItem>Agosto</asp:ListItem>
+                                        <asp:ListItem>Setiembre</asp:ListItem>
+                                        <asp:ListItem>Octubre</asp:ListItem>
+                                        <asp:ListItem>Noviembre</asp:ListItem>
+                                        <asp:ListItem>Diciembre</asp:ListItem>
+
+                                    </asp:DropDownList>
+                                    <asp:DropDownList ID="DropDownListYearsMonth" style="color: darkgray;" runat="server" Width="175px" BackColor="White" CssClass="color : White"></asp:DropDownList>
 
                                     <!--end of col-->
                                     <div class="col-auto">
-                                        
-                                        <asp:Button ID="Button1" class="btn btn-lg btn-success" runat="server" Text="Buscar" OnClick="Button1_Click" /> 
-                                         <asp:Button ID="Button2" class="btn btn-lg btn-info" runat="server" Text="Mes Actual" OnClick="Button2_Click" />
+                                        <br/>
+                                        <asp:Button ID="Button1" class="btn btn-lg btn-default" runat="server" Text="Filtrar" OnClick="Button1_Click" /> 
+                                         <asp:Button ID="Button2" class="btn btn-lg btn-default" runat="server" Text="Mes Actual" OnClick="Button2_Click" />
                                     
                                     </div>
                                     <!--end of col-->
                                 </div>
-                            </div>
+
                         </div>
                         <!--end of col-->
                     </div>
@@ -129,8 +158,7 @@
 
 			<div class="clearfix"> </div>
             <br/>
-            <br/>
-            <br/>
+
 		</div>
 	</div>
           

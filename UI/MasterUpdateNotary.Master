@@ -18,7 +18,8 @@
 	<meta charset="UTF-8" />
 	<meta name="keywords" content="INVICTA Legal"/>
 
-
+    
+    <link rel="shortcut icon" href="images/punto.png" />
     <script>
 		addEventListener("load", function () {
 			setTimeout(hideURLbar, 0);
@@ -83,15 +84,14 @@
 								<li >
 									<a href="AdminModule.aspx" class="hvr-overline-from-center" >Inicio</a>
 								</li>
-
-								<li>
-									<a href="#contact" class="hvr-overline-from-center scroll">Modificar Notario</a>
-								</li>
                                 <li>
 									<a href="NotaryCRUD.aspx" class="hvr-overline-from-center ">Notarios</a>
 								</li>
 								<li>
 									<a href="ProtocolCRUD.aspx" class="hvr-overline-from-center">Protocolos</a>
+								</li>
+                                <li>
+									<a href="#contact" class="hvr-overline-from-center scroll">Modificar Notario</a>
 								</li>
 
                                 

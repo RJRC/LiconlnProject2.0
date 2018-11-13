@@ -21,7 +21,6 @@
 	<div class="contact" id="contact">
 		<div class="container">
 			<h3 class="title">Lista de Notarios
-				<img src="images/logo2.png" alt="" />
 			</h3>
 
 	      
@@ -38,6 +37,30 @@
                    <Columns>
                        <asp:ButtonField ButtonType="Button" CommandName="buttonUpdate" Text="Modificar"  ControlStyle-CssClass="btn btn-warning" />
                        <asp:ButtonField ButtonType="Button" CommandName="buttonDelete" Text="Eliminar" ControlStyle-CssClass="btn btn-danger" />
+                   </Columns>
+                   <FooterStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
+                   <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
+                   <PagerStyle BackColor="#FFCC66" ForeColor="#333333" HorizontalAlign="Center" />
+                   <RowStyle BackColor="#FFFBD6" ForeColor="#333333" />
+                   <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="Navy" />
+                   <SortedAscendingCellStyle BackColor="#FDF5AC" />
+                   <SortedAscendingHeaderStyle BackColor="#4D0000" />
+                   <SortedDescendingCellStyle BackColor="#FCF6C0" />
+                   <SortedDescendingHeaderStyle BackColor="#820000" />
+            </asp:GridView>
+             </div>
+
+                     <br>
+                     <asp:Button ID="ButtonDeleted" class="btn btn-lg btn-default" runat="server" Text="Ver Eliminados" OnClick="ButtonDeleted_Click" />
+                     <br>         
+                     <br>
+                     <div class="table-responsive">
+               <asp:GridView ID="GridViewDeleted" class="table" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Width="702px">
+                   <AlternatingRowStyle BackColor="White" />
+                   <Columns>
+                       <asp:ButtonField ButtonType="Button" CommandName="buttonRestore" Text="Restaurar"  ControlStyle-CssClass="btn btn-warning" >
+                       <ControlStyle CssClass="btn btn-danger" />
+                       </asp:ButtonField>
                    </Columns>
                    <FooterStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
                    <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
@@ -91,9 +114,9 @@
                                     <br>
 								</div>
 
-                                <asp:TextBox ID="TextBoxName" runat="server" type="text" placeholder="Nombre Completo" required=""></asp:TextBox>
-                                <asp:TextBox ID="TextBoxMoney" runat="server" type="text" placeholder="Saldo Mensual" required=""></asp:TextBox>
-                                <asp:TextBox ID="TextBoxIniciales" runat="server" type="text" placeholder="Iniciales del Notario" required=""></asp:TextBox>
+                                <asp:TextBox ID="TextBoxName" runat="server" type="text" placeholder="Nombre Completo" ></asp:TextBox>
+                                <asp:TextBox ID="TextBoxMoney" runat="server" type="text" placeholder="Saldo Mensual" ></asp:TextBox>
+                                <asp:TextBox ID="TextBoxIniciales" runat="server" type="text" placeholder="Iniciales del Notario"></asp:TextBox>
 							
 								
 								

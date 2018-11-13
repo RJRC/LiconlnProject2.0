@@ -1,6 +1,7 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterProtocol.master.cs" Inherits="UI.MasterProtocol" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterDoWriting.master.cs" Inherits="UI.MasterDoWriting" %>
 
 <!DOCTYPE html>
+
 <html lang="zxx">
 <head runat="server">
 
@@ -83,16 +84,24 @@
 								<li >
 									<a href="AdminModule.aspx" class="hvr-overline-from-center" >Inicio</a>
 								</li>
-                                <li>
+                             <!--    <li>
+									<a href="#about" class="hvr-overline-from-center scroll">Facturación Anual</a>
+								</li> 
+
+                                  -->
+								
+                          
+								<li>
 									<a href="NotaryCRUD.aspx" class="hvr-overline-from-center">Notarios</a>
 								</li>
 
-
-								<li>
-									<a href="#contact" class="hvr-overline-from-center scroll">Lista de Protocolos</a>
+                                <li>
+									<a href="ProtocolCRUD.aspx" class="hvr-overline-from-center ">Protocolos</a>
 								</li>
-                          
-								
+
+                                <li>
+									<a href="#contact" class="hvr-overline-from-center scroll">Crear Escritura</a>
+								</li>
                                 
                                 
 							</ul>

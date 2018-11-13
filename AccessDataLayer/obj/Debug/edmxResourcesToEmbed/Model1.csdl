@@ -193,7 +193,7 @@
     <FunctionImport Name="proc_Create_Affair">
       <Parameter Name="affairName" Mode="In" Type="String" />
     </FunctionImport>
-    <FunctionImport Name="proc_Create_Client">
+    <FunctionImport Name="proc_Create_Client" ReturnType="Collection(Int32)">
       <Parameter Name="clientName" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="proc_Create_Movement">
@@ -207,7 +207,6 @@
       <Parameter Name="enabled" Mode="In" Type="String" />
       <Parameter Name="availability" Mode="In" Type="String" />
       <Parameter Name="balanceLimitMonth" Mode="In" Type="Int32" />
-      <Parameter Name="month" Mode="In" Type="String" />
       <Parameter Name="year" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="proc_Create_Protocol">
@@ -225,7 +224,7 @@
       <Parameter Name="billingEmail" Mode="In" Type="String" />
       <Parameter Name="date" Mode="In" Type="DateTime" />
       <Parameter Name="event" Mode="In" Type="String" />
-      <Parameter Name="billedAmount" Mode="In" Type="Decimal" />
+      <Parameter Name="billedAmount" Mode="In" Type="Int32" />
       <Parameter Name="parts" Mode="In" Type="String" />
       <Parameter Name="writingNumber" Mode="In" Type="String" />
     </FunctionImport>
@@ -235,10 +234,18 @@
     <FunctionImport Name="proc_Delete_Writing">
       <Parameter Name="writingID" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="proc_Get_ActualBillingByMonth" ReturnType="Collection(Int32)">
+      <Parameter Name="month" Mode="In" Type="String" />
+      <Parameter Name="year" Mode="In" Type="Int32" />
+      <Parameter Name="notaryID" Mode="In" Type="Int32" />
+    </FunctionImport>
     <FunctionImport Name="proc_Get_Affairs" ReturnType="Collection(LincolnDBModel.proc_Get_Affairs_Result)" />
+    <FunctionImport Name="proc_Get_AllNotaryIDs" ReturnType="Collection(Int32)" />
     <FunctionImport Name="proc_Get_ALLWritings" ReturnType="Collection(LincolnDBModel.proc_Get_ALLWritings_Result)" />
     <FunctionImport Name="proc_Get_ALLWritingsByProtocol" ReturnType="Collection(LincolnDBModel.proc_Get_ALLWritingsByProtocol_Result)">
-      <Parameter Name="protocolID" Mode="In" Type="Int32" />
+      <Parameter Name="month" Mode="In" Type="String" />
+      <Parameter Name="year" Mode="In" Type="Int32" />
+      <Parameter Name="notaryID" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="proc_Get_Clients" ReturnType="Collection(LincolnDBModel.proc_Get_Clients_Result)" />
     <FunctionImport Name="proc_Get_Co_NotaryWritingByID" ReturnType="Collection(LincolnDBModel.proc_Get_Co_NotaryWritingByID_Result)">
@@ -247,9 +254,26 @@
     <FunctionImport Name="proc_Get_JustOwnWritingsByProtocol" ReturnType="Collection(LincolnDBModel.proc_Get_JustOwnWritingsByProtocol_Result)">
       <Parameter Name="protocolID" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="proc_Get_LastWriting" ReturnType="Collection(Int32)" />
     <FunctionImport Name="proc_Get_Notaries" ReturnType="Collection(LincolnDBModel.proc_Get_Notaries_Result)" />
     <FunctionImport Name="proc_Get_Notaries_Eliminated" ReturnType="Collection(LincolnDBModel.proc_Get_Notaries_Eliminated_Result)" />
+    <FunctionImport Name="proc_Get_NotariesWithOutOneById" ReturnType="Collection(LincolnDBModel.proc_Get_NotariesWithOutOneById_Result)">
+      <Parameter Name="notaryId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="proc_Get_ProtocolIDByMonthAndYear" ReturnType="Collection(Int32)">
+      <Parameter Name="month" Mode="In" Type="String" />
+      <Parameter Name="year" Mode="In" Type="Int32" />
+      <Parameter Name="notaryID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="proc_Get_ProtocolInfo" ReturnType="Collection(LincolnDBModel.proc_Get_ProtocolInfo_Result)">
+      <Parameter Name="protocolID" Mode="In" Type="Int32" />
+    </FunctionImport>
     <FunctionImport Name="proc_Get_Protocols" ReturnType="Collection(LincolnDBModel.proc_Get_Protocols_Result)" />
+    <FunctionImport Name="proc_Get_ProtocolsByMonth" ReturnType="Collection(LincolnDBModel.proc_Get_ProtocolsByMonth_Result)">
+      <Parameter Name="month" Mode="In" Type="String" />
+      <Parameter Name="year" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="proc_Get_Years" ReturnType="Collection(Int32)" />
     <FunctionImport Name="proc_HonoraryWriting" ReturnType="Collection(Int32)">
       <Parameter Name="writingID" Mode="In" Type="Int32" />
     </FunctionImport>
@@ -266,9 +290,17 @@
     <FunctionImport Name="proc_SummaryActualMonth" ReturnType="Collection(LincolnDBModel.proc_SummaryActualMonth_Result)">
       <Parameter Name="month" Mode="In" Type="String" />
     </FunctionImport>
-    <FunctionImport Name="proc_SummaryMonths" ReturnType="Collection(LincolnDBModel.proc_SummaryMonths_Result)" />
+    <FunctionImport Name="proc_SummaryMonths" ReturnType="Collection(LincolnDBModel.proc_SummaryMonths_Result)">
+      <Parameter Name="month" Mode="In" Type="String" />
+      <Parameter Name="year" Mode="In" Type="Int32" />
+    </FunctionImport>
     <FunctionImport Name="proc_SummaryMovementsByNotaryID" ReturnType="Collection(Int32)">
       <Parameter Name="notaryID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="proc_SummaryMovementsByNotaryIDAndMonth" ReturnType="Collection(Int32)">
+      <Parameter Name="notaryID" Mode="In" Type="Int32" />
+      <Parameter Name="month" Mode="In" Type="String" />
+      <Parameter Name="year" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="proc_SummaryNotary" ReturnType="Collection(LincolnDBModel.proc_SummaryNotary_Result)">
       <Parameter Name="notaryID" Mode="In" Type="Int32" />
@@ -315,6 +347,11 @@
       <Parameter Name="date" Mode="In" Type="DateTime" />
       <Parameter Name="eventWriting" Mode="In" Type="String" />
     </FunctionImport>
+    <FunctionImport Name="proc_UpdateProtocolActualBillingByMonth">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="month" Mode="In" Type="String" />
+      <Parameter Name="year" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="proc_Get_Affairs_Result">
     <Property Type="Int32" Name="Codigo" Nullable="false" />
@@ -335,7 +372,8 @@
     <Property Type="String" Name="Escritura_Eliminada" Nullable="false" MaxLength="2" />
   </ComplexType>
   <ComplexType Name="proc_Get_ALLWritingsByProtocol_Result">
-    <Property Type="Int32" Name="Codigo_Escritura" Nullable="false" />
+    <Property Type="Int32" Name="Codigo" Nullable="false" />
+    <Property Type="String" Name="Numero_de_Escritura" Nullable="false" MaxLength="50" />
     <Property Type="String" Name="Acto_" Nullable="false" MaxLength="50" />
     <Property Type="String" Name="Asunto" Nullable="false" MaxLength="50" />
     <Property Type="String" Name="Cliente" Nullable="false" MaxLength="50" />
@@ -345,7 +383,6 @@
     <Property Type="String" Name="Domilicio_a_Facturar" Nullable="false" MaxLength="100" />
     <Property Type="String" Name="Correo_a_Facturar" Nullable="false" MaxLength="100" />
     <Property Type="DateTime" Name="Fecha" Nullable="false" />
-    <Property Type="DateTime" Name="Fecha1" Nullable="false" />
     <Property Type="Int32" Name="Facturado_por_Notario" Nullable="true" />
     <Property Type="String" Name="Co_Notario" Nullable="false" MaxLength="2" />
   </ComplexType>
@@ -395,7 +432,34 @@
     <Property Type="Int32" Name="Saldo_Mensual" Nullable="false" />
     <Property Type="Int32" Name="Saldo_Anual" Nullable="true" />
   </ComplexType>
+  <ComplexType Name="proc_Get_NotariesWithOutOneById_Result">
+    <Property Type="Int32" Name="Codigo_Notario" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Iniciales" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="Cartula_RBT" Nullable="false" MaxLength="2" />
+    <Property Type="String" Name="Habilitado" Nullable="false" MaxLength="2" />
+    <Property Type="Int32" Name="Saldo_Mensual_Ideal" Nullable="false" />
+    <Property Type="Int32" Name="Saldo_Anual" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="proc_Get_ProtocolInfo_Result">
+    <Property Type="Int32" Name="Codigo_Notario" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Iniciales" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="RBT" Nullable="false" MaxLength="2" />
+    <Property Type="String" Name="Habilitado" Nullable="false" MaxLength="2" />
+  </ComplexType>
   <ComplexType Name="proc_Get_Protocols_Result">
+    <Property Type="Int32" Name="Codigo_Protocolo" Nullable="false" />
+    <Property Type="String" Name="Notario" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="Saldo_Mensual_Ideal" Nullable="false" />
+    <Property Type="Int32" Name="Saldo_Anual" Nullable="true" />
+    <Property Type="Int32" Name="Saldo_Actual" Nullable="false" />
+    <Property Type="String" Name="Cartula_en_RBT" Nullable="false" MaxLength="2" />
+    <Property Type="String" Name="Protocolo_disponible" Nullable="false" MaxLength="2" />
+    <Property Type="String" Name="Mes_del_Protocolo" Nullable="false" MaxLength="25" />
+    <Property Type="Int32" Name="Año_del_Protocolo" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="proc_Get_ProtocolsByMonth_Result">
     <Property Type="Int32" Name="Codigo_Protocolo" Nullable="false" />
     <Property Type="String" Name="Notario" Nullable="false" MaxLength="50" />
     <Property Type="Int32" Name="Saldo_Mensual_Ideal" Nullable="false" />
@@ -413,6 +477,7 @@
     <Property Type="Int32" Name="Column1" Nullable="true" />
   </ComplexType>
   <ComplexType Name="proc_SummaryMonths_Result">
+    <Property Type="Int32" Name="Codigo" Nullable="false" />
     <Property Type="String" Name="Notario" Nullable="false" MaxLength="50" />
     <Property Type="Int32" Name="NotaryID" Nullable="false" />
     <Property Type="String" Name="Month" Nullable="false" MaxLength="25" />
@@ -426,8 +491,9 @@
     <Property Type="Int32" Name="Facturación_Total_Año_Calendario" Nullable="true" />
   </ComplexType>
   <ComplexType Name="proc_SummaryPerMonth_Result">
+    <Property Type="Int32" Name="Codigo" Nullable="false" />
     <Property Type="String" Name="Notario" Nullable="false" MaxLength="50" />
-    <Property Type="Int32" Name="Saldo_Mensual" Nullable="true" />
+    <Property Type="Int32" Name="Saldo_Mensual" Nullable="false" />
     <Property Type="Int32" Name="Facturado" Nullable="true" />
     <Property Type="Int32" Name="Saldo_Actual" Nullable="false" />
     <Property Type="Int32" Name="Saldo_Anual" Nullable="true" />

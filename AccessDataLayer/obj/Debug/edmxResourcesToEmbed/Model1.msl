@@ -90,6 +90,7 @@
     <FunctionImportMapping FunctionImportName="proc_Create_Writing" FunctionName="LincolnDBModel.Store.proc_Create_Writing" />
     <FunctionImportMapping FunctionImportName="proc_Delete_Notary" FunctionName="LincolnDBModel.Store.proc_Delete_Notary" />
     <FunctionImportMapping FunctionImportName="proc_Delete_Writing" FunctionName="LincolnDBModel.Store.proc_Delete_Writing" />
+    <FunctionImportMapping FunctionImportName="proc_Get_ActualBillingByMonth" FunctionName="LincolnDBModel.Store.proc_Get_ActualBillingByMonth" />
     <FunctionImportMapping FunctionImportName="proc_Get_Affairs" FunctionName="LincolnDBModel.Store.proc_Get_Affairs">
       <ResultMapping>
         <ComplexTypeMapping TypeName="LincolnDBModel.proc_Get_Affairs_Result">
@@ -98,6 +99,7 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="proc_Get_AllNotaryIDs" FunctionName="LincolnDBModel.Store.proc_Get_AllNotaryIDs" />
     <FunctionImportMapping FunctionImportName="proc_Get_ALLWritings" FunctionName="LincolnDBModel.Store.proc_Get_ALLWritings">
       <ResultMapping>
         <ComplexTypeMapping TypeName="LincolnDBModel.proc_Get_ALLWritings_Result">
@@ -119,7 +121,8 @@
     <FunctionImportMapping FunctionImportName="proc_Get_ALLWritingsByProtocol" FunctionName="LincolnDBModel.Store.proc_Get_ALLWritingsByProtocol">
       <ResultMapping>
         <ComplexTypeMapping TypeName="LincolnDBModel.proc_Get_ALLWritingsByProtocol_Result">
-          <ScalarProperty Name="Codigo_Escritura" ColumnName="Codigo Escritura" />
+          <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+          <ScalarProperty Name="Numero_de_Escritura" ColumnName="Numero de Escritura" />
           <ScalarProperty Name="Acto_" ColumnName="Acto " />
           <ScalarProperty Name="Asunto" ColumnName="Asunto" />
           <ScalarProperty Name="Cliente" ColumnName="Cliente" />
@@ -129,7 +132,6 @@
           <ScalarProperty Name="Domilicio_a_Facturar" ColumnName="Domilicio a Facturar" />
           <ScalarProperty Name="Correo_a_Facturar" ColumnName="Correo a Facturar" />
           <ScalarProperty Name="Fecha" ColumnName="Fecha" />
-          <ScalarProperty Name="Fecha1" ColumnName="Fecha1" />
           <ScalarProperty Name="Facturado_por_Notario" ColumnName="Facturado por Notario" />
           <ScalarProperty Name="Co_Notario" ColumnName="Co-Notario" />
         </ComplexTypeMapping>
@@ -175,6 +177,7 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="proc_Get_LastWriting" FunctionName="LincolnDBModel.Store.proc_Get_LastWriting" />
     <FunctionImportMapping FunctionImportName="proc_Get_Notaries" FunctionName="LincolnDBModel.Store.proc_Get_Notaries">
       <ResultMapping>
         <ComplexTypeMapping TypeName="LincolnDBModel.proc_Get_Notaries_Result">
@@ -201,6 +204,31 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="proc_Get_NotariesWithOutOneById" FunctionName="LincolnDBModel.Store.proc_Get_NotariesWithOutOneById">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="LincolnDBModel.proc_Get_NotariesWithOutOneById_Result">
+          <ScalarProperty Name="Codigo_Notario" ColumnName="Codigo Notario" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Iniciales" ColumnName="Iniciales" />
+          <ScalarProperty Name="Cartula_RBT" ColumnName="Cartula RBT" />
+          <ScalarProperty Name="Habilitado" ColumnName="Habilitado" />
+          <ScalarProperty Name="Saldo_Mensual_Ideal" ColumnName="Saldo Mensual Ideal" />
+          <ScalarProperty Name="Saldo_Anual" ColumnName="Saldo Anual" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="proc_Get_ProtocolIDByMonthAndYear" FunctionName="LincolnDBModel.Store.proc_Get_ProtocolIDByMonthAndYear" />
+    <FunctionImportMapping FunctionImportName="proc_Get_ProtocolInfo" FunctionName="LincolnDBModel.Store.proc_Get_ProtocolInfo">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="LincolnDBModel.proc_Get_ProtocolInfo_Result">
+          <ScalarProperty Name="Codigo_Notario" ColumnName="Codigo Notario" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Iniciales" ColumnName="Iniciales" />
+          <ScalarProperty Name="RBT" ColumnName="RBT" />
+          <ScalarProperty Name="Habilitado" ColumnName="Habilitado" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="proc_Get_Protocols" FunctionName="LincolnDBModel.Store.proc_Get_Protocols">
       <ResultMapping>
         <ComplexTypeMapping TypeName="LincolnDBModel.proc_Get_Protocols_Result">
@@ -216,6 +244,22 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="proc_Get_ProtocolsByMonth" FunctionName="LincolnDBModel.Store.proc_Get_ProtocolsByMonth">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="LincolnDBModel.proc_Get_ProtocolsByMonth_Result">
+          <ScalarProperty Name="Codigo_Protocolo" ColumnName="Codigo Protocolo" />
+          <ScalarProperty Name="Notario" ColumnName="Notario" />
+          <ScalarProperty Name="Saldo_Mensual_Ideal" ColumnName="Saldo Mensual Ideal" />
+          <ScalarProperty Name="Saldo_Anual" ColumnName="Saldo Anual" />
+          <ScalarProperty Name="Saldo_Actual" ColumnName="Saldo Actual" />
+          <ScalarProperty Name="Cartula_en_RBT" ColumnName="Cartula en RBT" />
+          <ScalarProperty Name="Protocolo_disponible" ColumnName="Protocolo disponible" />
+          <ScalarProperty Name="Mes_del_Protocolo" ColumnName="Mes del Protocolo" />
+          <ScalarProperty Name="Año_del_Protocolo" ColumnName="Año del Protocolo" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="proc_Get_Years" FunctionName="LincolnDBModel.Store.proc_Get_Years" />
     <FunctionImportMapping FunctionImportName="proc_HonoraryWriting" FunctionName="LincolnDBModel.Store.proc_HonoraryWriting" />
     <FunctionImportMapping FunctionImportName="proc_Insert_UserLogin" FunctionName="LincolnDBModel.Store.proc_Insert_UserLogin" />
     <FunctionImportMapping FunctionImportName="proc_ModifyActualBalance_Protocol" FunctionName="LincolnDBModel.Store.proc_ModifyActualBalance_Protocol" />
@@ -232,6 +276,7 @@
     <FunctionImportMapping FunctionImportName="proc_SummaryMonths" FunctionName="LincolnDBModel.Store.proc_SummaryMonths">
       <ResultMapping>
         <ComplexTypeMapping TypeName="LincolnDBModel.proc_SummaryMonths_Result">
+          <ScalarProperty Name="Codigo" ColumnName="Codigo" />
           <ScalarProperty Name="Notario" ColumnName="Notario" />
           <ScalarProperty Name="NotaryID" ColumnName="NotaryID" />
           <ScalarProperty Name="Month" ColumnName="Month" />
@@ -240,6 +285,7 @@
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="proc_SummaryMovementsByNotaryID" FunctionName="LincolnDBModel.Store.proc_SummaryMovementsByNotaryID" />
+    <FunctionImportMapping FunctionImportName="proc_SummaryMovementsByNotaryIDAndMonth" FunctionName="LincolnDBModel.Store.proc_SummaryMovementsByNotaryIDAndMonth" />
     <FunctionImportMapping FunctionImportName="proc_SummaryNotary" FunctionName="LincolnDBModel.Store.proc_SummaryNotary">
       <ResultMapping>
         <ComplexTypeMapping TypeName="LincolnDBModel.proc_SummaryNotary_Result">
@@ -254,6 +300,7 @@
     <FunctionImportMapping FunctionImportName="proc_SummaryPerMonth" FunctionName="LincolnDBModel.Store.proc_SummaryPerMonth">
       <ResultMapping>
         <ComplexTypeMapping TypeName="LincolnDBModel.proc_SummaryPerMonth_Result">
+          <ScalarProperty Name="Codigo" ColumnName="Codigo" />
           <ScalarProperty Name="Notario" ColumnName="Notario" />
           <ScalarProperty Name="Saldo_Mensual" ColumnName="Saldo Mensual" />
           <ScalarProperty Name="Facturado" ColumnName="Facturado" />
@@ -268,5 +315,6 @@
     <FunctionImportMapping FunctionImportName="proc_Update_Notary" FunctionName="LincolnDBModel.Store.proc_Update_Notary" />
     <FunctionImportMapping FunctionImportName="proc_Update_Protocol" FunctionName="LincolnDBModel.Store.proc_Update_Protocol" />
     <FunctionImportMapping FunctionImportName="proc_Update_WritingByID" FunctionName="LincolnDBModel.Store.proc_Update_WritingByID" />
+    <FunctionImportMapping FunctionImportName="proc_UpdateProtocolActualBillingByMonth" FunctionName="LincolnDBModel.Store.proc_UpdateProtocolActualBillingByMonth" />
   </EntityContainerMapping>
 </Mapping>

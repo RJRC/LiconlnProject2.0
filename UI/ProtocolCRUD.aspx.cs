@@ -15,6 +15,7 @@ namespace UI
         protected void Page_Load(object sender, EventArgs e)
         {
             load();
+            Session["Varload"] = 0;
         }
 
         private void load()
@@ -47,9 +48,9 @@ namespace UI
                 /*Button Update*/
                 int crow;
                 crow = Convert.ToInt32(e.CommandArgument.ToString());
-                string code = GridViewProtocols.Rows[crow].Cells[1].Text; //obtener un dato de la tabla 
-
-
+                string protocolID = GridViewProtocols.Rows[crow].Cells[1].Text; //Codigo del Protocolo
+                Session["ProtocolID"] = protocolID ;
+                Session["Varload"] = 0;
                 Response.Redirect("WritingCRUD.aspx");
             }
         }

@@ -17,7 +17,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta charset="UTF-8" />
 	<meta name="keywords" content="INVICTA Legal"/>
-
+    
+    <link rel="shortcut icon" href="images/punto.png" />
 
     <script>
 		addEventListener("load", function () {
@@ -83,17 +84,23 @@
 								<li >
 									<a href="AdminModule.aspx" class="hvr-overline-from-center" >Inicio</a>
 								</li>
-                                <!-- <li>
-									<a href="#contact" class="hvr-overline-from-center scroll">Lista de Protocolos</a>
-								</li> --> 
-								<li>
-									<a href="ProtocolCRUD.aspx" class="hvr-overline-from-center ">Protocolos</a>
-								</li>
+                                
+								
                           
 								<li>
 									<a href="NotaryCRUD.aspx" class="hvr-overline-from-center">Notarios</a>
 								</li>
 
+                                <li>
+									<a href="ProtocolCRUD.aspx" class="hvr-overline-from-center ">Protocolos</a>
+								</li>
+                                 <li>
+									<a href="#about" class="hvr-overline-from-center scroll">Facturación Anual</a>
+								</li> 
+
+                                 <li>
+									<a href="#services" class="hvr-overline-from-center scroll">Facturación Mensual</a>
+								</li> 
                                 
                                 
 							</ul>

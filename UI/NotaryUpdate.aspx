@@ -23,7 +23,6 @@ function hideURLbar(){ window.scrollTo(0,1); }</script>
 	<div class="contact" id="contact">
 		<div class="container">
 			<h3 class="title">Modificar Notario
-				<img src="images/logo2.png" alt="" />
 			</h3>
 
 	        <br/>

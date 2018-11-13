@@ -12,6 +12,7 @@ namespace UI
     public partial class NotaryCRUD : System.Web.UI.Page
     {
         private BLL bll = new BLL();
+        private int varDeleted = 0;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -125,6 +126,32 @@ namespace UI
             else
             {
                 alert("El monto del saldo presenta un Error, Ingrese un Numero");
+            }
+        }
+
+        protected void ButtonDeleted_Click(object sender, EventArgs e)
+        {
+
+            GridViewDeleted.DataSource = bll.showNotariesDeleted();
+            GridViewDeleted.DataBind();
+        }
+
+        protected void GridViewDeleted_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "buttonRestore")
+            {
+                /*Button Update*/
+                /*int crow;
+                crow = Convert.ToInt32(e.CommandArgument.ToString());
+                string code = GridViewNotaries.Rows[crow].Cells[2].Text; //obtener un dato de la tabla 
+
+                bll.deleteNotary(code);
+
+                load();
+
+                alert("Se ha eliminado correctamente");*/
+
+
             }
         }
     }

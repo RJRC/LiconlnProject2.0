@@ -18,6 +18,10 @@ namespace UI
         protected void Session_Start(object sender, EventArgs e)
         {
             Session["NotaryID"] = "Por Defecto";
+            Session["ProtocolID"] = "Por Defecto";
+            Session["Varload"] = "Por Defecto";
+            Session["WritingIDConotary"] = "Por Defecto";
+            Session["DoWriting"] = "Por Defecto";
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)

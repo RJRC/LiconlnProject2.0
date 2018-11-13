@@ -163,7 +163,6 @@
     <Parameter Name="enabled" Type="nvarchar" Mode="In" />
     <Parameter Name="availability" Type="nvarchar" Mode="In" />
     <Parameter Name="balanceLimitMonth" Type="int" Mode="In" />
-    <Parameter Name="month" Type="nvarchar" Mode="In" />
     <Parameter Name="year" Type="int" Mode="In" />
   </Function>
   <Function Name="proc_Create_Protocol" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -181,7 +180,7 @@
     <Parameter Name="billingEmail" Type="nvarchar" Mode="In" />
     <Parameter Name="date" Type="date" Mode="In" />
     <Parameter Name="event" Type="nvarchar" Mode="In" />
-    <Parameter Name="billedAmount" Type="money" Mode="In" />
+    <Parameter Name="billedAmount" Type="int" Mode="In" />
     <Parameter Name="parts" Type="nvarchar" Mode="In" />
     <Parameter Name="writingNumber" Type="nvarchar" Mode="In" />
   </Function>
@@ -191,10 +190,18 @@
   <Function Name="proc_Delete_Writing" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="writingID" Type="int" Mode="In" />
   </Function>
+  <Function Name="proc_Get_ActualBillingByMonth" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="month" Type="nvarchar" Mode="In" />
+    <Parameter Name="year" Type="int" Mode="In" />
+    <Parameter Name="notaryID" Type="int" Mode="In" />
+  </Function>
   <Function Name="proc_Get_Affairs" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="proc_Get_AllNotaryIDs" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="proc_Get_ALLWritings" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="proc_Get_ALLWritingsByProtocol" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="protocolID" Type="int" Mode="In" />
+    <Parameter Name="month" Type="nvarchar" Mode="In" />
+    <Parameter Name="year" Type="int" Mode="In" />
+    <Parameter Name="notaryID" Type="int" Mode="In" />
   </Function>
   <Function Name="proc_Get_Clients" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="proc_Get_Co_NotaryWritingByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="proc_Get_Co-NotaryWritingByID">
@@ -203,9 +210,26 @@
   <Function Name="proc_Get_JustOwnWritingsByProtocol" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="protocolID" Type="int" Mode="In" />
   </Function>
+  <Function Name="proc_Get_LastWriting" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="proc_Get_Notaries" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="proc_Get_Notaries_Eliminated" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="proc_Get_NotariesWithOutOneById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="notaryId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="proc_Get_ProtocolIDByMonthAndYear" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="month" Type="nvarchar" Mode="In" />
+    <Parameter Name="year" Type="int" Mode="In" />
+    <Parameter Name="notaryID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="proc_Get_ProtocolInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="protocolID" Type="int" Mode="In" />
+  </Function>
   <Function Name="proc_Get_Protocols" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="proc_Get_ProtocolsByMonth" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="month" Type="nvarchar" Mode="In" />
+    <Parameter Name="year" Type="int" Mode="In" />
+  </Function>
+  <Function Name="proc_Get_Years" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="proc_HonoraryWriting" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="writingID" Type="int" Mode="In" />
   </Function>
@@ -222,9 +246,17 @@
   <Function Name="proc_SummaryActualMonth" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="month" Type="nvarchar" Mode="In" />
   </Function>
-  <Function Name="proc_SummaryMonths" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="proc_SummaryMonths" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="month" Type="nvarchar" Mode="In" />
+    <Parameter Name="year" Type="int" Mode="In" />
+  </Function>
   <Function Name="proc_SummaryMovementsByNotaryID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="notaryID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="proc_SummaryMovementsByNotaryIDAndMonth" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="notaryID" Type="int" Mode="In" />
+    <Parameter Name="month" Type="nvarchar" Mode="In" />
+    <Parameter Name="year" Type="int" Mode="In" />
   </Function>
   <Function Name="proc_SummaryNotary" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="notaryID" Type="int" Mode="In" />
@@ -270,6 +302,11 @@
     <Parameter Name="billingEmail" Type="nvarchar" Mode="In" />
     <Parameter Name="date" Type="date" Mode="In" />
     <Parameter Name="eventWriting" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="proc_UpdateProtocolActualBillingByMonth" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="month" Type="nvarchar" Mode="In" />
+    <Parameter Name="year" Type="int" Mode="In" />
   </Function>
   <EntityContainer Name="LincolnDBModelStoreContainer">
     <EntitySet Name="Affair" EntityType="Self.Affair" Schema="dbo" store:Type="Tables" />

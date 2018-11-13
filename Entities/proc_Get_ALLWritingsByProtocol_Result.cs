@@ -13,7 +13,8 @@ namespace Entities
     
     public partial class proc_Get_ALLWritingsByProtocol_Result
     {
-        public int Codigo_Escritura { get; set; }
+        public int Codigo { get; set; }
+        public string Numero_de_Escritura { get; set; }
         public string Acto_ { get; set; }
         public string Asunto { get; set; }
         public string Cliente { get; set; }
@@ -23,7 +24,6 @@ namespace Entities
         public string Domilicio_a_Facturar { get; set; }
         public string Correo_a_Facturar { get; set; }
         public System.DateTime Fecha { get; set; }
-        public System.DateTime Fecha1 { get; set; }
         public Nullable<int> Facturado_por_Notario { get; set; }
         public string Co_Notario { get; set; }
     }

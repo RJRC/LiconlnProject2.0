@@ -13,6 +13,7 @@ namespace Entities
     
     public partial class proc_SummaryMonths_Result
     {
+        public int Codigo { get; set; }
         public string Notario { get; set; }
         public int NotaryID { get; set; }
         public string Month { get; set; }
