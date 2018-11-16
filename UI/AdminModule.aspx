@@ -10,7 +10,8 @@
 <!-- css files -->
 <link href="//fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&amp;subset=devanagari,latin-ext" rel="stylesheet">
 <link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese" rel="stylesheet">
-    <link href="css/addStyles.css" rel="stylesheet" />
+ <!-- <link href="css/addStyles.css" rel="stylesheet" />  -->
+    <link href="css/wellSelect.css" rel="stylesheet" />
     <link href="css/searchStyles.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 
@@ -36,12 +37,20 @@
 			</h3>
 
            
-            <asp:DropDownList ID="DropDownListYear" style="color: darkgray;"  runat="server" Width="168px" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged" BackColor="White">
+            <asp:DropDownList ID="DropDownListYear"  runat="server" Width="168px" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged" BackColor="White">
             </asp:DropDownList> 
             <br>
             <br>
             <asp:Button ID="Button3" runat="server" CssClass="btn btn-lg btn-default" Text="Filtrar por año" OnClick="Button3_Click" />
+            
+            <br><br>
+            <asp:Label ID="Label1" runat="server" Text="Nombre del Archivo"></asp:Label>
+            <asp:TextBox ID="TextBox1" runat="server" placeholder="Nombre del archivo" required="" type="text" Width="299px"></asp:TextBox>
+            <asp:LinkButton ID="LinkButton1" runat="server" CssClass="btn btn-lg btn-default"   Text="Exportar" OnClick="LinkButton1_Click"></asp:LinkButton>
 
+            <asp:Button ID="Button4" CssClass="btn btn-lg btn-default" runat="server" Text="Exportar" OnClick="Button4_Click" />
+            
+            <asp:LinkButton ID="LinkButton2" runat="server" OnClick="LinkButton2_Click">LinkButton</asp:LinkButton>
             
             <br/>
             <br/>
@@ -102,7 +111,7 @@
                                     
                                    
 
-                                    <asp:DropDownList ID="DropDownListMonths" style="color: darkgray;"  runat="server" Width="176px" BackColor="White" CssClass="color: White">
+                                    <asp:DropDownList ID="DropDownListMonths"  runat="server" Width="176px" BackColor="White" CssClass="color: White">
                                         
                                         <asp:ListItem>Enero</asp:ListItem>
                                         <asp:ListItem>Febrero</asp:ListItem>
@@ -118,7 +127,7 @@
                                         <asp:ListItem>Diciembre</asp:ListItem>
 
                                     </asp:DropDownList>
-                                    <asp:DropDownList ID="DropDownListYearsMonth" style="color: darkgray;" runat="server" Width="175px" BackColor="White" CssClass="color : White"></asp:DropDownList>
+                                    <asp:DropDownList ID="DropDownListYearsMonth"  runat="server" Width="175px" BackColor="White" CssClass="color : White"></asp:DropDownList>
 
                                     <!--end of col-->
                                     <div class="col-auto">

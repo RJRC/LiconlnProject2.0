@@ -316,7 +316,7 @@ namespace AccessDataLayer
                 }
 
                 if (allWritings != 0) {
-                    table.Rows.Add(monthToSearch, allWritings);
+                    table.Rows.Add(monthToSearch, "$" + allWritings);
                 }
             }
 
@@ -467,7 +467,7 @@ namespace AccessDataLayer
             foreach (proc_Get_Notaries_Result item in summary.ToList())
             {
 
-                table.Rows.Add(item.Codigo_Notario, item.Nombre, item.Iniciales, item.Cartula_RBT, item.Habilitado, item.Saldo_Mensual_Ideal);
+                table.Rows.Add(item.Codigo_Notario, item.Nombre, item.Iniciales, item.Cartula_RBT, item.Habilitado, "$" + item.Saldo_Mensual_Ideal);
             }
 
             return table;
@@ -522,15 +522,34 @@ namespace AccessDataLayer
             table.Columns.Add("Codigo");
             table.Columns.Add("Notario");
             table.Columns.Add("Saldo Mensual");
-            table.Columns.Add("Saldo Actual");
+            table.Columns.Add("Saldo Mensual Actual");
             table.Columns.Add("Saldo Anual");
+            table.Columns.Add("Saldo Anual Actual");
             table.Columns.Add("Cartula RBT");
             table.Columns.Add("Habilitado");
+
 
             foreach (proc_Get_ProtocolsByMonth_Result item in summary.ToList())
             {
 
-                table.Rows.Add(item.Codigo_Protocolo, item.Notario, item.Saldo_Mensual_Ideal, item.Saldo_Actual, item.Saldo_Anual,
+                int allWritings = 0;
+
+
+
+
+                for (int i = 1; i <= 12; i++)
+                {
+                    string monthToSearch = getMonthNumberWithoutCeroToMonth((i + ""));
+
+                    var variable = database.proc_SummaryMovementsByNotaryIDAndMonth(item.Codigo_Notario, monthToSearch, year);
+
+                    foreach (int writing in variable.ToList())
+                    {
+                        allWritings += writing;
+                    }
+                }
+
+                table.Rows.Add(item.Codigo_Protocolo, item.Notario, "$" +  item.Saldo_Mensual_Ideal, "$" + item.Saldo_Actual, "$" + item.Saldo_Anual, "$" + (item.Saldo_Anual - allWritings), 
                     item.Cartula_en_RBT, item.Protocolo_disponible);
             }
 
@@ -596,6 +615,7 @@ namespace AccessDataLayer
                 n.NotaryInitials = item.Iniciales;
                 n.RBTEnabled = item.RBT;
                 n.NotaryAvailable = item.Habilitado;
+                n.BalanceLimitMonth = int.Parse(item.Limite_Anual.ToString());
             }
             return n;
         }
@@ -615,12 +635,12 @@ namespace AccessDataLayer
             table.Columns.Add("Asunto");
             table.Columns.Add("Cliente");
             table.Columns.Add("Honorario");
+            table.Columns.Add("Facturado por Notario");
             table.Columns.Add("Partes");
             table.Columns.Add("Cedula a Facturar");
             table.Columns.Add("Domicilio a Facturar");
             table.Columns.Add("Correo a Facturar");
             table.Columns.Add("Fecha");
-            table.Columns.Add("Facturado por Notario");
 
 
             foreach (proc_Get_ALLWritingsByProtocol_Result item in summary.ToList())
@@ -634,9 +654,9 @@ namespace AccessDataLayer
                 }
 
                 if (item.Co_Notario.Equals("NO")) {
-                    table.Rows.Add(item.Codigo, item.Numero_de_Escritura, item.Acto_, item.Asunto, item.Cliente, writingHonorary,
+                    table.Rows.Add(item.Codigo, item.Numero_de_Escritura, item.Acto_, item.Asunto, item.Cliente, "$" + writingHonorary, "$" + item.Facturado_por_Notario,
                         item.Partes, item.Cedula_a_Facturar, item.Domilicio_a_Facturar, item.Correo_a_Facturar,
-                        item.Fecha, item.Facturado_por_Notario);
+                        item.Fecha);
                 }
 
             }
@@ -662,7 +682,7 @@ namespace AccessDataLayer
             {
 
                 table.Rows.Add(item.Codigo_Escritura, item.Acto_, item.Asunto, item.Cliente, item.Notario,
-                    item.Facturado_por_Notario);
+                     "$" +  item.Facturado_por_Notario);
 
 
             }
@@ -755,6 +775,143 @@ namespace AccessDataLayer
             return listOfYears;
         }
 
-        
+        public void restoreNotary(int idNotary) {
+
+            database.proc_Restore_Notary(idNotary);
+        }
+
+
+        public DataTable getAllCoNotariesByNotary(int idNotary, int year) {
+
+            var summary = database.proc_Get_ALLCoNotariesWritingsByNotary(idNotary, year);
+            DataTable table = new DataTable();
+
+            table.Columns.Add("CoNotario");
+            table.Columns.Add("Numero de Escritura");
+            table.Columns.Add("Acto");
+            table.Columns.Add("Asunto");
+            table.Columns.Add("Cliente");
+            table.Columns.Add("Honorario");
+            table.Columns.Add("Facturado por CoNotario");
+            table.Columns.Add("Partes");
+            table.Columns.Add("Cedula a Facturar");
+            table.Columns.Add("Domicilio a Facturar");
+            table.Columns.Add("Correo a Facturar");
+            table.Columns.Add("Fecha");
+
+
+            foreach (proc_Get_ALLCoNotariesWritingsByNotary_Result item in summary.ToList())
+            {
+
+                var totalHonorary = database.proc_HonoraryWriting(item.Codigo);
+                int writingHonorary = 0;
+                foreach (int item2 in totalHonorary.ToList())
+                {
+                    writingHonorary = item2;
+                }
+
+                table.Rows.Add(item.Notario, item.Numero_de_Escritura , item.Acto_, item.Asunto, 
+                    item.Cliente,"$" + writingHonorary, "$" + item.Facturado_por_Notario, item.Partes,item.Cedula_a_Facturar, 
+                    item.Domilicio_a_Facturar, item.Correo_a_Facturar, item.Fecha);
+
+
+            }
+
+            return table;
+
+
+        }
+
+        public DataTable getAllOwnWritingsByNotary(int idNotary, int year)
+        {
+            var summary = database.proc_Get_ALLOwnWritingsByNotary( year, idNotary);
+            DataTable table = new DataTable();
+
+            table.Columns.Add("Notario");
+            table.Columns.Add("Numero de Escritura");
+            table.Columns.Add("Acto");
+            table.Columns.Add("Asunto");
+            table.Columns.Add("Cliente");
+            table.Columns.Add("Honorario");
+            table.Columns.Add("Facturado por Notario");
+            table.Columns.Add("Partes");
+            table.Columns.Add("Cedula a Facturar");
+            table.Columns.Add("Domicilio a Facturar");
+            table.Columns.Add("Correo a Facturar");
+            table.Columns.Add("Fecha");
+
+
+            foreach (proc_Get_ALLOwnWritingsByNotary_Result item in summary.ToList())
+            {
+
+
+                var totalHonorary = database.proc_HonoraryWriting(item.Codigo);
+                int writingHonorary = 0;
+                foreach (int item2 in totalHonorary.ToList())
+                {
+                    writingHonorary = item2;
+                }
+                table.Rows.Add(item.Notario, item.Numero_de_Escritura, item.Acto_, item.Asunto, item.Cliente, "$" + writingHonorary,
+                    "$" + item.Facturado_por_Notario, item.Partes, item.Cedula_a_Facturar, item.Domilicio_a_Facturar, item.Correo_a_Facturar, item.Fecha);
+
+
+            }
+
+            return table;
+
+
+
+        }
+
+
+       /* public int getFacHonorary(string month, int year, int notaryId, int writingId) {
+
+            var var = database.proc_Get_OneWritingByNotaryIDToUpdate(month, year, notaryId, writingId);
+            int result = 0;
+            if (var.ToList().Count > 0) {
+                try
+                {
+                    foreach (int item in var.ToList())
+                    {
+                        result = item;
+                    }
+                } catch (Exception e) {
+                }
+            }
+            return result;
+        }*/
+
+
+        public List<int> getAllCoNorariesToUpdate(int writingId, List<string> nameslist) {
+
+            List<int> list = new List<int>();
+
+            
+            
+            foreach (string item1 in nameslist )
+            {
+
+                var summary = database.proc_Get_Co_NotaryWritingByIDToUpdate(writingId);
+                int varr = 1;
+                foreach (proc_Get_Co_NotaryWritingByIDToUpdate_Result item in summary.ToList()) {
+
+                    //  for (int i = 0; i < summary.Count(); i++) {
+                    if (item1.Equals(item.CoNotario.ToString()))
+                    {
+
+                        list.Add(int.Parse(item.Facturado_por_Notario + ""));
+                        varr = 0;
+                    }
+                    
+                      //  }
+
+                }
+                if (varr == 1) {
+                    list.Add(0);
+                }
+                
+            }
+            return list;
+        }
     }
 }

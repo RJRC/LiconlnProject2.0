@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Security;
 using System.Web.SessionState;
+using Entities;
 
 namespace UI
 {
@@ -22,6 +23,17 @@ namespace UI
             Session["Varload"] = "Por Defecto";
             Session["WritingIDConotary"] = "Por Defecto";
             Session["DoWriting"] = "Por Defecto";
+            Session["UpdateWritingID"] = "Por Defecto";
+            Session["RBT"] = "Por Defecto";
+
+
+
+            Session["UpdateWritingObject"] = new Writing();
+            Session["UpdateClientObject"] = new Client();
+            Session["UpdateAffairObject"] = new Affair();
+            Session["UpdateProtocolID"] = "Por Defecto";
+            Session["UpdateFacNotary"] = "Por Defecto";
+
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)

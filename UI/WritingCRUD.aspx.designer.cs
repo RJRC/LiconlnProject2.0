@@ -67,6 +67,33 @@ namespace UI {
         protected global::System.Web.UI.WebControls.Label LabelAvailable;
         
         /// <summary>
+        /// Control LabelAnualActualLimit.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelAnualActualLimit;
+        
+        /// <summary>
+        /// Control LabelAnualActualLimitFake.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelAnualActualLimitFake;
+        
+        /// <summary>
+        /// Control LabelAnualLimit.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelAnualLimit;
+        
+        /// <summary>
         /// Control ButtonNewWriting.
         /// </summary>
         /// <remarks>
@@ -121,22 +148,22 @@ namespace UI {
         protected global::System.Web.UI.WebControls.Label LabelMonth;
         
         /// <summary>
-        /// Control TextBoxMonth.
+        /// Control DropDownListMonths.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBoxMonth;
+        protected global::System.Web.UI.WebControls.DropDownList DropDownListMonths;
         
         /// <summary>
-        /// Control TextBoxYear.
+        /// Control DropDownListYearsMonth.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBoxYear;
+        protected global::System.Web.UI.WebControls.DropDownList DropDownListYearsMonth;
         
         /// <summary>
         /// Control ButtonSearch.
@@ -200,5 +227,68 @@ namespace UI {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView GridView1;
+        
+        /// <summary>
+        /// Control UpdatePanel4.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel4;
+        
+        /// <summary>
+        /// Control DropDownListYears.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DropDownListYears;
+        
+        /// <summary>
+        /// Control ButtonYear.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonYear;
+        
+        /// <summary>
+        /// Control LabelOwnFac.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelOwnFac;
+        
+        /// <summary>
+        /// Control GridViewOwnWritings.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GridViewOwnWritings;
+        
+        /// <summary>
+        /// Control Label.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label;
+        
+        /// <summary>
+        /// Control GridViewCo_NotaryWritings.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GridViewCo_NotaryWritings;
     }
 }

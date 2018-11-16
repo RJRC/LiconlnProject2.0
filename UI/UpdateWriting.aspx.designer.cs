@@ -10,16 +10,16 @@
 namespace UI {
     
     
-    public partial class AdminModule {
+    public partial class UpdateWriting {
         
         /// <summary>
-        /// Control form2.
+        /// Control form1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form2;
+        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
         /// Control ScriptManager1.
@@ -40,147 +40,111 @@ namespace UI {
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
         
         /// <summary>
-        /// Control LabelYear.
+        /// Control TextBoxWritingNumber.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelYear;
+        protected global::System.Web.UI.WebControls.TextBox TextBoxWritingNumber;
         
         /// <summary>
-        /// Control DropDownListYear.
+        /// Control TextBoxAct.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownListYear;
+        protected global::System.Web.UI.WebControls.TextBox TextBoxAct;
         
         /// <summary>
-        /// Control Button3.
+        /// Control TextBoxAffair.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button3;
+        protected global::System.Web.UI.WebControls.TextBox TextBoxAffair;
         
         /// <summary>
-        /// Control Label1.
+        /// Control TextBoxClient.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.WebControls.TextBox TextBoxClient;
         
         /// <summary>
-        /// Control TextBox1.
+        /// Control TextBoxParts.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox1;
+        protected global::System.Web.UI.WebControls.TextBox TextBoxParts;
         
         /// <summary>
-        /// Control LinkButton1.
+        /// Control TextBoxIdFac.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton1;
+        protected global::System.Web.UI.WebControls.TextBox TextBoxIdFac;
         
         /// <summary>
-        /// Control Button4.
+        /// Control TextBoxAddressFac.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button4;
+        protected global::System.Web.UI.WebControls.TextBox TextBoxAddressFac;
         
         /// <summary>
-        /// Control LinkButton2.
+        /// Control TextBoxEmailFac.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton2;
+        protected global::System.Web.UI.WebControls.TextBox TextBoxEmailFac;
         
         /// <summary>
-        /// Control GridViewYear.
+        /// Control TextBoxNotaryFac.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridViewYear;
+        protected global::System.Web.UI.WebControls.TextBox TextBoxNotaryFac;
         
         /// <summary>
-        /// Control GridViewEachMonth.
+        /// Control CalendarDate.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridViewEachMonth;
+        protected global::System.Web.UI.WebControls.Calendar CalendarDate;
         
         /// <summary>
-        /// Control LabelMonth.
+        /// Control ButtonWriting.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelMonth;
+        protected global::System.Web.UI.WebControls.Button ButtonWriting;
         
         /// <summary>
-        /// Control DropDownListMonths.
+        /// Control GridViewCoNotary.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownListMonths;
-        
-        /// <summary>
-        /// Control DropDownListYearsMonth.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownListYearsMonth;
-        
-        /// <summary>
-        /// Control Button1.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
-        
-        /// <summary>
-        /// Control Button2.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button2;
-        
-        /// <summary>
-        /// Control GridViewMonth.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridViewMonth;
+        protected global::System.Web.UI.WebControls.GridView GridViewCoNotary;
     }
 }

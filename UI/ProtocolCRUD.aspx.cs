@@ -49,7 +49,7 @@ namespace UI
                 int crow;
                 crow = Convert.ToInt32(e.CommandArgument.ToString());
                 string protocolID = GridViewProtocols.Rows[crow].Cells[1].Text; //Codigo del Protocolo
-                Session["ProtocolID"] = protocolID ;
+                Session["ProtocolID"] = protocolID;
                 Session["Varload"] = 0;
                 Response.Redirect("WritingCRUD.aspx");
             }

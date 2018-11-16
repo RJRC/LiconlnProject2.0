@@ -14,14 +14,13 @@ namespace UI
         private BLL bll = new BLL();
         private string monthToSearch = "";
         private int idNotary = 0;
+        Notary notary;
         protected void Page_Load(object sender, EventArgs e)
         {
-            
-
-            if (Session["Varload"].ToString().Equals("0")) { 
-          
                 load();
-            }
+
+
+            
             if (!Session["DoWriting"].Equals("Por Defecto"))
             {
                 alert("Se realizo la escritura con exito");
@@ -32,25 +31,86 @@ namespace UI
 
         private void load() {
 
-           
-            Notary notary = bll.loadProtocolInfo(Session["ProtocolID"].ToString());
+            notary = bll.loadProtocolInfo(Session["ProtocolID"].ToString());
             LabelName.Text = notary.NotaryName;
             LabelInitials.Text = notary.NotaryInitials;
             LabelRBT.Text = notary.RBTEnabled;
             LabelAvailable.Text = notary.NotaryAvailable;
-            LabelMonth.Text = bll.getMonth();
             idNotary = notary.NotaryID;
             Session["NotaryID"] = idNotary;
-            GridViewMonths.DataSource = bll.loadAllWritingsByProtocol(notary.NotaryID);
-            GridViewMonths.DataBind();
+            int allwritingsByNotary = bll.getAllMovemetsByIdNotary(notary.NotaryID);
+            LabelTotalYear.Text = allwritingsByNotary + "";
 
-
+            /*Resumen de cada Mes*/
             GridViewTotalYear.DataSource = bll.showSummaryYearPerMonths(notary.NotaryID);
             GridViewTotalYear.DataBind();
+            LabelAnualActualLimit.Text = (notary.BalanceLimitMonth - allwritingsByNotary) + "";
+            LabelAnualLimit.Text = notary.BalanceLimitMonth + "";
+            loadDropDown();
+            /*Ultimos datos*/
+            GridViewOwnWritings.DataSource = bll.getAllOwnWritingsByNotary(idNotary, int.Parse(DateTime.Now.ToString("yyyy")));
+            GridViewCo_NotaryWritings.DataSource = bll.getAllCoNotariesByNotary(idNotary, int.Parse(DateTime.Now.ToString("yyyy")));
+            GridViewOwnWritings.DataBind();
+            GridViewCo_NotaryWritings.DataBind();
+            if (Session["Varload"].ToString().Equals("Por Defecto")) {
+                Session["Varload"] = "0";
+            }
 
-            LabelTotalYear.Text = bll.getAllMovemetsByIdNotary(notary.NotaryID) + ""; 
+
+            switch (Session["Varload"].ToString()) {
+                case "0":
+                    LabelMonth.Text = bll.getMonth();
+                    GridViewMonths.DataSource = bll.loadAllWritingsByProtocol(notary.NotaryID);
+                    GridViewMonths.DataBind();
+                    LabelAnualActualLimitFake.Visible = false;
+                    alertBalance();
+                    break;
+        }
+
+            
 
         }
+
+        private void alertBalance() {
+            int var = int.Parse(LabelAnualActualLimit.Text);
+            if (var < 500) {
+
+                alert("El Saldo de " + notary.NotaryName + " es Menor a $500");
+                LabelAnualActualLimitFake.Visible = true;
+                LabelAnualActualLimitFake.Text = LabelAnualActualLimit.Text;
+                LabelAnualActualLimit.Visible = false;
+
+            }
+        }
+
+
+        private void loadDropDown()
+        {
+            try
+            {
+                List<int> listOfYear = bll.getYears();
+                foreach (int i in listOfYear)
+                {
+                    ListItem lst = new ListItem(i + "");
+                    if (DropDownListYearsMonth.SelectedItem.ToString().Equals(""))
+                    {
+                        DropDownListYearsMonth.Items.Add(lst);
+                        DropDownListYears.Items.Add(lst);
+                    }
+                }
+            } catch (Exception e) {
+                List<int> listOfYear = bll.getYears();
+                foreach (int i in listOfYear)
+                {
+                    ListItem lst = new ListItem(i + "");
+                    
+                        DropDownListYearsMonth.Items.Add(lst);
+                        DropDownListYears.Items.Add(lst);
+                    
+                }
+            }
+        }
+
 
         private void alert(String message)
         {
@@ -70,8 +130,9 @@ namespace UI
 
         private void validateSearch()
         {
-            monthToSearch = TextBoxMonth.Text.Trim();
-            String year = TextBoxYear.Text.Trim();
+
+            monthToSearch = DropDownListMonths.SelectedItem.ToString();
+            String year = DropDownListYearsMonth.SelectedItem.ToString();
             if (validateMonth())
             {
                 int var = 0;
@@ -91,7 +152,7 @@ namespace UI
                             GridViewMonths.DataSource = null;
                             GridViewMonths.DataBind();
                             clearCoNotary();
-                            Session["Varload"] = 1;
+                           // Session["Varload"] = 1;
 
                         }
                         else
@@ -110,7 +171,7 @@ namespace UI
                         GridViewMonths.DataSource = null;
                         GridViewMonths.DataBind();
                         clearCoNotary();
-                        Session["Varload"] = 1;
+                        //Session["Varload"] = 1;
                     }
                 }
                 catch (Exception e)
@@ -201,7 +262,17 @@ namespace UI
 
         protected void ButtonActual_Click(object sender, EventArgs e)
         {
-            load();
+            GridViewMonthsSearch.DataSource = null;
+            GridViewMonthsSearch.DataBind();
+            int varr = int.Parse(Session["NotaryID"].ToString());
+            GridViewMonths.DataSource = bll.loadAllWritingsByProtocol(varr);
+            GridViewMonths.DataBind();
+
+            Label2.Text = "";
+            GridView1.DataSource = null;
+            GridView1.DataBind();
+            LabelMonth.Text = bll.getMonth();
+            Session["Varload"] = "1";
         }
 
         protected void GridViewMonths_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -210,19 +281,12 @@ namespace UI
 
             if (e.CommandName == "showCo-Notariado")
             {
-                /*Button Update*/
                 int crow;
                 crow = Convert.ToInt32(e.CommandArgument.ToString());
-               // alert(crow + "");
 
-                string writingID = GridViewMonths.Rows[crow].Cells[1].Text;
-
-               
-                //string writingID = GridViewMonths.Rows[crow].Cells[2].Text; //obtener un dato de la tabla 
-                //alert(writingID);
+                string writingID = GridViewMonths.Rows[crow].Cells[2].Text;
+                
                 int id = int.Parse(writingID);
-                //Response.Redirect("NotaryUpdate.aspx?id=code");
-                //alert("Se esta trabajando en esta sección " + "Codigo del Notario > " + code);
 
                 GridView1.DataSource = bll.showCo_NotaryWritingByID(id);
                 GridView1.DataBind();
@@ -230,7 +294,71 @@ namespace UI
                 Session["Varload"]  = 1;
             }
 
+
+            if (e.CommandName == "UpdateWriting") {
+                int crow;
+                crow = Convert.ToInt32(e.CommandArgument.ToString());
+
+                string writingID = GridViewMonths.Rows[crow].Cells[2].Text;
+                string writingNumber = GridViewMonths.Rows[crow].Cells[3].Text;
+                string act = GridViewMonths.Rows[crow].Cells[4].Text;
+                string affair = GridViewMonths.Rows[crow].Cells[5].Text;
+                string client = GridViewMonths.Rows[crow].Cells[6].Text;
+
+                Session["UpdateFacNotary"] = GridViewMonths.Rows[crow].Cells[8].Text;
+                string parts = GridViewMonths.Rows[crow].Cells[9].Text;
+                string iDFac = GridViewMonths.Rows[crow].Cells[10].Text;
+                string addressFac = GridViewMonths.Rows[crow].Cells[11].Text;
+                string emailFac = GridViewMonths.Rows[crow].Cells[12].Text;
+                string date = GridViewMonths.Rows[crow].Cells[13].Text;
+
+                string[] var = date.Split(' ');
+
+                string[] var2 = var[0].Split('/');
+                int month = int.Parse(var2[1]);
+                int year = int.Parse(var2[2]);
+                int day = int.Parse(var2[0]);
+
+                DateTime date1 = new DateTime(year, month, day);
+
+                Client c = new Client();
+                c.ClientName = client;
+                c.ClientID = bll.checkClients(client);
+
+                Affair a = new Affair();
+                a.AffairName = affair;
+                a.AffairID = bll.checkAffair(affair);
+
+                Writing writing = new Writing();
+                writing.WritingID = int.Parse(writingID);
+                writing.WritingNumber = writingNumber;
+                writing.EventWriting = act;
+                writing.Parts = parts;
+                writing.BillingNumber = iDFac;
+                writing.BillingEmail = emailFac;
+                writing.BillingAddress = addressFac;
+                writing.DateWriting = date1;
+
+
+                int protocolID = bll.getProtocolByMonthAndYear(notary.NotaryID, LabelMonth.Text, int.Parse(DateTime.Now.ToString("yyyy")));
+
+
+                Session["UpdateWritingObject"] = writing;
+                Session["UpdateClientObject"] = c;
+                Session["UpdateAffairObject"] = a;
+
+                Session["NotaryID"] = notary.NotaryID;
+                Session["UpdateProtocolID"] = protocolID + "";
+                Session["RBT"] = LabelRBT.Text;
+                Session["UpdateWritingID"] = writingID;
+
+                Session["Varload"] = "0";
+                Response.Redirect("UpdateWriting.aspx");
+            }
+
         }
+
+
 
         protected void GridViewMonths_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -244,22 +372,80 @@ namespace UI
                 /*Button Update*/
                 int crow;
                 crow = Convert.ToInt32(e.CommandArgument.ToString());
-                // alert(crow + "");
 
-                string writingID = GridViewMonthsSearch.Rows[crow].Cells[1].Text;
-
-                //alert(writingID);
-                //string writingID = GridViewMonths.Rows[crow].Cells[2].Text; //obtener un dato de la tabla 
-                //alert(writingID);
+                string writingID = GridViewMonthsSearch.Rows[crow].Cells[2].Text;
+                
                 int id = int.Parse(writingID);
-                 //Response.Redirect("NotaryUpdate.aspx?id=code");
-                 //alert("Se esta trabajando en esta sección " + "Codigo del Notario > " + code);
 
                  GridView1.DataSource = bll.showCo_NotaryWritingByID(id);
                  GridView1.DataBind();
                  Label2.Text = "Co-Notariado";
                 Session["Varload"] = 1;
 
+            }
+
+            if (e.CommandName == "UpdateWriting")
+            {
+                int crow;
+                crow = Convert.ToInt32(e.CommandArgument.ToString());
+                
+
+                string writingID = GridViewMonthsSearch.Rows[crow].Cells[2].Text;
+                string writingNumber = GridViewMonthsSearch.Rows[crow].Cells[3].Text;
+                string act = GridViewMonthsSearch.Rows[crow].Cells[4].Text;
+                string affair = GridViewMonthsSearch.Rows[crow].Cells[5].Text;
+                string client = GridViewMonthsSearch.Rows[crow].Cells[6].Text;
+                string notaryFac = GridViewMonthsSearch.Rows[crow].Cells[8].Text;
+                string parts = GridViewMonthsSearch.Rows[crow].Cells[9].Text;
+                string iDFac = GridViewMonthsSearch.Rows[crow].Cells[10].Text;
+                string addressFac = GridViewMonthsSearch.Rows[crow].Cells[11].Text;
+                string emailFac = GridViewMonthsSearch.Rows[crow].Cells[12].Text;
+                string date = GridViewMonthsSearch.Rows[crow].Cells[13].Text;
+
+                string[] var = date.Split(' ');
+
+                string[] var2 = var[0].Split('/');
+                int month = int.Parse(var2[1]);
+                int year = int.Parse(var2[2]);
+                int day = int.Parse(var2[0]);
+
+                DateTime date1 = new DateTime(year, month, day);
+
+                Client c = new Client();
+                c.ClientName = client;
+                c.ClientID = bll.checkClients(client);
+
+                Affair a = new Affair();
+                a.AffairName = affair;
+                a.AffairID = bll.checkAffair(affair);
+
+                Writing writing = new Writing();
+                writing.WritingID = int.Parse(writingID);
+                writing.WritingNumber = writingNumber;
+                writing.EventWriting = act;
+                writing.Parts = parts;
+                writing.BillingNumber = iDFac;
+                writing.BillingEmail = emailFac;
+                writing.BillingAddress = addressFac;
+                writing.DateWriting = date1;
+
+
+                int protocolID = bll.getProtocolByMonthAndYear(notary.NotaryID, LabelMonth.Text, int.Parse(DateTime.Now.ToString("yyyy")));
+
+
+                Session["UpdateWritingObject"] = writing;
+                Session["UpdateClientObject"] = c;
+                Session["UpdateAffairObject"] = a;
+
+
+                Session["NotaryID"] = notary.NotaryID;
+                Session["UpdateProtocolID"] = protocolID + "";
+                Session["RBT"] = LabelRBT.Text;
+                Session["UpdateWritingID"] = writingID;
+
+                Session["Varload"] = "0";
+
+                Response.Redirect("UpdateWriting.aspx");
             }
         }
 
@@ -302,13 +488,25 @@ namespace UI
         {
             if (LabelAvailable.Text.Equals("SI"))
             {
-
+                Session["RBT"] = LabelRBT.Text;
                 Response.Redirect("DoWriting.aspx");
             }
             else
             {
                 alert("El notario no se encuentra habilitado");
             }
+        }
+
+        protected void ButtonYear_Click(object sender, EventArgs e)
+        {
+
+            int year = int.Parse(DropDownListYears.SelectedItem.ToString());
+
+            GridViewOwnWritings.DataSource = bll.getAllOwnWritingsByNotary(idNotary,year );
+            GridViewCo_NotaryWritings.DataSource = bll.getAllCoNotariesByNotary(idNotary, year);
+            GridViewOwnWritings.DataBind();
+            GridViewCo_NotaryWritings.DataBind();
+            
         }
     }
 }

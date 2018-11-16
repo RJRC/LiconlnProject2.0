@@ -43,12 +43,14 @@ namespace BusinessLogicLayer
         }
 
 
-        public DataTable showSummaryMonth() {
+        public DataTable showSummaryMonth()
+        {
 
             return accessDataLayer.showSummaryMonth();
         }
 
-        public DataTable showSummaryMonth(String month, int year) {
+        public DataTable showSummaryMonth(String month, int year)
+        {
 
 
             return accessDataLayer.showSummaryMonth(month, year);
@@ -57,7 +59,8 @@ namespace BusinessLogicLayer
 
 
 
-        public DataTable showSummaryYear() {
+        public DataTable showSummaryYear()
+        {
             return accessDataLayer.showSummaryYear();
         }
 
@@ -91,6 +94,53 @@ namespace BusinessLogicLayer
                     var = "Agosto";
                     break;
                 case "09":
+                    var = "Setiembre";
+                    break;
+                case "10":
+                    var = "Octubre";
+                    break;
+                case "11":
+                    var = "Noviembre";
+                    break;
+                case "12":
+                    var = "Diciembre";
+                    break;
+
+            }
+
+            return var;
+        }
+
+        public String getMonth2(String month)
+        {
+            String var = "";
+            switch (month)
+            {
+                case "1":
+                    var = "Enero";
+                    break;
+                case "2":
+                    var = "Febrero";
+                    break;
+                case "3":
+                    var = "Marzo";
+                    break;
+                case "4":
+                    var = "Abril";
+                    break;
+                case "5":
+                    var = "Mayo";
+                    break;
+                case "6":
+                    var = "Junio";
+                    break;
+                case "7":
+                    var = "Julio";
+                    break;
+                case "8":
+                    var = "Agosto";
+                    break;
+                case "9":
                     var = "Setiembre";
                     break;
                 case "10":
@@ -156,59 +206,61 @@ namespace BusinessLogicLayer
             return var;
         }
 
-     /*   public String getMonth(String date)
+        /*   public String getMonth(String date)
+           {
+               String var = "";
+               switch (DateTime.Now.ToString("MM"))
+               {
+                   case "01":
+                       var = "Enero";
+                       break;
+                   case "02":
+                       var = "Febrero";
+                       break;
+                   case "03":
+                       var = "Marzo";
+                       break;
+                   case "04":
+                       var = "Abril";
+                       break;
+                   case "05":
+                       var = "Mayo";
+                       break;
+                   case "06":
+                       var = "Junio";
+                       break;
+                   case "07":
+                       var = "Julio";
+                       break;
+                   case "08":
+                       var = "Agosto";
+                       break;
+                   case "09":
+                       var = "Setiembre";
+                       break;
+                   case "10":
+                       var = "Octubre";
+                       break;
+                   case "11":
+                       var = "Noviembre";
+                       break;
+                   case "12":
+                       var = "Diciembre";
+                       break;
+
+               }
+
+               return var;
+           }*/
+
+        public DataTable showCoNotaries(int idNotary)
         {
-            String var = "";
-            switch (DateTime.Now.ToString("MM"))
-            {
-                case "01":
-                    var = "Enero";
-                    break;
-                case "02":
-                    var = "Febrero";
-                    break;
-                case "03":
-                    var = "Marzo";
-                    break;
-                case "04":
-                    var = "Abril";
-                    break;
-                case "05":
-                    var = "Mayo";
-                    break;
-                case "06":
-                    var = "Junio";
-                    break;
-                case "07":
-                    var = "Julio";
-                    break;
-                case "08":
-                    var = "Agosto";
-                    break;
-                case "09":
-                    var = "Setiembre";
-                    break;
-                case "10":
-                    var = "Octubre";
-                    break;
-                case "11":
-                    var = "Noviembre";
-                    break;
-                case "12":
-                    var = "Diciembre";
-                    break;
-
-            }
-
-            return var;
-        }*/
-
-        public DataTable showCoNotaries(int idNotary) {
-            return accessDataLayer.showCoNotaries( idNotary);
+            return accessDataLayer.showCoNotaries(idNotary);
         }
 
 
-        public DataTable showNotaries() {
+        public DataTable showNotaries()
+        {
             return accessDataLayer.showNotaries();
         }
         public DataTable showProtocols()
@@ -239,12 +291,16 @@ namespace BusinessLogicLayer
             accessDataLayer.addNotary(name, saldo, rbt, enabled, month, initials);
         }
 
-        public Boolean validateNumber(String number) {
+        public Boolean validateNumber(String number)
+        {
 
-            try {
+            try
+            {
                 Double.Parse(number);
                 return true;
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 return false;
             }
 
@@ -262,7 +318,8 @@ namespace BusinessLogicLayer
             accessDataLayer.deleteNotary(Convert.ToInt32(id));
         }
 
-        public Notary loadNotary(String id) {
+        public Notary loadNotary(String id)
+        {
             return accessDataLayer.loadNotary(int.Parse(id));
         }
 
@@ -271,17 +328,18 @@ namespace BusinessLogicLayer
             return accessDataLayer.loadProtocol(int.Parse(id));
         }
 
-        public DataTable loadAllWritingsByProtocol(String month, int year,int writingID) {
-            
+        public DataTable loadAllWritingsByProtocol(String month, int year, int writingID)
+        {
+
             return accessDataLayer.loadAllWritingsByProtocol(month, year, writingID);
         }
 
         public DataTable loadAllWritingsByProtocol(int writingID)
         {
-            
+
             int year = int.Parse(DateTime.Now.ToString("yyyy"));
             string month = DateTime.Now.ToString("MM");
-            string realMonth = getMonth(month); 
+            string realMonth = getMonth(month);
 
             return accessDataLayer.loadAllWritingsByProtocol(realMonth, year, writingID);
         }
@@ -289,38 +347,44 @@ namespace BusinessLogicLayer
         public DataTable loadAllWritingsByProtocol(int writingID, String month, int year)
         {
 
-         
+
             return accessDataLayer.loadAllWritingsByProtocol(month, year, writingID);
         }
 
 
-        public DataTable showSummaryYearPerMonths(int idNotary) {
+        public DataTable showSummaryYearPerMonths(int idNotary)
+        {
             return accessDataLayer.showSummaryYearPerMonths(idNotary);
         }
 
-        public int getAllMovemetsByIdNotary(int iDNotary) {
+        public int getAllMovemetsByIdNotary(int iDNotary)
+        {
             return accessDataLayer.getAllMovemetsByIdNotary(iDNotary);
         }
 
-        public DataTable showCo_NotaryWritingByID(int idWriting) {
+        public DataTable showCo_NotaryWritingByID(int idWriting)
+        {
             return accessDataLayer.showCo_NotaryWritingByID(idWriting);
         }
 
-        public int checkClients(string clientName) {
+        public int checkClients(string clientName)
+        {
 
             if (accessDataLayer.checkClient(clientName) == -1)
             {
                 return accessDataLayer.createClient(clientName);
 
             }
-            else {
+            else
+            {
                 return accessDataLayer.checkClient(clientName);
             }
 
         }
 
-        public int checkAffair(string affair) {
-            
+        public int checkAffair(string affair)
+        {
+
 
             if (accessDataLayer.checkAffair(affair) == -1)
             {
@@ -345,27 +409,61 @@ namespace BusinessLogicLayer
         }
 
 
-        public void createMovement(int protocolID, int billingAmount) {
+        public void createMovement(int protocolID, int billingAmount)
+        {
             accessDataLayer.createMovement(protocolID, billingAmount);
         }
 
-        public int getProtocolByMonthAndYear(int idNotary, string month, int year) {
+        public int getProtocolByMonthAndYear(int idNotary, string month, int year)
+        {
             return accessDataLayer.getProtocolByMonthAndYear(idNotary, month, year);
         }
 
-        public DataTable showSummaryYearPerMonthsInAdminModule(int searchYear) {
+        public DataTable showSummaryYearPerMonthsInAdminModule(int searchYear)
+        {
             return accessDataLayer.showSummaryYearPerMonthsInAdminModule(searchYear);
         }
 
-        public List<int> getYears() {
+        public List<int> getYears()
+        {
 
             return accessDataLayer.getYears();
 
         }
 
-        public DataTable showNotariesDeleted() {
+        public DataTable showNotariesDeleted()
+        {
             return accessDataLayer.showNotariesDeleted();
         }
-    }
 
+        public void restoreNotary(int idNotary)
+        {
+            accessDataLayer.restoreNotary(idNotary);
+        }
+
+
+        public DataTable getAllCoNotariesByNotary(int IDNotary, int year)
+        {
+
+            return accessDataLayer.getAllCoNotariesByNotary(IDNotary, year);
+        }
+
+        public DataTable getAllOwnWritingsByNotary(int IDNotary, int year)
+        {
+
+            return accessDataLayer.getAllOwnWritingsByNotary(IDNotary, year);
+        }
+
+      /*  public int getFacHonorary(string month, int year, int notaryId, int writingId)
+        {
+
+            return accessDataLayer.getFacHonorary(getMonth2(month), year, notaryId, writingId);
+
+        }*/
+
+        public List<int> getAllCoNorariesToUpdate(int writingId, List<string> nameslist)
+        {
+            return accessDataLayer.getAllCoNorariesToUpdate(writingId, nameslist);
+        }
+    }
 }

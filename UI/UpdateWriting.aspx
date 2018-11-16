@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterDoWriting.Master" AutoEventWireup="true" CodeBehind="DoWriting.aspx.cs" Inherits="UI.DoWriting" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterUpdateWriting.Master" AutoEventWireup="true" CodeBehind="UpdateWriting.aspx.cs" Inherits="UI.UpdateWriting" %>
 <asp:Content ID="contentTitle" ContentPlaceHolderID="contentTitle" runat="server">
     Modulo Administrador
 </asp:Content>
@@ -15,11 +15,6 @@ function hideURLbar(){ window.scrollTo(0,1); }</script>
 
     <link href="css/writingUpdate.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/bootstrap.css">
-    <style type="text/css">
-        .auto-style1 {
-            margin-right: 2px;
-        }
-    </style>
 </asp:Content>
 
 <asp:Content ID="contentBody" ContentPlaceHolderID="contentBody" runat="server">
@@ -32,7 +27,7 @@ function hideURLbar(){ window.scrollTo(0,1); }</script>
 
 	<div class="contact" id="contact">
 		<div class="container">
-			<h3 class="title">Crear Escritura</h3>
+			<h3 class="title">Modificar Escritura</h3>
 
 	        <br/>
             <br/>    
@@ -44,7 +39,7 @@ function hideURLbar(){ window.scrollTo(0,1); }</script>
 						
 								<div class="img">
                                     <br>
-									<h3><span>Crear Escritura</span></h3>
+									<h3><span>Modificar Escritura</span></h3>
 									<br>
                                     <br>
 								</div>
@@ -65,7 +60,7 @@ function hideURLbar(){ window.scrollTo(0,1); }</script>
                                 
 
 
-                                <asp:Calendar ID="CalendarDate" style="margin: auto; max-width:600px; " runat="server" BackColor="White" BorderColor="#999999" Font-Names="Verdana" Font-Size="8pt" ForeColor="Black" Height="180px" Width="333px" CellPadding="4" DayNameFormat="Shortest" CssClass="auto-style1">
+                                <asp:Calendar ID="CalendarDate" style="margin: auto; max-width:600px; " runat="server" BackColor="White" BorderColor="#999999" Font-Names="Verdana" Font-Size="8pt" ForeColor="Black" Height="180px" Width="333px" CellPadding="4" DayNameFormat="Shortest">
                                     <DayHeaderStyle Font-Bold="True" Font-Size="7pt" BackColor="#CCCCCC" />
                                     <NextPrevStyle VerticalAlign="Bottom" />
                                     <OtherMonthDayStyle ForeColor="#808080" />
@@ -78,9 +73,8 @@ function hideURLbar(){ window.scrollTo(0,1); }</script>
                             <br>
                                 
 								<div class="clearfix"> </div>
-                                <asp:Button ID="ButtonWriting" class="btnn" runat="server" Text="Facturar" OnClick="ButtonWriting_Click" />
-                                <asp:Button ID="ButtonCoNotary" class="btnn" runat="server" Text="Agregar Co-Notario" OnClick="ButtonCoNotary_Click" />
-						        </div>
+                                <asp:Button ID="ButtonWriting" class="btnn" runat="server" Text="Editar" OnClick="ButtonWriting_Click"  />
+                                </div>
                         </div>
 
 

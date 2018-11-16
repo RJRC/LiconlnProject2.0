@@ -22,5 +22,6 @@ namespace Entities
         public string Protocolo_disponible { get; set; }
         public string Mes_del_Protocolo { get; set; }
         public int Año_del_Protocolo { get; set; }
+        public int Codigo_Notario { get; set; }
     }
 }

@@ -76,24 +76,6 @@ namespace UI {
         protected global::System.Web.UI.WebControls.TextBox TextBoxClient;
         
         /// <summary>
-        /// Control TextBoxHonoraryy.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBoxHonoraryy;
-        
-        /// <summary>
-        /// Control TextBoxNotaryFac.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBoxNotaryFac;
-        
-        /// <summary>
         /// Control TextBoxParts.
         /// </summary>
         /// <remarks>
@@ -128,6 +110,15 @@ namespace UI {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextBoxEmailFac;
+        
+        /// <summary>
+        /// Control TextBoxNotaryFac.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBoxNotaryFac;
         
         /// <summary>
         /// Control CalendarDate.

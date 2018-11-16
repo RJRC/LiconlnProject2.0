@@ -11,13 +11,9 @@ namespace Entities
 {
     using System;
     
-    public partial class proc_Get_ProtocolInfo_Result
+    public partial class proc_Get_Co_NotaryWritingByIDToUpdate_Result
     {
-        public int Codigo_Notario { get; set; }
-        public string Nombre { get; set; }
-        public string Iniciales { get; set; }
-        public string RBT { get; set; }
-        public string Habilitado { get; set; }
-        public Nullable<int> Limite_Anual { get; set; }
+        public Nullable<int> Facturado_por_Notario { get; set; }
+        public string CoNotario { get; set; }
     }
 }

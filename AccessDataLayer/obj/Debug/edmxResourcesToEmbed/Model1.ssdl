@@ -146,6 +146,10 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="proc_BalanceActualMonth" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="month" Type="nvarchar" Mode="In" />
+  </Function>
   <Function Name="proc_Create_Affair" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="affairName" Type="nvarchar" Mode="In" />
   </Function>
@@ -196,7 +200,15 @@
     <Parameter Name="notaryID" Type="int" Mode="In" />
   </Function>
   <Function Name="proc_Get_Affairs" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="proc_Get_ALLCoNotariesWritingsByNotary" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="notaryID" Type="int" Mode="In" />
+    <Parameter Name="year" Type="int" Mode="In" />
+  </Function>
   <Function Name="proc_Get_AllNotaryIDs" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="proc_Get_ALLOwnWritingsByNotary" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="year" Type="int" Mode="In" />
+    <Parameter Name="notaryID" Type="int" Mode="In" />
+  </Function>
   <Function Name="proc_Get_ALLWritings" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="proc_Get_ALLWritingsByProtocol" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="month" Type="nvarchar" Mode="In" />
@@ -204,6 +216,9 @@
     <Parameter Name="notaryID" Type="int" Mode="In" />
   </Function>
   <Function Name="proc_Get_Clients" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="proc_Get_Co_NotaryWritingByIDToUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="writingID" Type="int" Mode="In" />
+  </Function>
   <Function Name="proc_Get_Co_NotaryWritingByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="proc_Get_Co-NotaryWritingByID">
     <Parameter Name="writingID" Type="int" Mode="In" />
   </Function>
@@ -215,6 +230,12 @@
   <Function Name="proc_Get_Notaries_Eliminated" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="proc_Get_NotariesWithOutOneById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="notaryId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="proc_Get_OneWritingByNotaryIDToUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="month" Type="nvarchar" Mode="In" />
+    <Parameter Name="year" Type="int" Mode="In" />
+    <Parameter Name="notaryID" Type="int" Mode="In" />
+    <Parameter Name="writingID" Type="int" Mode="In" />
   </Function>
   <Function Name="proc_Get_ProtocolIDByMonthAndYear" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="month" Type="nvarchar" Mode="In" />
@@ -242,6 +263,9 @@
   <Function Name="proc_ModifyActualBalance_Protocol" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="protocolID" Type="int" Mode="In" />
     <Parameter Name="actualBalance" Type="money" Mode="In" />
+  </Function>
+  <Function Name="proc_Restore_Notary" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
   </Function>
   <Function Name="proc_SummaryActualMonth" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="month" Type="nvarchar" Mode="In" />

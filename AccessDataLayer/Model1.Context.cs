@@ -35,6 +35,19 @@ namespace Entities
         public virtual DbSet<Protocol> Protocol { get; set; }
         public virtual DbSet<Writing> Writing { get; set; }
     
+        public virtual ObjectResult<Nullable<int>> proc_BalanceActualMonth(Nullable<int> id, string month)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var monthParameter = month != null ?
+                new ObjectParameter("month", month) :
+                new ObjectParameter("month", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("proc_BalanceActualMonth", idParameter, monthParameter);
+        }
+    
         public virtual int proc_Create_Affair(string affairName)
         {
             var affairNameParameter = affairName != null ?
@@ -209,9 +222,35 @@ namespace Entities
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<proc_Get_Affairs_Result>("proc_Get_Affairs");
         }
     
+        public virtual ObjectResult<proc_Get_ALLCoNotariesWritingsByNotary_Result> proc_Get_ALLCoNotariesWritingsByNotary(Nullable<int> notaryID, Nullable<int> year)
+        {
+            var notaryIDParameter = notaryID.HasValue ?
+                new ObjectParameter("notaryID", notaryID) :
+                new ObjectParameter("notaryID", typeof(int));
+    
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("year", year) :
+                new ObjectParameter("year", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<proc_Get_ALLCoNotariesWritingsByNotary_Result>("proc_Get_ALLCoNotariesWritingsByNotary", notaryIDParameter, yearParameter);
+        }
+    
         public virtual ObjectResult<Nullable<int>> proc_Get_AllNotaryIDs()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("proc_Get_AllNotaryIDs");
+        }
+    
+        public virtual ObjectResult<proc_Get_ALLOwnWritingsByNotary_Result> proc_Get_ALLOwnWritingsByNotary(Nullable<int> year, Nullable<int> notaryID)
+        {
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("year", year) :
+                new ObjectParameter("year", typeof(int));
+    
+            var notaryIDParameter = notaryID.HasValue ?
+                new ObjectParameter("notaryID", notaryID) :
+                new ObjectParameter("notaryID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<proc_Get_ALLOwnWritingsByNotary_Result>("proc_Get_ALLOwnWritingsByNotary", yearParameter, notaryIDParameter);
         }
     
         public virtual ObjectResult<proc_Get_ALLWritings_Result> proc_Get_ALLWritings()
@@ -239,6 +278,15 @@ namespace Entities
         public virtual ObjectResult<proc_Get_Clients_Result> proc_Get_Clients()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<proc_Get_Clients_Result>("proc_Get_Clients");
+        }
+    
+        public virtual ObjectResult<proc_Get_Co_NotaryWritingByIDToUpdate_Result> proc_Get_Co_NotaryWritingByIDToUpdate(Nullable<int> writingID)
+        {
+            var writingIDParameter = writingID.HasValue ?
+                new ObjectParameter("writingID", writingID) :
+                new ObjectParameter("writingID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<proc_Get_Co_NotaryWritingByIDToUpdate_Result>("proc_Get_Co_NotaryWritingByIDToUpdate", writingIDParameter);
         }
     
         public virtual ObjectResult<proc_Get_Co_NotaryWritingByID_Result> proc_Get_Co_NotaryWritingByID(Nullable<int> writingID)
@@ -281,6 +329,27 @@ namespace Entities
                 new ObjectParameter("notaryId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<proc_Get_NotariesWithOutOneById_Result>("proc_Get_NotariesWithOutOneById", notaryIdParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> proc_Get_OneWritingByNotaryIDToUpdate(string month, Nullable<int> year, Nullable<int> notaryID, Nullable<int> writingID)
+        {
+            var monthParameter = month != null ?
+                new ObjectParameter("month", month) :
+                new ObjectParameter("month", typeof(string));
+    
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("year", year) :
+                new ObjectParameter("year", typeof(int));
+    
+            var notaryIDParameter = notaryID.HasValue ?
+                new ObjectParameter("notaryID", notaryID) :
+                new ObjectParameter("notaryID", typeof(int));
+    
+            var writingIDParameter = writingID.HasValue ?
+                new ObjectParameter("writingID", writingID) :
+                new ObjectParameter("writingID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("proc_Get_OneWritingByNotaryIDToUpdate", monthParameter, yearParameter, notaryIDParameter, writingIDParameter);
         }
     
         public virtual ObjectResult<Nullable<int>> proc_Get_ProtocolIDByMonthAndYear(string month, Nullable<int> year, Nullable<int> notaryID)
@@ -373,6 +442,15 @@ namespace Entities
                 new ObjectParameter("actualBalance", typeof(decimal));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("proc_ModifyActualBalance_Protocol", protocolIDParameter, actualBalanceParameter);
+        }
+    
+        public virtual int proc_Restore_Notary(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("proc_Restore_Notary", idParameter);
         }
     
         public virtual ObjectResult<proc_SummaryActualMonth_Result> proc_SummaryActualMonth(string month)

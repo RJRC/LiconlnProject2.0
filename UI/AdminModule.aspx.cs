@@ -33,22 +33,44 @@ namespace UI
 
             loadDropDown();
 
+
+
         }
 
         private void loadDropDown() {
-            List<int> listOfYear = bll.getYears();
-            foreach (int i in listOfYear) {
-                ListItem lst = new ListItem(i + "");
-                DropDownListYear.Items.Add(lst);
-                DropDownListYearsMonth.Items.Add(lst);
+            
 
+            try
+            {
+                List<int> listOfYear = bll.getYears();
+                foreach (int i in listOfYear)
+                {
+                    ListItem lst = new ListItem(i + "");
+                    if (DropDownListYearsMonth.SelectedItem.ToString().Equals(""))
+                    {
+                        DropDownListYearsMonth.Items.Add(lst);
+                        DropDownListYear.Items.Add(lst);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                List<int> listOfYear = bll.getYears();
+                foreach (int i in listOfYear)
+                {
+                    ListItem lst = new ListItem(i + "");
+
+                    DropDownListYearsMonth.Items.Add(lst);
+                    DropDownListYear.Items.Add(lst);
+
+                }
             }
 
 
-
-
-
         }
+
+
+
 
         private void load(DataTable newTable, String month, String year)
         {
@@ -85,7 +107,7 @@ namespace UI
 
         private void validateSearch() {
             monthToSearch = DropDownListMonths.SelectedItem.ToString();
-            String year = DropDownListYearsMonth.SelectedItem.ToString(); ;
+            String year = DropDownListYearsMonth.SelectedItem.ToString(); 
             if (validateMonth())
             {
                 int var = 0;
@@ -215,6 +237,44 @@ namespace UI
            string year = DropDownListYear.SelectedItem.ToString();
 
             loadSummaryYears(int.Parse(year));
+        }
+
+        protected void Button4_Click(object sender, EventArgs e)
+        {
+           // alert("Empezo");
+            String name = TextBox1.Text;
+            DataTable data = (DataTable)GridViewYear.DataSource;
+            Response.Clear();
+            Response.AddHeader("content-disposition", "attachment;filename=" + name + ".csv");
+            Response.ContentType = "application/vnd.ms-excel";
+            Response.Write(data);
+            Response.End();
+            alert("Se ha guardado con exito " + name);
+        }
+
+        protected void LinkButton1_Click(object sender, EventArgs e)
+        {
+            alert("Empezo");
+            String name = TextBox1.Text;
+            DataTable data = (DataTable)GridViewYear.DataSource;
+            Response.Clear();
+            Response.AddHeader("content-disposition", "attachment;filename=" + name + ".csv");
+            Response.ContentType = "application/vnd.ms-excel";
+            Response.Write(data);
+            Response.End();
+            alert("Se ha guardado con exito " + name);
+        }
+
+        protected void LinkButton2_Click(object sender, EventArgs e)
+        {
+            String name = TextBox1.Text;
+            DataTable data = (DataTable)GridViewYear.DataSource;
+            Response.Clear();
+            Response.AddHeader("content-disposition", "attachment;filename=" + name + ".csv");
+            Response.ContentType = "application/vnd.ms-excel";
+            Response.Write(data);
+            Response.End();
+            alert("Se ha guardado con exito " + name);
         }
     }
 }

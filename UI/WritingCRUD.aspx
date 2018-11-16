@@ -13,7 +13,7 @@
 <!-- //css files -->
 
 <link rel="stylesheet" href="css/font-awesomeBox.css"> <!-- Font-Awesome-Icons-CSS -->
-    <link href="css/writingCrud.css" rel="stylesheet" />
+    <link href="css/wellSelect.css" rel="stylesheet" />
     <link href="css/searchStyles.css" rel="stylesheet" />
     <style type="text/css">
         .auto-style1 {
@@ -37,6 +37,13 @@
             <h4>  <asp:Label ID="LabelAvailable"   runat="server" Text="" style="color:red"> </asp:Label>  SE ENCUENTRA HABILITADO</h4>
            
             <br/>
+             <h4>Saldo Actual Anual  $<asp:Label ID="LabelAnualActualLimit"   runat="server" Text="0"></asp:Label> <asp:Label ID="LabelAnualActualLimitFake"  style="color: red;" runat="server" Text="0"> </asp:Label></h4>
+           
+            <br/>
+            <h4>Limite Anual $<asp:Label ID="LabelAnualLimit"   runat="server" Text="0"> </asp:Label></h4>
+           
+            <br/>
+
             <asp:Button ID="ButtonNewWriting" class="btn btn-lg btn-warning" runat="server" Text="Crear Nueva Escritura" OnClick="ButtonNewWriting_Click" />
 
 	      
@@ -101,7 +108,7 @@
             
             <asp:UpdatePanel ID="UpdatePanel2" runat="server">
                  <ContentTemplate> 
-                <h3 class="title">Facturación del Mes de - <asp:Label ID="LabelMonth" runat="server" Text="Label"></asp:Label>
+                <h3 class="title">Facturación del Mes de <asp:Label ID="LabelMonth" runat="server" Text="Label"></asp:Label>
 			</h3>
             
 	      
@@ -122,12 +129,27 @@
                                     
                                     <!--end of col-->
                                     <div class="col">
-                                        <asp:TextBox ID="TextBoxMonth" runat="server" placeholder="Buscar por Mes " type="search" class="form-control form-control-lg form-control-borderless"></asp:TextBox>
-                                        <br/>
-                                        <asp:TextBox ID="TextBoxYear" runat="server" placeholder="Buscar por Año " type="search" class="form-control form-control-lg form-control-borderless"></asp:TextBox>
-                                         <br/>
-                                    </div>
+                                        <asp:DropDownList ID="DropDownListMonths" runat="server" Width="176px" BackColor="White" CssClass="color: White">
+                                        
+                                        <asp:ListItem>Enero</asp:ListItem>
+                                        <asp:ListItem>Febrero</asp:ListItem>
+                                        <asp:ListItem>Marzo</asp:ListItem>
+                                        <asp:ListItem>Abril</asp:ListItem>
+                                        <asp:ListItem>Mayo</asp:ListItem>
+                                        <asp:ListItem>Junio</asp:ListItem>
+                                        <asp:ListItem>Julio</asp:ListItem>
+                                        <asp:ListItem>Agosto</asp:ListItem>
+                                        <asp:ListItem>Setiembre</asp:ListItem>
+                                        <asp:ListItem>Octubre</asp:ListItem>
+                                        <asp:ListItem>Noviembre</asp:ListItem>
+                                        <asp:ListItem>Diciembre</asp:ListItem>
 
+                                    </asp:DropDownList>
+                                        <br>
+                                    <asp:DropDownList ID="DropDownListYearsMonth" runat="server" Width="175px" BackColor="White" CssClass="color : White"></asp:DropDownList>
+<br/>
+                                    </div>
+                                   <br>
                                    
 
                                     <!--end of col-->
@@ -179,7 +201,7 @@
                         <asp:ButtonField ButtonType="Button" ControlStyle-CssClass="btn btn-default" CommandName="showCo-Notariado" Text="Co-Notariado" >
                         <ControlStyle CssClass="btn btn-default" />
                         </asp:ButtonField>
-                        <asp:ButtonField ButtonType="Button" CommandName="UpdateWriting" Text="Modificar" />
+                        <asp:ButtonField ButtonType="Button" ControlStyle-CssClass="btn btn-default" CommandName="UpdateWriting" Text="Modificar" />
                     </Columns>
                     <FooterStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
                     <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
@@ -198,29 +220,22 @@
 
                 </ContentTemplate>  
                 </asp:UpdatePanel>
-
-            <div class="clearfix"> </div>
-            
-            
 		</div>
 	</div>
 
-
+        <br>
 
         <div class="contact" id="">
 		<div class="container">
             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                  <ContentTemplate>
-			<h4 class="title"><asp:Label ID="Label2"  runat="server" Text=""></asp:Label></h4> <!-- Nombre del Notario y Iniciales  -->
+			<h4 class="title"><asp:Label ID="Label2"  runat="server" Text=""></asp:Label></h4> 
                      <br>
                      
                      <div class="table-responsive">
                      <asp:GridView ID="GridView1" class="table" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Width="688px" OnRowCommand="GridView1_RowCommand">
 
                          <AlternatingRowStyle BackColor="White"  />
-                         <Columns>
-                             <asp:ButtonField ButtonType="Button" ControlStyle-CssClass="btn btn-default" CommandName="modifyCommand" Text="Modificar" />
-                         </Columns>
                          <FooterStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
                          <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
                          <PagerStyle BackColor="#FFCC66" ForeColor="#333333" HorizontalAlign="Center" />
@@ -244,6 +259,77 @@
                 
 
 
+            
+		</div>
+	</div>
+
+
+        <div class="" id="">
+		<div class="container">
+            
+            <asp:UpdatePanel ID="UpdatePanel4" runat="server">
+                 <ContentTemplate> 
+                <h3 class="title">Todas las Facturas del Año</h3>
+            <div class="col">
+             <asp:DropDownList ID="DropDownListYears" runat="server" Width="175px" BackColor="White" CssClass="color : White"></asp:DropDownList>
+<br/>
+                                    </div>
+                                   <br>
+                                   
+
+                                    <!--end of col-->
+                                    <div class="col-auto">
+                                        
+                                        <asp:Button ID="ButtonYear" class="btn btn-lg btn-default" runat="server" Text="Filtrar por Año" OnClick="ButtonYear_Click"  /> 
+                                         
+                                    </div>
+	      
+            <br/>
+    
+                     <h4 class="title"><asp:Label ID="LabelOwnFac"  runat="server" Text="Facturas Propias"></asp:Label></h4> 
+                     <br>
+
+            <div class="table-responsive">
+                <asp:GridView ID="GridViewOwnWritings" class="table" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" OnRowCommand="GridViewMonths_RowCommand" OnSelectedIndexChanged="GridViewMonths_SelectedIndexChanged">
+                    <AlternatingRowStyle BackColor="White" />
+                    <FooterStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
+                    <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
+                    <PagerStyle BackColor="#FFCC66" ForeColor="#333333" HorizontalAlign="Center" />
+                    <RowStyle BackColor="#FFFBD6" ForeColor="#333333" />
+                    <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="Navy" />
+                    <SortedAscendingCellStyle BackColor="#FDF5AC" />
+                    <SortedAscendingHeaderStyle BackColor="#4D0000" />
+                    <SortedDescendingCellStyle BackColor="#FCF6C0" />
+                    <SortedDescendingHeaderStyle BackColor="#820000" />
+                </asp:GridView>
+             </div>
+
+                     <br>
+                     <h4 class="title"><asp:Label ID="Label"  runat="server" Text="Facturas CoNotariadas"></asp:Label></h4> 
+                     <br>
+            <div class="table-responsive">
+                <asp:GridView ID="GridViewCo_NotaryWritings" class="table" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" OnRowCommand="GridViewMonthsSearch_RowCommand" >
+                    <AlternatingRowStyle BackColor="White" />
+                    <FooterStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
+                    <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
+                    <PagerStyle BackColor="#FFCC66" ForeColor="#333333" HorizontalAlign="Center" />
+                    <RowStyle BackColor="#FFFBD6" ForeColor="#333333" />
+                    <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="Navy" />
+                    <SortedAscendingCellStyle BackColor="#FDF5AC" />
+                    <SortedAscendingHeaderStyle BackColor="#4D0000" />
+                    <SortedDescendingCellStyle BackColor="#FCF6C0" />
+                    <SortedDescendingHeaderStyle BackColor="#820000" />
+                </asp:GridView>
+             </div>
+                     
+                    
+
+
+                </ContentTemplate>  
+                </asp:UpdatePanel>
+
+            <div class="clearfix"> </div>
+            
             
 		</div>
 	</div>

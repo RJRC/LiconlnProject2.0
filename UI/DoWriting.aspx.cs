@@ -51,7 +51,6 @@ namespace UI
                 act = TextBoxAct.Text;
                 affair = TextBoxAffair.Text;
                 client = TextBoxClient.Text;
-                honorary = int.Parse(TextBoxHonoraryy.Text);
                 part = TextBoxParts.Text;
                 idFac = TextBoxIdFac.Text;
                 addressFac = TextBoxAddressFac.Text;

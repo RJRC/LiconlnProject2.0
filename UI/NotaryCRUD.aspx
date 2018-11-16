@@ -55,7 +55,7 @@
                      <br>         
                      <br>
                      <div class="table-responsive">
-               <asp:GridView ID="GridViewDeleted" class="table" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Width="702px">
+               <asp:GridView ID="GridViewDeleted" class="table" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Width="702px" OnRowCommand="GridViewDeleted_RowCommand1">
                    <AlternatingRowStyle BackColor="White" />
                    <Columns>
                        <asp:ButtonField ButtonType="Button" CommandName="buttonRestore" Text="Restaurar"  ControlStyle-CssClass="btn btn-warning" >

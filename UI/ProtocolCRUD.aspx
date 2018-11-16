@@ -21,7 +21,6 @@
 	<div class="contact" id="contact">
 		<div class="container">
 			<h3 class="title">Lista de Protocolos
-				<img src="images/logo2.png" alt="" />
 			</h3>
 
 	        <br/>
@@ -33,7 +32,7 @@
                  <ContentTemplate> 
 
             <div class="table-responsive">
-                <asp:GridView ID="GridViewProtocols" class="table " runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Width="679px" OnRowCommand="GridView1_RowCommand">
+                <asp:GridView ID="GridViewProtocols" class="table " runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Width="680px" OnRowCommand="GridView1_RowCommand">
                     <AlternatingRowStyle BackColor="White" />
                     <Columns>
                         <asp:ButtonField ButtonType="Button" CommandName="writingButton" Text="Facturación" ControlStyle-CssClass="btn btn-warning" />

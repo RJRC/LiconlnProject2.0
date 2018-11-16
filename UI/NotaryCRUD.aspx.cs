@@ -12,7 +12,6 @@ namespace UI
     public partial class NotaryCRUD : System.Web.UI.Page
     {
         private BLL bll = new BLL();
-        private int varDeleted = 0;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -23,7 +22,17 @@ namespace UI
         {
             GridViewNotaries.DataSource = bll.showNotaries();
             GridViewNotaries.DataBind();
+        }
 
+        private void loadDeleted() {
+            GridViewDeleted.DataSource = bll.showNotariesDeleted();
+            GridViewDeleted.DataBind();
+        }
+
+        private void loadDeletedFake()
+        {
+            GridViewDeleted.DataSource = null;
+            GridViewDeleted.DataBind();
         }
 
         protected void GridViewNotaries_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -35,7 +44,7 @@ namespace UI
                 crow = Convert.ToInt32(e.CommandArgument.ToString());
                  string code = GridViewNotaries.Rows[crow].Cells[2].Text; //obtener un dato de la tabla 
                 Session["NotaryID"] = code;
-                Response.Redirect("NotaryUpdate.aspx?id=code");
+                Response.Redirect("NotaryUpdate.aspx");
                 //alert("Se esta trabajando en esta sección " + "Codigo del Notario > " + code);
             }
 
@@ -132,24 +141,35 @@ namespace UI
         protected void ButtonDeleted_Click(object sender, EventArgs e)
         {
 
-            GridViewDeleted.DataSource = bll.showNotariesDeleted();
-            GridViewDeleted.DataBind();
+
+            if (ButtonDeleted.Text.Equals("Ver Eliminados"))
+            {
+                loadDeleted();
+                ButtonDeleted.Text = "Ocultar Eliminados";
+            }
+            else {
+
+                loadDeletedFake();
+                ButtonDeleted.Text = "Ver Eliminados";
+            }
         }
 
-        protected void GridViewDeleted_RowCommand(object sender, GridViewCommandEventArgs e)
+
+
+        protected void GridViewDeleted_RowCommand1(object sender, GridViewCommandEventArgs e)
         {
             if (e.CommandName == "buttonRestore")
             {
                 /*Button Update*/
-                /*int crow;
+                int crow;
                 crow = Convert.ToInt32(e.CommandArgument.ToString());
-                string code = GridViewNotaries.Rows[crow].Cells[2].Text; //obtener un dato de la tabla 
-
-                bll.deleteNotary(code);
+                string code = GridViewDeleted.Rows[crow].Cells[1].Text; //obtener un dato de la tabla 
+                int id = int.Parse(code);
+                bll.restoreNotary(id);
 
                 load();
+                loadDeleted();
 
-                alert("Se ha eliminado correctamente");*/
 
 
             }
