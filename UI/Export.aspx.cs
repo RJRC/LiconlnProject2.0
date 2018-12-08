@@ -76,9 +76,7 @@ namespace UI
                     {
 
                         data += row["Iniciales"] + ",\t";
-                        data += row["Octubre"] + ",\t";
-                        data += row["Noviembre"] + ",\t";
-                        data += row["Diciembre"] + ",\t";
+                        
                         data += row["Enero"] + ",\t";
                         data += row["Febrero"] + ",\t";
                         data += row["Marzo"] + ",\t";
@@ -88,7 +86,10 @@ namespace UI
                         data += row["Julio"] + ",\t";
                         data += row["Agosto"] + ",\t";
                         data += row["Setiembre"] + ",\t";
-                        
+                        data += row["Octubre"] + ",\t";
+                        data += row["Noviembre"] + ",\t";
+                        data += row["Diciembre"] + ",\t";
+
                         data += row["total"] + ",\t";
 
 

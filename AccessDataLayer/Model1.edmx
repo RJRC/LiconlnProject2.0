@@ -231,6 +231,9 @@
         <Function Name="proc_Get_Co_NotaryWritingByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="proc_Get_Co-NotaryWritingByID">
           <Parameter Name="writingID" Type="int" Mode="In" />
         </Function>
+        <Function Name="proc_Get_JustOwnWritingsByProtocol" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="protocolID" Type="int" Mode="In" />
+        </Function>
         <Function Name="proc_Get_LastWriting" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="proc_Get_Notaries" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="proc_Get_Notaries_Eliminated" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
@@ -661,6 +664,9 @@
           <FunctionImport Name="proc_Get_Co_NotaryWritingByID" ReturnType="Collection(LincolnDBModel.proc_Get_Co_NotaryWritingByID_Result)">
             <Parameter Name="writingID" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="proc_Get_JustOwnWritingsByProtocol" ReturnType="Collection(LincolnDBModel.proc_Get_JustOwnWritingsByProtocol_Result)">
+            <Parameter Name="protocolID" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="proc_Get_LastWriting" ReturnType="Collection(Int32)" />
           <FunctionImport Name="proc_Get_Notaries" ReturnType="Collection(LincolnDBModel.proc_Get_Notaries_Result)" />
           <FunctionImport Name="proc_Get_Notaries_Eliminated" ReturnType="Collection(LincolnDBModel.proc_Get_Notaries_Eliminated_Result)" />
@@ -867,6 +873,20 @@
           <Property Type="String" Name="Asunto" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="Cliente" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="Notario" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="Fecha" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="Facturado_por_Notario" Nullable="true" />
+          <Property Type="String" Name="Co_Notario" Nullable="false" MaxLength="2" />
+        </ComplexType>
+        <ComplexType Name="proc_Get_JustOwnWritingsByProtocol_Result">
+          <Property Type="Int32" Name="Codigo_Escritura" Nullable="false" />
+          <Property Type="String" Name="Acto_" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Asunto" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Cliente" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Notario" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Partes" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Cedula_a_Facturar" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="Domilicio_a_Facturar" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Correo_a_Facturar" Nullable="false" MaxLength="100" />
           <Property Type="DateTime" Name="Fecha" Nullable="false" Precision="23" />
           <Property Type="Int32" Name="Facturado_por_Notario" Nullable="true" />
           <Property Type="String" Name="Co_Notario" Nullable="false" MaxLength="2" />
@@ -1173,6 +1193,24 @@
                 <ScalarProperty Name="Asunto" ColumnName="Asunto" />
                 <ScalarProperty Name="Cliente" ColumnName="Cliente" />
                 <ScalarProperty Name="Notario" ColumnName="Notario" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Facturado_por_Notario" ColumnName="Facturado por Notario" />
+                <ScalarProperty Name="Co_Notario" ColumnName="Co-Notario" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="proc_Get_JustOwnWritingsByProtocol" FunctionName="LincolnDBModel.Store.proc_Get_JustOwnWritingsByProtocol">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LincolnDBModel.proc_Get_JustOwnWritingsByProtocol_Result">
+                <ScalarProperty Name="Codigo_Escritura" ColumnName="Codigo Escritura" />
+                <ScalarProperty Name="Acto_" ColumnName="Acto " />
+                <ScalarProperty Name="Asunto" ColumnName="Asunto" />
+                <ScalarProperty Name="Cliente" ColumnName="Cliente" />
+                <ScalarProperty Name="Notario" ColumnName="Notario" />
+                <ScalarProperty Name="Partes" ColumnName="Partes" />
+                <ScalarProperty Name="Cedula_a_Facturar" ColumnName="Cedula a Facturar" />
+                <ScalarProperty Name="Domilicio_a_Facturar" ColumnName="Domilicio a Facturar" />
+                <ScalarProperty Name="Correo_a_Facturar" ColumnName="Correo a Facturar" />
                 <ScalarProperty Name="Fecha" ColumnName="Fecha" />
                 <ScalarProperty Name="Facturado_por_Notario" ColumnName="Facturado por Notario" />
                 <ScalarProperty Name="Co_Notario" ColumnName="Co-Notario" />

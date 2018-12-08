@@ -66,7 +66,7 @@ namespace AccessDataLayer
                     for (int i = 1; i < monthNumberToFor + 1; i++)
                     {
                         string monthToSearch = "";
-                        monthToSearch = getMonthNumberWithoutCeroToMonthFiscalYear((i + ""));
+                        monthToSearch = getMonthNumberWithoutCeroToMonth((i + ""));
 
                         var variable = database.proc_Get_ActualBillingByMonth(monthToSearch, year, item.Codigo);
                         foreach (int actualBillingInMonthLessOne in variable.ToList())
@@ -111,7 +111,7 @@ namespace AccessDataLayer
                 {
                     /*Conseguir el mes {*/
                     string monthToSearch = "";
-                    monthToSearch = getMonthNumberWithoutCeroToMonthFiscalYear((i + ""));
+                    monthToSearch = getMonthNumberWithoutCeroToMonth((i + ""));
 
                     var variable = database.proc_Get_ActualBillingByMonth(monthToSearch, year, item.Codigo);
                     foreach (int actualBillingInMonth in variable.ToList())
@@ -133,40 +133,40 @@ namespace AccessDataLayer
             int var = 0;
             switch (month)
             {
-                case "Octubre":
+                case "Enero":
                     var = 1;
                     break;
-                case "Noviembre":
+                case "Febrero":
                     var = 2;
                     break;
-                case "Diciembre":
+                case "Marzo":
                     var = 3;
                     break;
-                case "Enero":
+                case "Abril":
                     var = 4;
                     break;
-                case "Febrero":
+                case "Mayo":
                     var = 5;
                     break;
-                case "Marzo":
+                case "Junio":
                     var =6;
                     break;
-                case "Abril":
+                case "Julio":
                     var = 7;
                     break;
-                case "Mayo":
+                case "Agosto":
                     var = 8;
                     break;
-                case "Junio":
+                case "Setiembre":
                     var = 9;
                     break;
-                case "Julio":
+                case "Octubre":
                     var = 10;
                     break;
-                case "Agosto":
+                case "Noviembre":
                     var = 11;
                     break;
-                case "Setiembre":
+                case "Diciembre":
                     var = 12;
                     break;
                
@@ -269,48 +269,48 @@ namespace AccessDataLayer
         }
 
 
-        private String getMonthNumberWithoutCeroToMonthFiscalYear(String number)
+       private String getMonthNumberWithoutCeroToMonthFiscalYear(String number)
         {
             String var = "";
             switch (number)
             {
                 case "1":
-                    var = "Octubre";
+                    var = "Enero";
                     break;
                 case "2":
-                    var = "Noviembre";
+                    var = "Febrero";
                     break;
                 case "3":
-                    var = "Diciembre";
+                    var = "Marzo";
                     break;
 
                 case "4":
-                    var = "Enero";
+                    var = "Abril";
 
                     break;
                 case "5":
-                    var = "Febrero";
-                    break;
-                case "6":
-                    var = "Marzo";
-                    break;
-                case "7":
-                    var = "Abril";
-                    break;
-                case "8":
                     var = "Mayo";
                     break;
-                case "9":
+                case "6":
                     var = "Junio";
                     break;
-                case "10":
+                case "7":
                     var = "Julio";
                     break;
-                case "11":
+                case "8":
                     var = "Agosto";
                     break;
-                case "12":
+                case "9":
                     var = "Setiembre";
+                    break;
+                case "10":
+                    var = "Octubre";
+                    break;
+                case "11":
+                    var = "Noviembre";
+                    break;
+                case "12":
+                    var = "Diciembre";
                     break;
                 
 
@@ -376,7 +376,7 @@ namespace AccessDataLayer
 
             for (int i = 1; i <= 12; i++)
             {
-                string monthToSearch = getMonthNumberWithoutCeroToMonthFiscalYear((i + ""));
+                string monthToSearch = getMonthNumberWithoutCeroToMonth((i + ""));
 
                 var variable = database.proc_SummaryMovementsByNotaryIDAndMonth(idNotary, monthToSearch, year);
 
@@ -413,7 +413,7 @@ namespace AccessDataLayer
 
             for (int i = 1; i <= 12; i++)
             {
-                string monthToSearch = getMonthNumberWithoutCeroToMonthFiscalYear((i + ""));
+                string monthToSearch = getMonthNumberWithoutCeroToMonth((i + ""));
 
                 var variable = database.proc_SummaryMovementsByNotaryIDAndMonth(idNotary, monthToSearch, year);
 
@@ -443,9 +443,7 @@ namespace AccessDataLayer
             DataTable table = new DataTable();
             table.Columns.Add("Iniciales");
 
-            table.Columns.Add("Octubre");
-            table.Columns.Add("Noviembre");
-            table.Columns.Add("Diciembre");
+            
 
             table.Columns.Add("Enero");
             table.Columns.Add("Febrero");
@@ -456,6 +454,10 @@ namespace AccessDataLayer
             table.Columns.Add("Julio");
             table.Columns.Add("Agosto");
             table.Columns.Add("Setiembre");
+
+            table.Columns.Add("Octubre");
+            table.Columns.Add("Noviembre");
+            table.Columns.Add("Diciembre");
 
             table.Columns.Add("Total");
 
@@ -539,9 +541,9 @@ namespace AccessDataLayer
 
                 total = var1 + var2 + var3 + var4 + var5 + var6 + var7 + var8 + var9 + var10 + var11 + var12;
 
-                table.Rows.Add(item.Iniciales, "$" +  var10, "$" + var11, "$" + var12, "$" + var1, "$" + var2, "$" + var3, "$" + var4,
+                table.Rows.Add(item.Iniciales, "$" + var1, "$" + var2, "$" + var3, "$" + var4,
                     "$" + var5, "$" + var6, "$" + var7, "$" + var8,
-                    "$" + var9,  "$" + total);
+                    "$" + var9, "$" + var10, "$" + var11, "$" + var12, "$"  + total);
 
             }
             return table;
@@ -557,19 +559,20 @@ namespace AccessDataLayer
             DataTable table = new DataTable();
             table.Columns.Add("Iniciales");
 
-            table.Columns.Add("Octubre");
-            table.Columns.Add("Noviembre");
-            table.Columns.Add("Diciembre");
+            
 
             table.Columns.Add("Enero");
             table.Columns.Add("Febrero");
             table.Columns.Add("Marzo");
-           /* table.Columns.Add("Abril");
+            table.Columns.Add("Abril");
             table.Columns.Add("Mayo");
             table.Columns.Add("Junio");
-            table.Columns.Add("Julio");
+           /* table.Columns.Add("Julio");
             table.Columns.Add("Agosto");
             table.Columns.Add("Setiembre");
+            table.Columns.Add("Octubre");
+            table.Columns.Add("Noviembre");
+            table.Columns.Add("Diciembre");
 
             table.Columns.Add("Total");*/
 
@@ -654,9 +657,9 @@ namespace AccessDataLayer
 
                 total = var1 + var2 + var3 + var4 + var5 + var6 + var7 + var8 + var9 + var10 + var11 + var12;
 
-                table.Rows.Add(item.Iniciales, "$" + var10, "$" + var11, "$" + var12, "$" + var1, "$" + var2, "$" + var3/*, "$" + var4,
-                    "$" + var5, "$" + var6, "$" + var7, "$" + var8,
-                    "$" + var9, "$" + total*/);
+                table.Rows.Add(item.Iniciales, "$" + var1, "$" + var2, "$" + var3, "$" + var4,
+                    "$" + var5, "$" + var6/*, "$" + var7, "$" + var8,
+                    "$" + var9, "$" + var10, "$" + var11, "$" + var12, "$" + total*/);
 
             }
             return table;
@@ -672,19 +675,20 @@ namespace AccessDataLayer
             DataTable table = new DataTable();
            /* table.Columns.Add("Iniciales");
 
-            table.Columns.Add("Octubre");
-            table.Columns.Add("Noviembre");
-            table.Columns.Add("Diciembre");
+           
 
             table.Columns.Add("Enero");
             table.Columns.Add("Febrero");
-            table.Columns.Add("Marzo");*/
+            table.Columns.Add("Marzo");
             table.Columns.Add("Abril");
             table.Columns.Add("Mayo");
-            table.Columns.Add("Junio");
+            table.Columns.Add("Junio");*/
             table.Columns.Add("Julio");
             table.Columns.Add("Agosto");
             table.Columns.Add("Setiembre");
+            table.Columns.Add("Octubre");
+            table.Columns.Add("Noviembre");
+            table.Columns.Add("Diciembre");
 
             table.Columns.Add("Total");
 
@@ -769,9 +773,9 @@ namespace AccessDataLayer
 
                 total = var1 + var2 + var3 + var4 + var5 + var6 + var7 + var8 + var9 + var10 + var11 + var12;
 
-                table.Rows.Add(/*item.Iniciales, "$" + var10, "$" + var11, "$" + var12, "$" + var1, "$" + var2, "$" + var3,*/ "$" + var4,
-                    "$" + var5, "$" + var6, "$" + var7, "$" + var8,
-                    "$" + var9, "$" + total);
+                table.Rows.Add(/*item.Iniciales, "$" + var1, "$" + var2, "$" + var3, "$" + var4,
+                    "$" + var5, "$" + var6,*/ "$" + var7, "$" + var8,
+                    "$" + var9, "$" + var10, "$" + var11, "$" + var12, "$" + total);
 
             }
             return table;
@@ -916,7 +920,7 @@ namespace AccessDataLayer
             return mensualLimit;
         }
 
-        public int getMensualActualLimitByProtocol(int idProtocol)
+  /*      public int getMensualActualLimitByProtocol(int idProtocol)
         {
 
             int mensualLimit = 0;
@@ -936,6 +940,51 @@ namespace AccessDataLayer
             }
 
             return mensualLimit;
+        }*/
+
+        public int getMensualActualLimitByProtocol2(string notaryName)
+        {
+            int returnVar = 0;
+            // int year = int.Parse(DateTime.Now.ToString("yyyy"));
+            try
+            {
+                
+
+                int year = getLastFiscalYearInDB();
+
+                string monthNumber = DateTime.Now.ToString("MM");
+                string realMonth = getMonth(monthNumber);
+                var summary = database.proc_SummaryPerMonth(realMonth, year);
+
+                int monthNumberToFor = transformMonthToNumber(realMonth);
+               /* DataTable table = new DataTable();
+                table.Columns.Add("Notario");
+
+                table.Columns.Add("Facturación Mensual");
+                table.Columns.Add("Saldo Mensual Actual");
+                table.Columns.Add("Limite Mensual"); //Limite Mensual + Carry
+
+                table.Columns.Add("Monto Acarreado Actual");*/
+
+                foreach (proc_SummaryPerMonth_Result item in summary.ToList())
+                {
+                    if (item.Notario.Equals(notaryName)) {
+                        /*Acarreo Proceso*/
+                        int var1 = item.Saldo_Mensual;
+                        string var2 = item.Facturado + "";
+                        int var3 = int.Parse(var2);
+                        returnVar = (var1 - var3);
+                    }
+
+                  //  table.Rows.Add(item.Notario, "$" + item.Facturado, "$" + (item.Saldo_Mensual - item.Facturado), "$" + item.Saldo_Mensual, "$" + montoAcarreado);
+                }
+
+                return returnVar;
+            }
+            catch (Exception e)
+            {
+                return 0;
+            }
         }
 
         public List<proc_Get_Notaries_Result> getNotaries()
@@ -954,25 +1003,7 @@ namespace AccessDataLayer
 
         private int getActualFiscalYear() {
             int year = int.Parse(DateTime.Now.ToString("yyyy"));
-            string month = DateTime.Now.ToString("MM");
-            string realMonth = getMonth(month);
-            int returnYear = 0;
-            switch (realMonth) {
-                case "Octubre":
-                    returnYear = year + 1;
-                    break;
-                case "Noviembre":
-                    returnYear = year + 1;
-                    break;
-                case "Diciembre":
-                    returnYear = year + 1;
-                    break;
-
-                default:
-                    returnYear = year;
-                    break;
-            }
-            return returnYear;
+            return year;
         }
 
 

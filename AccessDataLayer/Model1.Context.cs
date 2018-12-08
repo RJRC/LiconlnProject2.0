@@ -312,6 +312,15 @@ namespace Entities
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<proc_Get_Co_NotaryWritingByID_Result>("proc_Get_Co_NotaryWritingByID", writingIDParameter);
         }
     
+        public virtual ObjectResult<proc_Get_JustOwnWritingsByProtocol_Result> proc_Get_JustOwnWritingsByProtocol(Nullable<int> protocolID)
+        {
+            var protocolIDParameter = protocolID.HasValue ?
+                new ObjectParameter("protocolID", protocolID) :
+                new ObjectParameter("protocolID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<proc_Get_JustOwnWritingsByProtocol_Result>("proc_Get_JustOwnWritingsByProtocol", protocolIDParameter);
+        }
+    
         public virtual ObjectResult<Nullable<int>> proc_Get_LastWriting()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("proc_Get_LastWriting");

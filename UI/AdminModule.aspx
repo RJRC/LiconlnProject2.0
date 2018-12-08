@@ -109,9 +109,7 @@
 
                                     <asp:DropDownList ID="DropDownListMonths"  runat="server" Width="176px" BackColor="White" CssClass="color: White">
                                         
-                                        <asp:ListItem>Octubre</asp:ListItem>
-                                        <asp:ListItem>Noviembre</asp:ListItem>
-                                        <asp:ListItem>Diciembre</asp:ListItem>
+                                       
 
                                         <asp:ListItem>Enero</asp:ListItem>
                                         <asp:ListItem>Febrero</asp:ListItem>
@@ -122,6 +120,9 @@
                                         <asp:ListItem>Julio</asp:ListItem>
                                         <asp:ListItem>Agosto</asp:ListItem>
                                         <asp:ListItem>Setiembre</asp:ListItem>
+                                        <asp:ListItem>Octubre</asp:ListItem>
+                                        <asp:ListItem>Noviembre</asp:ListItem>
+                                        <asp:ListItem>Diciembre</asp:ListItem>
                                         
 
                                     </asp:DropDownList>

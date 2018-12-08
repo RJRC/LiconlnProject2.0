@@ -70,7 +70,7 @@ namespace UI
             string protocolIDVar1 = Session["ProtocolID"].ToString();
             int protocolIDvar = int.Parse(protocolIDVar1);
             LabelMensualLimit.Text = bll.getMensualLimitByProtocol(protocolIDvar) + "";
-            LabelMensualActualLimit.Text = bll.getMensualActualLimitByProtocol(protocolIDvar) + "";
+            LabelMensualActualLimit.Text = bll.getMensualActualLimitByProtocol(LabelName.Text) + "";
 
 
 

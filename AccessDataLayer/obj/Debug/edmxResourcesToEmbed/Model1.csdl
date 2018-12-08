@@ -270,6 +270,9 @@
     <FunctionImport Name="proc_Get_Co_NotaryWritingByID" ReturnType="Collection(LincolnDBModel.proc_Get_Co_NotaryWritingByID_Result)">
       <Parameter Name="writingID" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="proc_Get_JustOwnWritingsByProtocol" ReturnType="Collection(LincolnDBModel.proc_Get_JustOwnWritingsByProtocol_Result)">
+      <Parameter Name="protocolID" Mode="In" Type="Int32" />
+    </FunctionImport>
     <FunctionImport Name="proc_Get_LastWriting" ReturnType="Collection(Int32)" />
     <FunctionImport Name="proc_Get_Notaries" ReturnType="Collection(LincolnDBModel.proc_Get_Notaries_Result)" />
     <FunctionImport Name="proc_Get_Notaries_Eliminated" ReturnType="Collection(LincolnDBModel.proc_Get_Notaries_Eliminated_Result)" />
@@ -476,6 +479,20 @@
     <Property Type="String" Name="Asunto" Nullable="false" MaxLength="50" />
     <Property Type="String" Name="Cliente" Nullable="false" MaxLength="50" />
     <Property Type="String" Name="Notario" Nullable="false" MaxLength="50" />
+    <Property Type="DateTime" Name="Fecha" Nullable="false" Precision="23" />
+    <Property Type="Int32" Name="Facturado_por_Notario" Nullable="true" />
+    <Property Type="String" Name="Co_Notario" Nullable="false" MaxLength="2" />
+  </ComplexType>
+  <ComplexType Name="proc_Get_JustOwnWritingsByProtocol_Result">
+    <Property Type="Int32" Name="Codigo_Escritura" Nullable="false" />
+    <Property Type="String" Name="Acto_" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Asunto" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Cliente" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Notario" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Partes" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="Cedula_a_Facturar" Nullable="false" MaxLength="25" />
+    <Property Type="String" Name="Domilicio_a_Facturar" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="Correo_a_Facturar" Nullable="false" MaxLength="100" />
     <Property Type="DateTime" Name="Fecha" Nullable="false" Precision="23" />
     <Property Type="Int32" Name="Facturado_por_Notario" Nullable="true" />
     <Property Type="String" Name="Co_Notario" Nullable="false" MaxLength="2" />

@@ -227,9 +227,9 @@ namespace BusinessLogicLayer
             return accessDataLayer.getMensualLimitByProtocol(idProtocol);
         }
 
-        public int getMensualActualLimitByProtocol(int idProtocol)
+        public int getMensualActualLimitByProtocol(string notaryName)
         {
-            return accessDataLayer.getMensualActualLimitByProtocol(idProtocol);
+            return accessDataLayer.getMensualActualLimitByProtocol2(notaryName);
         }
 
         public Boolean checkNotary(String name)

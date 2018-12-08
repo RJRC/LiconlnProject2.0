@@ -138,7 +138,8 @@ namespace UI
                                 
                                     if (checkDate(year, month))
                                     {
-                                    year = getFiscalYear(year, month);
+                                   
+
                                         string monthNotNumber = bll.getMonth2(month + "");
 
                                         //Analizar que mes es y guardar la escritura en el protocolo de ese mes 
@@ -250,9 +251,7 @@ namespace UI
 
         private bool checkDate(int year, int month)
         {
-            if (month > 9) {
-                year = year + 1;
-            }
+       
 
             List<int> listOfYear = bll.getYears();
             foreach (int i in listOfYear)
@@ -265,15 +264,7 @@ namespace UI
             return false;
         }
 
-        private int getFiscalYear(int year, int month)
-        {
-            if (month > 9)
-            {
-                return (year + 1);
-            }
-            
-            return year;
-        }
+
 
 
 

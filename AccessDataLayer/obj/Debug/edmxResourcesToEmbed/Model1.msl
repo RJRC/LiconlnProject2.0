@@ -217,6 +217,24 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="proc_Get_JustOwnWritingsByProtocol" FunctionName="LincolnDBModel.Store.proc_Get_JustOwnWritingsByProtocol">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="LincolnDBModel.proc_Get_JustOwnWritingsByProtocol_Result">
+          <ScalarProperty Name="Codigo_Escritura" ColumnName="Codigo Escritura" />
+          <ScalarProperty Name="Acto_" ColumnName="Acto " />
+          <ScalarProperty Name="Asunto" ColumnName="Asunto" />
+          <ScalarProperty Name="Cliente" ColumnName="Cliente" />
+          <ScalarProperty Name="Notario" ColumnName="Notario" />
+          <ScalarProperty Name="Partes" ColumnName="Partes" />
+          <ScalarProperty Name="Cedula_a_Facturar" ColumnName="Cedula a Facturar" />
+          <ScalarProperty Name="Domilicio_a_Facturar" ColumnName="Domilicio a Facturar" />
+          <ScalarProperty Name="Correo_a_Facturar" ColumnName="Correo a Facturar" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+          <ScalarProperty Name="Facturado_por_Notario" ColumnName="Facturado por Notario" />
+          <ScalarProperty Name="Co_Notario" ColumnName="Co-Notario" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="proc_Get_LastWriting" FunctionName="LincolnDBModel.Store.proc_Get_LastWriting" />
     <FunctionImportMapping FunctionImportName="proc_Get_Notaries" FunctionName="LincolnDBModel.Store.proc_Get_Notaries">
       <ResultMapping>

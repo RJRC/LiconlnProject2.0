@@ -183,13 +183,17 @@ namespace UI
 
                                     string monthNotNumber = bll.getMonth2(month + "");
 
-                                    year = getFiscalYear(year, month);
+                                    
 
 
                                     string var2 = Session["UpdateMonth"].ToString(); // Malo
                                     string monthNotNumber2 = bll.getMonth2(var2);
                                     int protocolToSaveOld = bll.getProtocolByMonthAndYear(notaryID, monthNotNumber2, year);
-                                    protocolID = protocolToSaveOld + "";
+
+                                    string actualMonth = DateTime.Now.ToString("MM");
+                                    string actualRealMonth = bll.getMonth(actualMonth);
+
+                                    protocolID = bll.getProtocolByMonthAndYear(notaryID, actualRealMonth, year) + "";
                                     //Analizar que mes es y guardar la escritura en el protocolo de ese mes 
 
                                     int protocolToSaveNew = bll.getProtocolByMonthAndYear(notaryID, monthNotNumber, year);
@@ -279,15 +283,7 @@ namespace UI
             }
         }
 
-        private int getFiscalYear(int year, int month)
-        {
-            if (month > 9)
-            {
-                return (year + 1);
-            }
-
-            return year;
-        }
+   
 
         private string checkCoNotaryWithClientRBT()
         {
@@ -332,10 +328,7 @@ namespace UI
 
         private bool checkDate(int year, int month)
         {
-            if (month > 9)
-            {
-                year = year + 1;
-            }
+           
 
             List<int> listOfYear = bll.getYears();
             foreach (int i in listOfYear)

@@ -4,8 +4,8 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="170daef23d8e44ee8405c0efb5e7b734" Name="Diagram1">
-        <EntityTypeShape EntityType="LincolnDBModel.Affair" Width="1.5" PointX="6" PointY="0.875" IsExpanded="true" />
+      <Diagram DiagramId="1491941de1a94f829c6776692553a7e0" Name="Diagram1">
+        <EntityTypeShape EntityType="LincolnDBModel.Affair" Width="1.5" PointX="4.625" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="LincolnDBModel.Client" Width="1.5" PointX="6" PointY="7.125" IsExpanded="true" />
         <EntityTypeShape EntityType="LincolnDBModel.Login" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="LincolnDBModel.Movement" Width="1.5" PointX="5.25" PointY="3.625" IsExpanded="true" />
