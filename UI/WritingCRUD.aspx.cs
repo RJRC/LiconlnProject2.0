@@ -17,15 +17,29 @@ namespace UI
         Notary notary;
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            if (Session["Login"].ToString().Equals("1"))
+            {
+
                 load();
 
+                if (!Session["UpdateWritingToAlert"].Equals("Por Defecto"))
+                {
+                    alert("Se modifico la escritura con exito");
+                }
 
-            
-            if (!Session["DoWriting"].Equals("Por Defecto"))
-            {
-                alert("Se realizo la escritura con exito");
+                if (!Session["DoWriting"].Equals("Por Defecto"))
+                {
+                    alert("Se realizo la escritura con exito");
+                }
+                Session["DoWriting"] = "Por Defecto";
+                Session["UpdateWritingToAlert"] = "Por Defecto";
             }
-            Session["DoWriting"] = "Por Defecto";
+            else
+            {
+                Response.Redirect("Login.aspx");
+            }
+            
         }
 
 
@@ -48,24 +62,32 @@ namespace UI
             LabelAnualLimit.Text = notary.BalanceLimitMonth + "";
             loadDropDown();
             /*Ultimos datos*/
-            GridViewOwnWritings.DataSource = bll.getAllOwnWritingsByNotary(idNotary, int.Parse(DateTime.Now.ToString("yyyy")));
-            GridViewCo_NotaryWritings.DataSource = bll.getAllCoNotariesByNotary(idNotary, int.Parse(DateTime.Now.ToString("yyyy")));
+            GridViewOwnWritings.DataSource = bll.getAllOwnWritingsByNotary(idNotary, bll.getLastFiscalYear());
+            GridViewCo_NotaryWritings.DataSource = bll.getAllCoNotariesByNotary(idNotary, bll.getLastFiscalYear());
             GridViewOwnWritings.DataBind();
             GridViewCo_NotaryWritings.DataBind();
-            if (Session["Varload"].ToString().Equals("Por Defecto")) {
-                Session["Varload"] = "0";
-            }
+
+            string protocolIDVar1 = Session["ProtocolID"].ToString();
+            int protocolIDvar = int.Parse(protocolIDVar1);
+            LabelMensualLimit.Text = bll.getMensualLimitByProtocol(protocolIDvar) + "";
+            LabelMensualActualLimit.Text = bll.getMensualActualLimitByProtocol(protocolIDvar) + "";
 
 
+
+            LabelMonth.Text = bll.getMonth();
+            LabelYear.Text = bll.getLastFiscalYear() + "";
+            GridViewMonths.DataSource = bll.loadAllWritingsByProtocol(notary.NotaryID);
+            GridViewMonths.DataBind();
+            LabelAnualActualLimitFake.Visible = false;
+            LabelMensualActualLimitFake.Visible = false;
             switch (Session["Varload"].ToString()) {
                 case "0":
-                    LabelMonth.Text = bll.getMonth();
-                    GridViewMonths.DataSource = bll.loadAllWritingsByProtocol(notary.NotaryID);
-                    GridViewMonths.DataBind();
-                    LabelAnualActualLimitFake.Visible = false;
+                    
+                    Session["Varload"] = "Por Defecto";
                     alertBalance();
                     break;
-        }
+
+            }
 
             
 
@@ -73,13 +95,32 @@ namespace UI
 
         private void alertBalance() {
             int var = int.Parse(LabelAnualActualLimit.Text);
-            if (var < 500) {
+            int var2 = int.Parse(LabelMensualActualLimit.Text);
+            if (var < 500 && var2 < 200)
+            {
 
-                alert("El Saldo de " + notary.NotaryName + " es Menor a $500");
+                alert("El Saldo Anual es Menor a $500 Y El Saldo Mensual es Menor a $200");
                 LabelAnualActualLimitFake.Visible = true;
                 LabelAnualActualLimitFake.Text = LabelAnualActualLimit.Text;
                 LabelAnualActualLimit.Visible = false;
 
+                LabelMensualActualLimitFake.Visible = true;
+                LabelMensualActualLimitFake.Text = LabelMensualActualLimit.Text;
+                LabelMensualActualLimit.Visible = false;
+
+            } else if (var < 500) {
+                alert("El Saldo Anual es Menor a $500");
+                LabelAnualActualLimitFake.Visible = true;
+                LabelAnualActualLimitFake.Text = LabelAnualActualLimit.Text;
+                LabelAnualActualLimit.Visible = false;
+                
+
+            } else if (var2 < 200) {
+                alert("El Saldo Mensual es Menor a $200");
+
+                LabelMensualActualLimitFake.Visible = true;
+                LabelMensualActualLimitFake.Text = LabelMensualActualLimit.Text;
+                LabelMensualActualLimit.Visible = false;
             }
         }
 
@@ -146,7 +187,7 @@ namespace UI
                         if (realyear > 2017 && realyear < 2040)
                         {
                             LabelMonth.Text = monthToSearch;
-                            GridViewMonthsSearch.DataSource = bll.loadAllWritingsByProtocol(idNotary, monthToSearch, int.Parse(DateTime.Now.ToString("yyyy")));
+                            GridViewMonthsSearch.DataSource = bll.loadAllWritingsByProtocol(idNotary, monthToSearch, bll.getLastFiscalYear());
                             GridViewMonthsSearch.DataBind();
 
                             GridViewMonths.DataSource = null;
@@ -288,7 +329,7 @@ namespace UI
                 
                 int id = int.Parse(writingID);
 
-                GridView1.DataSource = bll.showCo_NotaryWritingByID(id);
+                GridView1.DataSource = bll.showCo_NotaryWritingByIDWithOutCero(id);
                 GridView1.DataBind();
                 Label2.Text = "Co-Notariado";
                 Session["Varload"]  = 1;
@@ -321,6 +362,9 @@ namespace UI
 
                 DateTime date1 = new DateTime(year, month, day);
 
+                Session["UpdateDate"] = date1;
+                Session["UpdateMonth"] = month + "";
+
                 Client c = new Client();
                 c.ClientName = client;
                 c.ClientID = bll.checkClients(client);
@@ -353,6 +397,7 @@ namespace UI
                 Session["UpdateWritingID"] = writingID;
 
                 Session["Varload"] = "0";
+                //alert(protocolID + " " + writingID);
                 Response.Redirect("UpdateWriting.aspx");
             }
 
@@ -377,7 +422,10 @@ namespace UI
                 
                 int id = int.Parse(writingID);
 
-                 GridView1.DataSource = bll.showCo_NotaryWritingByID(id);
+                GridViewMonths.DataSource = null;
+                GridViewMonths.DataBind();
+
+                 GridView1.DataSource = bll.showCo_NotaryWritingByIDWithOutCero(id);
                  GridView1.DataBind();
                  Label2.Text = "Co-Notariado";
                 Session["Varload"] = 1;
@@ -395,7 +443,8 @@ namespace UI
                 string act = GridViewMonthsSearch.Rows[crow].Cells[4].Text;
                 string affair = GridViewMonthsSearch.Rows[crow].Cells[5].Text;
                 string client = GridViewMonthsSearch.Rows[crow].Cells[6].Text;
-                string notaryFac = GridViewMonthsSearch.Rows[crow].Cells[8].Text;
+
+                Session["UpdateFacNotary"] = GridViewMonthsSearch.Rows[crow].Cells[8].Text;
                 string parts = GridViewMonthsSearch.Rows[crow].Cells[9].Text;
                 string iDFac = GridViewMonthsSearch.Rows[crow].Cells[10].Text;
                 string addressFac = GridViewMonthsSearch.Rows[crow].Cells[11].Text;
@@ -410,6 +459,10 @@ namespace UI
                 int day = int.Parse(var2[0]);
 
                 DateTime date1 = new DateTime(year, month, day);
+
+
+                Session["UpdateDate"] = date1;
+                Session["UpdateMonth"] = month + "";
 
                 Client c = new Client();
                 c.ClientName = client;
@@ -433,18 +486,18 @@ namespace UI
                 int protocolID = bll.getProtocolByMonthAndYear(notary.NotaryID, LabelMonth.Text, int.Parse(DateTime.Now.ToString("yyyy")));
 
 
+               
+
                 Session["UpdateWritingObject"] = writing;
                 Session["UpdateClientObject"] = c;
                 Session["UpdateAffairObject"] = a;
-
 
                 Session["NotaryID"] = notary.NotaryID;
                 Session["UpdateProtocolID"] = protocolID + "";
                 Session["RBT"] = LabelRBT.Text;
                 Session["UpdateWritingID"] = writingID;
-
                 Session["Varload"] = "0";
-
+               // alert(protocolID + " " + writingID);
                 Response.Redirect("UpdateWriting.aspx");
             }
         }
@@ -506,7 +559,17 @@ namespace UI
             GridViewCo_NotaryWritings.DataSource = bll.getAllCoNotariesByNotary(idNotary, year);
             GridViewOwnWritings.DataBind();
             GridViewCo_NotaryWritings.DataBind();
+            LabelYear.Text = year + "";
+
+        }
+
+        protected void ButtonDownload_Click(object sender, EventArgs e)
+        {
+            Session["ExportYear"] = LabelYear.Text;
+            Session["ExportType"] = "2";
             
+            Response.Redirect("Export.aspx");
+
         }
     }
 }

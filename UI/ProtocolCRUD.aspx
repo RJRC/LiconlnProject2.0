@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterProtocol.Master" AutoEventWireup="true" CodeBehind="ProtocolCRUD.aspx.cs" Inherits="UI.ProtocolCRUD" %>
 <asp:Content ID="contentTitle" ContentPlaceHolderID="contentTitle" runat="server">
-    Modulo Administrador
+    Invicta Legal
 </asp:Content>
 <asp:Content ID="contentHead" ContentPlaceHolderID="contentHead" runat="server">
 

@@ -33,7 +33,14 @@ namespace UI
 
         protected void Page_Load(object sender, EventArgs e)
         {
-           
+            if (Session["Login"].ToString().Equals("1"))
+            {
+
+            }
+            else
+            {
+                Response.Redirect("Login.aspx");
+            }
         }
 
         protected void ButtonCoNotary_Click(object sender, EventArgs e)
@@ -103,56 +110,91 @@ namespace UI
                         break;
 
                     case "Honorary":
-                        alert("Ingresar un Numero en Honorario y Facturado por Notario");
+                        alert("Ingresar un Numero en Facturado por Notario, e Ingrese una Fecha");
                         break;
 
                     case "WellInformation":
-
-                        string[] var = calendar.Split('/');
-                        int month = int.Parse(var[1]);
-                        int year = int.Parse(var[2]);
-                        int day = int.Parse(var[0]);
-                        DateTime date = new DateTime(year,month, day);
-
-                        string monthNotNumber = bll.getMonth(month + "");
-
-                        //Analizar que mes es y guardar la escritura en el protocolo de ese mes 
-
-                        int protocolToSave2 = bll.getProtocolByMonthAndYear(idNotary, monthNotNumber, year);
+                     /*   try
+                        {*/
 
 
-                        bll.createWriting(idClientToWriting, protocolToSave2, idAffairToWriting,
-                                idFac, addressFac, emailFac,
-                                date, act, nofatyFac, part, writingNumber);
-                        if (sumCoNotaries != 0)
-                        {
-                            foreach (GridViewRow row in GridViewCoNotary.Rows)
+                            string[] var = calendar.Split('/');
+                            int month = int.Parse(var[1]);
+                            int year = int.Parse(var[2]);
+                            int day = int.Parse(var[0]);
+                            DateTime dateFake = DateTime.Now;
+                            DateTime date = new DateTime(year, month, day, dateFake.Hour, dateFake.Minute, dateFake.Second);
+
+                            string rbt = Session["RBT"].ToString();
+                            //Metodo para ver si las coNotariados no pueden cartular rbt y estan poniendo plata
+                            if (rbt.Equals("NO") && client.ToUpper().Equals("RBT"))
                             {
-                                if (row.RowType == DataControlRowType.DataRow)
-                                {
-                                    TextBox textBox = row.FindControl("TextBoxCoNotaryAdd") as TextBox;
-
-                                    int amount = int.Parse(textBox.Text);
-
-                                    if (amount != 0)
+                                alert("No puede Cartular a RBT");
+                            }
+                            else
+                            {
+                                string varEnabledRBT = checkCoNotaryWithClientRBT();
+                                if (varEnabledRBT.Equals("")) {
+                                
+                                    if (checkDate(year, month))
                                     {
-                                        int conotaryID = int.Parse(row.Cells[1].Text); //Codigo del CoNotario
+                                    year = getFiscalYear(year, month);
+                                        string monthNotNumber = bll.getMonth2(month + "");
+
+                                        //Analizar que mes es y guardar la escritura en el protocolo de ese mes 
+
+                                        int protocolToSave2 = bll.getProtocolByMonthAndYear(idNotary, monthNotNumber, year);
+
+                                        string[] var3 = (date.ToString()).Split(' ');
+                                        string[] var2 = (var3[0]).Split('/');
+                                        string newDate = var2[2] + "-" + var2[1] + "-" + var2[0] + " " + var3[1];
+                                    bll.createWriting(idClientToWriting, protocolToSave2, idAffairToWriting,
+                                          idFac, addressFac, emailFac,
+                                          newDate, act, nofatyFac, part, writingNumber);
+
+                                    
+                                        if (sumCoNotaries != 0)
+                                        {
+                                            foreach (GridViewRow row in GridViewCoNotary.Rows)
+                                            {
+                                                if (row.RowType == DataControlRowType.DataRow)
+                                                {
+                                                    TextBox textBox = row.FindControl("TextBoxCoNotaryAdd") as TextBox;
+
+                                                    int amount = int.Parse(textBox.Text);
+
+                                                    if (amount != 0)
+                                                    {
+                                                        int conotaryID = int.Parse(row.Cells[1].Text); //Codigo del CoNotario
 
 
-                                        int protocolToSave = bll.getProtocolByMonthAndYear(conotaryID, monthNotNumber, year);
+                                                        int protocolToSave = bll.getProtocolByMonthAndYear(conotaryID, monthNotNumber, year);
 
-                                        bll.createMovement(protocolToSave, amount);
-                                        
+                                                        bll.createMovement(protocolToSave, amount);
+
+                                                    }
+
+                                                }
+                                            }
+                                        }
+
+                                        Session["ProtocolID"] = idProtocol;
+                                        Session["DoWriting"] = "Exito";
+                                        Session["Varload"] = 0;
+                                        Response.Redirect("WritingCRUD.aspx");
                                     }
-
+                                    else
+                                    {
+                                        alert("El año seleccionado no esta disponible mes " + month);
+                                    }
+                                }
+                                else {
+                                    alert(varEnabledRBT + ". Estos Notarios no pueden participar si el cliente es RBT");
                                 }
                             }
-                        }
-
-                        Session["ProtocolID"] = idProtocol;
-                        Session["DoWriting"] = "Exito";
-                        Session["Varload"] = 0;
-                        Response.Redirect("WritingCRUD.aspx");
+                       /* } catch (Exception e) {
+                            alert("El año seleccionado no esta disponible try mes " );
+                        }*/
                         break;
 
                 }
@@ -168,6 +210,71 @@ namespace UI
         private void clear() {//Limpiar los espacios
 
         }
+
+
+
+        private string checkCoNotaryWithClientRBT() {
+
+            string var = "";
+            if (client.ToUpper().Equals("RBT")) {
+                try
+                {
+                    foreach (GridViewRow row in GridViewCoNotary.Rows)
+                    {
+                        if (row.RowType == DataControlRowType.DataRow)
+                        {
+                            TextBox textBox = row.FindControl("TextBoxCoNotaryAdd") as TextBox;
+
+                            int amount = int.Parse(textBox.Text);
+
+                            if (amount != 0)
+                            {
+
+                                string varrRBT = row.Cells[3].Text;
+
+                                if (varrRBT.Equals("NO")) {
+                                    var += row.Cells[2].Text + " ";
+                                }
+                            }
+                        }
+                    }
+                } catch (Exception ex) {
+
+                }
+
+            }
+
+            return var;
+
+        }
+
+        private bool checkDate(int year, int month)
+        {
+            if (month > 9) {
+                year = year + 1;
+            }
+
+            List<int> listOfYear = bll.getYears();
+            foreach (int i in listOfYear)
+            {
+                if (i == year)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private int getFiscalYear(int year, int month)
+        {
+            if (month > 9)
+            {
+                return (year + 1);
+            }
+            
+            return year;
+        }
+
 
 
 

@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterDoWriting.Master" AutoEventWireup="true" CodeBehind="DoWriting.aspx.cs" Inherits="UI.DoWriting" %>
 <asp:Content ID="contentTitle" ContentPlaceHolderID="contentTitle" runat="server">
-    Modulo Administrador
+    Invicta Legal
 </asp:Content>
 
 <asp:Content ID="contentHead" ContentPlaceHolderID="contentHead" runat="server">

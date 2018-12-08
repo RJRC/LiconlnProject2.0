@@ -96,7 +96,7 @@
 									<a href="#services" class="hvr-overline-from-center scroll">Resumen Mensual</a>
 								</li>
                                 <li>
-									<a href="#" class="hvr-overline-from-center ">Registrar Usuarios</a>
+									<a href="Register.aspx" class="hvr-overline-from-center ">Registrar Usuarios</a>
 								</li>
                                 <li>
 									<a href="Login.aspx" class="hvr-overline-from-center ">Cerrar Sesión</a>

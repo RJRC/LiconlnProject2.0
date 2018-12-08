@@ -18,6 +18,7 @@ namespace UI
 
         protected void Session_Start(object sender, EventArgs e)
         {
+            Session["Login"] = "Por Defecto";
             Session["NotaryID"] = "Por Defecto";
             Session["ProtocolID"] = "Por Defecto";
             Session["Varload"] = "Por Defecto";
@@ -26,14 +27,30 @@ namespace UI
             Session["UpdateWritingID"] = "Por Defecto";
             Session["RBT"] = "Por Defecto";
 
+            Session["export"] = "datatable";
+
+            Session["UpdateWritingToAlert"] = "Por Defecto";
+
+            Session["UpdateMonth"] = "Por Defecto";
+
+
+            Session["ExportYear"] = "Por Defecto";
+            Session["ExportType"] = "Por Defecto";
+
+            Session["UpdateProtocolID"] = "Por Defecto";
+            Session["UpdateFacNotary"] = "Por Defecto";
+
+            Session["Counter"] = new int();
+            Session["limit"] = new DateTime();
+
+
+            Session["UpdateDate"] = new DateTime();
 
 
             Session["UpdateWritingObject"] = new Writing();
             Session["UpdateClientObject"] = new Client();
             Session["UpdateAffairObject"] = new Affair();
-            Session["UpdateProtocolID"] = "Por Defecto";
-            Session["UpdateFacNotary"] = "Por Defecto";
-
+            
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)

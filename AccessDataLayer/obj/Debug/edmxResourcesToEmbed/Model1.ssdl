@@ -70,7 +70,7 @@
     <Property Name="BillingNumber" Type="nvarchar" MaxLength="25" Nullable="false" />
     <Property Name="BillingAddress" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="BillingEmail" Type="nvarchar" MaxLength="100" Nullable="false" />
-    <Property Name="DateWriting" Type="date" Nullable="false" />
+    <Property Name="DateWriting" Type="datetime" Nullable="false" />
     <Property Name="EventWriting" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Eliminated" Type="nvarchar" MaxLength="2" Nullable="false" />
   </EntityType>
@@ -182,13 +182,16 @@
     <Parameter Name="billingNumber" Type="nvarchar" Mode="In" />
     <Parameter Name="billingAddress" Type="nvarchar" Mode="In" />
     <Parameter Name="billingEmail" Type="nvarchar" Mode="In" />
-    <Parameter Name="date" Type="date" Mode="In" />
+    <Parameter Name="date" Type="nvarchar" Mode="In" />
     <Parameter Name="event" Type="nvarchar" Mode="In" />
     <Parameter Name="billedAmount" Type="int" Mode="In" />
     <Parameter Name="parts" Type="nvarchar" Mode="In" />
     <Parameter Name="writingNumber" Type="nvarchar" Mode="In" />
   </Function>
   <Function Name="proc_Delete_Notary" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="proc_Delete_UserLoginByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
   <Function Name="proc_Delete_Writing" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -209,6 +212,7 @@
     <Parameter Name="year" Type="int" Mode="In" />
     <Parameter Name="notaryID" Type="int" Mode="In" />
   </Function>
+  <Function Name="proc_GET_AllUserLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="proc_Get_ALLWritings" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="proc_Get_ALLWritingsByProtocol" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="month" Type="nvarchar" Mode="In" />
@@ -221,9 +225,6 @@
   </Function>
   <Function Name="proc_Get_Co_NotaryWritingByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="proc_Get_Co-NotaryWritingByID">
     <Parameter Name="writingID" Type="int" Mode="In" />
-  </Function>
-  <Function Name="proc_Get_JustOwnWritingsByProtocol" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="protocolID" Type="int" Mode="In" />
   </Function>
   <Function Name="proc_Get_LastWriting" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="proc_Get_Notaries" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
@@ -301,6 +302,7 @@
     <Parameter Name="protocolID" Type="int" Mode="In" />
     <Parameter Name="writingID" Type="int" Mode="In" />
     <Parameter Name="billedAmount" Type="money" Mode="In" />
+    <Parameter Name="newProtocolID" Type="int" Mode="In" />
   </Function>
   <Function Name="proc_Update_Notary" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
@@ -319,13 +321,27 @@
     <Parameter Name="month" Type="nvarchar" Mode="In" />
     <Parameter Name="year" Type="int" Mode="In" />
   </Function>
+  <Function Name="proc_Update_UserLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="username" Type="nvarchar" Mode="In" />
+    <Parameter Name="password" Type="nvarchar" Mode="In" />
+    <Parameter Name="type" Type="nvarchar" Mode="In" />
+    <Parameter Name="email" Type="nvarchar" Mode="In" />
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
   <Function Name="proc_Update_WritingByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="writingID" Type="int" Mode="In" />
     <Parameter Name="billingNumber" Type="nvarchar" Mode="In" />
     <Parameter Name="billingAddress" Type="nvarchar" Mode="In" />
     <Parameter Name="billingEmail" Type="nvarchar" Mode="In" />
-    <Parameter Name="date" Type="date" Mode="In" />
+    <Parameter Name="date" Type="nvarchar" Mode="In" />
     <Parameter Name="eventWriting" Type="nvarchar" Mode="In" />
+    <Parameter Name="billedAmount" Type="int" Mode="In" />
+    <Parameter Name="protocolID" Type="int" Mode="In" />
+    <Parameter Name="newProtocolID" Type="int" Mode="In" />
+    <Parameter Name="writingNumber" Type="nvarchar" Mode="In" />
+    <Parameter Name="parts" Type="nvarchar" Mode="In" />
+    <Parameter Name="clientID" Type="int" Mode="In" />
+    <Parameter Name="affairID" Type="int" Mode="In" />
   </Function>
   <Function Name="proc_UpdateProtocolActualBillingByMonth" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />

@@ -15,5 +15,6 @@ namespace Entities
     {
         public Nullable<int> Facturado_por_Notario { get; set; }
         public string CoNotario { get; set; }
+        public int Codigo { get; set; }
     }
 }

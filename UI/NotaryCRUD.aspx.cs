@@ -15,7 +15,16 @@ namespace UI
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            load();
+            if (Session["Login"].ToString().Equals("1"))
+            {
+
+                load();
+
+            }
+            else
+            {
+                Response.Redirect("Login.aspx");
+            }
         }
 
         private void load()
@@ -59,7 +68,7 @@ namespace UI
 
                 load();
 
-                alert("Se ha eliminado correctamente");
+                alert("Se ha ocultado correctamente");
 
 
             }
@@ -88,7 +97,7 @@ namespace UI
 
         private void clear()
         {
-           TextBoxName.Text = "";
+            TextBoxName.Text = "";
             TextBoxMoney.Text = "";
             TextBoxIniciales.Text = ""; 
         }
@@ -142,15 +151,15 @@ namespace UI
         {
 
 
-            if (ButtonDeleted.Text.Equals("Ver Eliminados"))
+            if (ButtonDeleted.Text.Equals("Ver Ocultados"))
             {
                 loadDeleted();
-                ButtonDeleted.Text = "Ocultar Eliminados";
+                ButtonDeleted.Text = "No mostrar Ocultados";
             }
             else {
 
                 loadDeletedFake();
-                ButtonDeleted.Text = "Ver Eliminados";
+                ButtonDeleted.Text = "Ver Ocultados";
             }
         }
 

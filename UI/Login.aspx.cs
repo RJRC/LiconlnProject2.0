@@ -11,34 +11,91 @@ namespace UI
     public partial class Login : System.Web.UI.Page
     {
         BLL logic = new BLL();
+        DateTime date;
+        DateTime limit;
+
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            Session["Login"] = "Por Defecto";
+            date = DateTime.Now;
         }
 
         protected void ButtonLogin_Click(object sender, EventArgs e)
         {
+            temporizer();
+          
+            limit = DateTime.Parse(Session["limit"].ToString());
+            if (date < limit)
+            {
+                alert("Debe esperar");
+            }
+            else
+            {
+                if (Int16.Parse(Session["Counter"].ToString()) < 3)
+                {
+                    Session["Counter"] = Int16.Parse(Session["Counter"].ToString()) + 1;
+                    authentication();
+                }
+                else
+                {
+                    Session["Counter"] = 0;
+                    Session["limit"] = logic.timer();
+                    temporizer();
+                    alert("ha excedido el maximo de intentos");
+
+
+                }
+
+            }
+        }
+
+        public void temporizer()
+        {
+            limit = DateTime.Parse(Session["limit"].ToString());
+            if (date < limit)
+            {
+                TextBoxUser.Enabled = false;
+                TextBoxPassword.Enabled = false;
+            }
+            else
+            {
+                TextBoxUser.Enabled = true;
+                TextBoxPassword.Enabled = true;
+            }
+        }
+
+        private void checkMonth() {
+            DateTime date =  DateTime.Now;
+            int numberOfMonth = date.Month;
+            string month = logic.getMonth2(numberOfMonth + "");
+        }
+
+        public void authentication()
+        {
             switch (logic.authenticate(TextBoxUser.Text, TextBoxPassword.Text))
             {
-
                 case 0:
-                    alert("Correo o Contraseña Erroneo");
+                    alert("Correo o Contraseña Erroneo, intento: " + Session["Counter"]);
                     break;
+
                 case 1:
 
                     Session["Login"] = "1";
                     Session["UserName"] = TextBoxUser.Text;
+                    Session["Counter"] = 0;
                     Response.Redirect("AdminModule.aspx");
                     break;
                 case 2:
 
                     Session["Login"] = "2";
                     Session["UserName"] = TextBoxUser.Text;
+                    Session["Counter"] = 0;
                     Response.Redirect("User.aspx");
                     break;
 
                 default:
-                    alert("Correo o Contraseña Erroneo");
+                    alert("Correo o Contraseña Erronea");
+
                     break;
 
             }

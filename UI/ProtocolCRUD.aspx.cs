@@ -14,8 +14,16 @@ namespace UI
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            load();
-            Session["Varload"] = 0;
+            if (Session["Login"].ToString().Equals("1"))
+            {
+                  load();
+                  Session["Varload"] = 0;
+            }
+            else
+            {
+                Response.Redirect("Login.aspx");
+            }
+            
         }
 
         private void load()

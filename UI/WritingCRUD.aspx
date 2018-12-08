@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterWriting.Master" AutoEventWireup="true" CodeBehind="WritingCRUD.aspx.cs" Inherits="UI.WritingCRUD" %>
 <asp:Content ID="contentTitle" ContentPlaceHolderID="contentTitle" runat="server">
-    Modulo Administrador
+    Invicta Legal
 </asp:Content>
 <asp:Content ID="contentHead" ContentPlaceHolderID="contentHead" runat="server">
 
@@ -37,12 +37,22 @@
             <h4>  <asp:Label ID="LabelAvailable"   runat="server" Text="" style="color:red"> </asp:Label>  SE ENCUENTRA HABILITADO</h4>
            
             <br/>
-             <h4>Saldo Actual Anual  $<asp:Label ID="LabelAnualActualLimit"   runat="server" Text="0"></asp:Label> <asp:Label ID="LabelAnualActualLimitFake"  style="color: red;" runat="server" Text="0"> </asp:Label></h4>
+
+            <h4>Saldo Actual Mensual $<asp:Label ID="LabelMensualActualLimit"   runat="server" Text="0"> </asp:Label>  <asp:Label ID="LabelMensualActualLimitFake"  style="color: red;" runat="server" Text=""> </asp:Label></h4>
+           
+            <br/>
+            <h4>Limite Mensual $<asp:Label ID="LabelMensualLimit"   runat="server" Text="0"> </asp:Label></h4>
+           
+            <br/>
+
+             <h4>Saldo Actual Anual  $<asp:Label ID="LabelAnualActualLimit"   runat="server" Text="0"></asp:Label> <asp:Label ID="LabelAnualActualLimitFake"  style="color: red;" runat="server" Text=""> </asp:Label></h4>
            
             <br/>
             <h4>Limite Anual $<asp:Label ID="LabelAnualLimit"   runat="server" Text="0"> </asp:Label></h4>
            
             <br/>
+
+            
 
             <asp:Button ID="ButtonNewWriting" class="btn btn-lg btn-warning" runat="server" Text="Crear Nueva Escritura" OnClick="ButtonNewWriting_Click" />
 
@@ -65,7 +75,7 @@
             <asp:UpdatePanel ID="UpdatePanel3" runat="server">
                  <ContentTemplate> 
 
-                <h3 class="title">Total Facturado Año Fiscal $<asp:Label ID="LabelTotalYear" runat="server" Text="Label"></asp:Label>
+                <h3 class="title">Total Facturado Periodo Fiscal $<asp:Label ID="LabelTotalYear" runat="server" Text="Label"></asp:Label>
 			</h3>
 
 	      
@@ -131,6 +141,9 @@
                                     <div class="col">
                                         <asp:DropDownList ID="DropDownListMonths" runat="server" Width="176px" BackColor="White" CssClass="color: White">
                                         
+                                        <asp:ListItem>Octubre</asp:ListItem>
+                                        <asp:ListItem>Noviembre</asp:ListItem>
+                                        <asp:ListItem>Diciembre</asp:ListItem>
                                         <asp:ListItem>Enero</asp:ListItem>
                                         <asp:ListItem>Febrero</asp:ListItem>
                                         <asp:ListItem>Marzo</asp:ListItem>
@@ -140,9 +153,7 @@
                                         <asp:ListItem>Julio</asp:ListItem>
                                         <asp:ListItem>Agosto</asp:ListItem>
                                         <asp:ListItem>Setiembre</asp:ListItem>
-                                        <asp:ListItem>Octubre</asp:ListItem>
-                                        <asp:ListItem>Noviembre</asp:ListItem>
-                                        <asp:ListItem>Diciembre</asp:ListItem>
+                                        
 
                                     </asp:DropDownList>
                                         <br>
@@ -253,10 +264,7 @@
 
              </ContentTemplate>  
                 </asp:UpdatePanel>
-	      
-            <br/>
-            <br/>
-                
+	    
 
 
             
@@ -269,7 +277,7 @@
             
             <asp:UpdatePanel ID="UpdatePanel4" runat="server">
                  <ContentTemplate> 
-                <h3 class="title">Todas las Facturas del Año</h3>
+                <h3 class="title">Todas las Facturas del Periodo Fiscal <asp:Label ID="LabelYear" runat="server" Text=""></asp:Label></h3> 
             <div class="col">
              <asp:DropDownList ID="DropDownListYears" runat="server" Width="175px" BackColor="White" CssClass="color : White"></asp:DropDownList>
 <br/>
@@ -281,6 +289,7 @@
                                     <div class="col-auto">
                                         
                                         <asp:Button ID="ButtonYear" class="btn btn-lg btn-default" runat="server" Text="Filtrar por Año" OnClick="ButtonYear_Click"  /> 
+                                        <asp:Button ID="ButtonDownload" class="btn btn-lg btn-default" runat="server" Text="Exportar" OnClick="ButtonDownload_Click"  /> 
                                          
                                     </div>
 	      

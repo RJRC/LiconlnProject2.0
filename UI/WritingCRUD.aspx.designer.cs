@@ -67,6 +67,33 @@ namespace UI {
         protected global::System.Web.UI.WebControls.Label LabelAvailable;
         
         /// <summary>
+        /// Control LabelMensualActualLimit.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelMensualActualLimit;
+        
+        /// <summary>
+        /// Control LabelMensualActualLimitFake.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelMensualActualLimitFake;
+        
+        /// <summary>
+        /// Control LabelMensualLimit.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelMensualLimit;
+        
+        /// <summary>
         /// Control LabelAnualActualLimit.
         /// </summary>
         /// <remarks>
@@ -238,6 +265,15 @@ namespace UI {
         protected global::System.Web.UI.UpdatePanel UpdatePanel4;
         
         /// <summary>
+        /// Control LabelYear.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelYear;
+        
+        /// <summary>
         /// Control DropDownListYears.
         /// </summary>
         /// <remarks>
@@ -254,6 +290,15 @@ namespace UI {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button ButtonYear;
+        
+        /// <summary>
+        /// Control ButtonDownload.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonDownload;
         
         /// <summary>
         /// Control LabelOwnFac.

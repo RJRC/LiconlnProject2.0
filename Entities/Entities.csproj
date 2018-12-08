@@ -70,6 +70,9 @@
     <Compile Include="proc_Get_ALLOwnWritingsByNotary_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="proc_GET_AllUserLogin_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="proc_Get_ALLWritingsByProtocol_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -83,9 +86,6 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="proc_Get_Co_NotaryWritingByID_Result.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="proc_Get_JustOwnWritingsByProtocol_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="proc_Get_NotariesWithOutOneById_Result.cs">

@@ -14,21 +14,28 @@ namespace UI
         private string monthToSearch = "";
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!Page.IsPostBack)
+            if (Session["Login"].ToString().Equals("1"))
             {
-                load();
+
+                if (!Page.IsPostBack)
+                {
+                    load();
+                }
+            }
+            else {
+                Response.Redirect("Login.aspx");
             }
         }
 
         private void load()
         {
             GridViewMonth.DataSource = bll.showSummaryMonth();
-            GridViewYear.DataSource = bll.showSummaryYear();
+            GridViewYear.DataSource = bll.showSummaryYear(bll.getLastFiscalYear());
             GridViewMonth.DataBind();
             GridViewYear.DataBind();
             labels();
 
-            GridViewEachMonth.DataSource = bll.showSummaryYearPerMonthsInAdminModule(int.Parse(DateTime.Now.ToString("yyyy")));
+            GridViewEachMonth.DataSource = bll.showSummaryYearPerMonthsInAdminModule(bll.getLastFiscalYear());
             GridViewEachMonth.DataBind();
 
             loadDropDown();
@@ -83,16 +90,18 @@ namespace UI
         private void loadSummaryYears(int year) {
             GridViewEachMonth.DataSource = bll.showSummaryYearPerMonthsInAdminModule(year);
             GridViewEachMonth.DataBind();
+            GridViewYear.DataSource = bll.showSummaryYear(year);
+            GridViewYear.DataBind();
         }
 
         private void labels()
         {
             string month = DateTime.Now.ToString("MM");
             LabelMonth.Text = bll.getMonth(month);
-            LabelYear.Text = DateTime.Now.ToString("yyyy");
+            LabelYear.Text = bll.getLastFiscalYear() + "";
         }
 
-    
+
 
         private void labels(String month, String year)
         {
@@ -107,102 +116,18 @@ namespace UI
 
         private void validateSearch() {
             monthToSearch = DropDownListMonths.SelectedItem.ToString();
-            String year = DropDownListYearsMonth.SelectedItem.ToString(); 
-            if (validateMonth())
+            try
             {
-                int var = 0;
-                    try
-                    {
-                      if (!year.Equals("")) { 
-                         
-                        int realyear = int.Parse(year);
+                String year = DropDownListYearsMonth.SelectedItem.ToString(); 
 
-                        if (realyear > 2000 && realyear < 2050)
-                        {
-                            load(bll.showSummaryMonth(monthToSearch, realyear), monthToSearch, year);
-                          
-                        }
-                        else {
-                            alert("Ingrese un año entre 2010 y 2045");
-                           
-                        }
-                        var = 1;
-                    }
-                    if (var == 0) {
-                        load(bll.showSummaryMonth(monthToSearch, int.Parse( DateTime.Now.ToString("yyyy"))), monthToSearch, DateTime.Now.ToString("yyyy"));
-                    }
-                }
-                    catch (Exception e)
-                    {
+            
+                int realyear = int.Parse(year);
+                load(bll.showSummaryMonth(monthToSearch, realyear), monthToSearch, year); 
 
-                        alert("Existe un error en el Año");
-
-                    }
-            }else {
-                alert("Existe un error al ingresar el Mes");
             }
-
-        }
-
-
-        private Boolean validateMonth() {
-            Boolean var = false;
-            switch (monthToSearch.ToUpper()) {
-               
-                case "ENERO":
-                    var = true;
-                    monthToSearch = "Enero";
-                    break;
-                case "FEBRERO":
-                    var = true;
-                    monthToSearch = "Febrero";
-                    break;
-                case "MARZO":
-                    var = true;
-                    monthToSearch = "Marzo";
-                    break;
-                case "ABRIL":
-                    var = true;
-                    monthToSearch = "Abril";
-                    break;
-                case "MAYO":
-                    var = true;
-                    monthToSearch = "Mayo";
-                    break;
-                case "JUNIO":
-                    var = true;
-                    monthToSearch = "Junio";
-                    break;
-                case "JULIO":
-                    var = true;
-                    monthToSearch = "Julio";
-                    break;
-                case "AGOSTO":
-                    var = true;
-                    monthToSearch = "Agosto";
-                    break;
-                case "SETIEMBRE":
-                    var = true;
-                    monthToSearch = "Setiembre";
-                    break;
-                case "OCTUBRE":
-                    var = true;
-                    monthToSearch = "Octubre";
-                    break;
-                case "NOVIEMBRE":
-                    var = true;
-                    monthToSearch = "Noviembre";
-                    break;
-                case "DICIEMBRE":
-                    var = true;
-                    monthToSearch = "Diciembre";
-                    break;
-            }
-
-            if (var) {
-                return true;
-            } else {
-                return false;
+            catch (Exception e)
+            {
+                alert("Ingrese nuevos Notarios");
             }
         }
 
@@ -234,47 +159,26 @@ namespace UI
 
         protected void Button3_Click(object sender, EventArgs e)
         {
-           string year = DropDownListYear.SelectedItem.ToString();
+            try
+            {
+                string year = DropDownListYear.SelectedItem.ToString();
 
-            loadSummaryYears(int.Parse(year));
+                loadSummaryYears(int.Parse(year));
+                
+
+
+            } catch (Exception p) {
+                alert("Ingrese nuevos Notarios");
+            }
         }
 
         protected void Button4_Click(object sender, EventArgs e)
         {
-           // alert("Empezo");
-            String name = TextBox1.Text;
-            DataTable data = (DataTable)GridViewYear.DataSource;
-            Response.Clear();
-            Response.AddHeader("content-disposition", "attachment;filename=" + name + ".csv");
-            Response.ContentType = "application/vnd.ms-excel";
-            Response.Write(data);
-            Response.End();
-            alert("Se ha guardado con exito " + name);
+            Session["ExportYear"] = LabelYear.Text;
+            Session["ExportType"] = "1";
+            Response.Redirect("Export.aspx");
         }
 
-        protected void LinkButton1_Click(object sender, EventArgs e)
-        {
-            alert("Empezo");
-            String name = TextBox1.Text;
-            DataTable data = (DataTable)GridViewYear.DataSource;
-            Response.Clear();
-            Response.AddHeader("content-disposition", "attachment;filename=" + name + ".csv");
-            Response.ContentType = "application/vnd.ms-excel";
-            Response.Write(data);
-            Response.End();
-            alert("Se ha guardado con exito " + name);
-        }
 
-        protected void LinkButton2_Click(object sender, EventArgs e)
-        {
-            String name = TextBox1.Text;
-            DataTable data = (DataTable)GridViewYear.DataSource;
-            Response.Clear();
-            Response.AddHeader("content-disposition", "attachment;filename=" + name + ".csv");
-            Response.ContentType = "application/vnd.ms-excel";
-            Response.Write(data);
-            Response.End();
-            alert("Se ha guardado con exito " + name);
-        }
     }
 }

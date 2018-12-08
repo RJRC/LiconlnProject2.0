@@ -44,6 +44,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="itextsharp, Version=4.1.2.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -82,6 +86,7 @@
     <Content Include="css\writingCrud.css" />
     <Content Include="css\writingUpdate.css" />
     <Content Include="DoWriting.aspx" />
+    <Content Include="Export.aspx" />
     <Content Include="Global.asax" />
     <Content Include="images\arrow.png" />
     <Content Include="images\bg2.jpg" />
@@ -101,6 +106,7 @@
     <Content Include="NotaryCRUD.aspx" />
     <Content Include="NotaryUpdate.aspx" />
     <Content Include="ProtocolCRUD.aspx" />
+    <Content Include="Register.aspx" />
     <Content Include="UpdateWriting.aspx" />
     <Content Include="User.aspx" />
     <Content Include="Web.config">
@@ -123,6 +129,13 @@
     <Compile Include="DoWriting.aspx.designer.cs">
       <DependentUpon>DoWriting.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Export.aspx.cs">
+      <DependentUpon>Export.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Export.aspx.designer.cs">
+      <DependentUpon>Export.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -140,6 +153,13 @@
     <Compile Include="MasterDoWriting.Master.designer.cs">
       <DependentUpon>MasterDoWriting.Master</DependentUpon>
     </Compile>
+    <Compile Include="MasterExport.Master.cs">
+      <DependentUpon>MasterExport.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MasterExport.Master.designer.cs">
+      <DependentUpon>MasterExport.Master</DependentUpon>
+    </Compile>
     <Compile Include="MasterIndex.Master.cs">
       <DependentUpon>MasterIndex.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -153,6 +173,13 @@
     </Compile>
     <Compile Include="MasterProtocol.Master.designer.cs">
       <DependentUpon>MasterProtocol.Master</DependentUpon>
+    </Compile>
+    <Compile Include="MasterRegister.Master.cs">
+      <DependentUpon>MasterRegister.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MasterRegister.Master.designer.cs">
+      <DependentUpon>MasterRegister.Master</DependentUpon>
     </Compile>
     <Compile Include="MasterUpdateNotary.Master.cs">
       <DependentUpon>MasterUpdateNotary.Master</DependentUpon>
@@ -204,6 +231,13 @@
     <Compile Include="ProtocolCRUD.aspx.designer.cs">
       <DependentUpon>ProtocolCRUD.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Register.aspx.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Register.aspx.designer.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+    </Compile>
     <Compile Include="UpdateWriting.aspx.cs">
       <DependentUpon>UpdateWriting.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -234,6 +268,8 @@
     <Content Include="MasterWriting.Master" />
     <Content Include="MasterDoWriting.Master" />
     <Content Include="MasterUpdateWriting.Master" />
+    <Content Include="MasterExport.Master" />
+    <Content Include="MasterRegister.Master" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

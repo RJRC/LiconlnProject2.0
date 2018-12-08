@@ -15,9 +15,20 @@ namespace UI
         private BLL bll = new BLL();
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!Page.IsPostBack)
+
+            
+            if (Session["Login"].ToString().Equals("1"))
             {
-                loadNotary();
+
+                if (!Page.IsPostBack)
+                {
+                    loadNotary();
+                }
+
+            }
+            else
+            {
+                Response.Redirect("Login.aspx");
             }
         }
 

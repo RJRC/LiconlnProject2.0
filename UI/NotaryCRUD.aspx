@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MenuMaster2.Master" AutoEventWireup="true" CodeBehind="NotaryCRUD.aspx.cs" Inherits="UI.NotaryCRUD" %>
 <asp:Content ID="contentTitle" ContentPlaceHolderID="contentTitle" runat="server">
-    Modulo Administrador
+    Invicta Legal
 </asp:Content>
 <asp:Content ID="contentHead" ContentPlaceHolderID="contentHead" runat="server">
 
@@ -36,7 +36,7 @@
                    <AlternatingRowStyle BackColor="White" />
                    <Columns>
                        <asp:ButtonField ButtonType="Button" CommandName="buttonUpdate" Text="Modificar"  ControlStyle-CssClass="btn btn-warning" />
-                       <asp:ButtonField ButtonType="Button" CommandName="buttonDelete" Text="Eliminar" ControlStyle-CssClass="btn btn-danger" />
+                       <asp:ButtonField ButtonType="Button" CommandName="buttonDelete" Text="Ocultar" ControlStyle-CssClass="btn btn-danger" />
                    </Columns>
                    <FooterStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
                    <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
@@ -51,7 +51,7 @@
              </div>
 
                      <br>
-                     <asp:Button ID="ButtonDeleted" class="btn btn-lg btn-default" runat="server" Text="Ver Eliminados" OnClick="ButtonDeleted_Click" />
+                     <asp:Button ID="ButtonDeleted" class="btn btn-lg btn-default" runat="server" Text="Ver Ocultados" OnClick="ButtonDeleted_Click" />
                      <br>         
                      <br>
                      <div class="table-responsive">

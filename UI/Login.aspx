@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Login</title>
+    <title>Invicta Legal</title>
     <link href="css/styleLogin.css" rel="stylesheet" type="text/css" media="all"/>
     
     <link rel="shortcut icon" href="images/punto.png" />

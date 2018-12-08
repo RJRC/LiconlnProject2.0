@@ -59,9 +59,9 @@ namespace BusinessLogicLayer
 
 
 
-        public DataTable showSummaryYear()
+        public DataTable showSummaryYear(int year)
         {
-            return accessDataLayer.showSummaryYear();
+            return accessDataLayer.showSummaryYear(year);
         }
 
         public String getMonth(String month)
@@ -206,52 +206,6 @@ namespace BusinessLogicLayer
             return var;
         }
 
-        /*   public String getMonth(String date)
-           {
-               String var = "";
-               switch (DateTime.Now.ToString("MM"))
-               {
-                   case "01":
-                       var = "Enero";
-                       break;
-                   case "02":
-                       var = "Febrero";
-                       break;
-                   case "03":
-                       var = "Marzo";
-                       break;
-                   case "04":
-                       var = "Abril";
-                       break;
-                   case "05":
-                       var = "Mayo";
-                       break;
-                   case "06":
-                       var = "Junio";
-                       break;
-                   case "07":
-                       var = "Julio";
-                       break;
-                   case "08":
-                       var = "Agosto";
-                       break;
-                   case "09":
-                       var = "Setiembre";
-                       break;
-                   case "10":
-                       var = "Octubre";
-                       break;
-                   case "11":
-                       var = "Noviembre";
-                       break;
-                   case "12":
-                       var = "Diciembre";
-                       break;
-
-               }
-
-               return var;
-           }*/
 
         public DataTable showCoNotaries(int idNotary)
         {
@@ -266,6 +220,16 @@ namespace BusinessLogicLayer
         public DataTable showProtocols()
         {
             return accessDataLayer.showProtocols();
+        }
+
+        public int getMensualLimitByProtocol(int idProtocol)
+        {
+            return accessDataLayer.getMensualLimitByProtocol(idProtocol);
+        }
+
+        public int getMensualActualLimitByProtocol(int idProtocol)
+        {
+            return accessDataLayer.getMensualActualLimitByProtocol(idProtocol);
         }
 
         public Boolean checkNotary(String name)
@@ -337,7 +301,8 @@ namespace BusinessLogicLayer
         public DataTable loadAllWritingsByProtocol(int writingID)
         {
 
-            int year = int.Parse(DateTime.Now.ToString("yyyy"));
+            //int year = int.Parse(DateTime.Now.ToString("yyyy"));
+            int year = getLastFiscalYear();
             string month = DateTime.Now.ToString("MM");
             string realMonth = getMonth(month);
 
@@ -357,6 +322,11 @@ namespace BusinessLogicLayer
             return accessDataLayer.showSummaryYearPerMonths(idNotary);
         }
 
+        public DataTable showSummaryYearPerMonths(int idNotary, int year)
+        {
+            return accessDataLayer.showSummaryYearPerMonths(idNotary, year);
+        }
+
         public int getAllMovemetsByIdNotary(int iDNotary)
         {
             return accessDataLayer.getAllMovemetsByIdNotary(iDNotary);
@@ -366,7 +336,11 @@ namespace BusinessLogicLayer
         {
             return accessDataLayer.showCo_NotaryWritingByID(idWriting);
         }
-
+        public DataTable showCo_NotaryWritingByIDWithOutCero(int idWriting)
+        {
+            return accessDataLayer.showCo_NotaryWritingByIDWithOutCero(idWriting);
+        }
+        
         public int checkClients(string clientName)
         {
 
@@ -398,7 +372,7 @@ namespace BusinessLogicLayer
         }
 
         public void createWriting(int clientID, int protocolID, int affairID, String billingNumber,
-            String billingAddress, string billingEmail, DateTime date, string eventWriting, int billingAmount,
+            String billingAddress, string billingEmail, string date, string eventWriting, int billingAmount,
             string parts, string writingNumber)
         {
 
@@ -413,7 +387,11 @@ namespace BusinessLogicLayer
         {
             accessDataLayer.createMovement(protocolID, billingAmount);
         }
-
+        public void createMovementToUpdate(int protocolID, int writingID, int billingAmount)
+        {
+            accessDataLayer.createMovementToUpdate(protocolID, writingID, billingAmount);
+        }
+        
         public int getProtocolByMonthAndYear(int idNotary, string month, int year)
         {
             return accessDataLayer.getProtocolByMonthAndYear(idNotary, month, year);
@@ -424,6 +402,14 @@ namespace BusinessLogicLayer
             return accessDataLayer.showSummaryYearPerMonthsInAdminModule(searchYear);
         }
 
+        public DataTable showSummaryYearPerMonthsInAdminModuleToExport1(int searchYear)
+        {
+            return accessDataLayer.showSummaryYearPerMonthsInAdminModuleToExport1(searchYear);
+        }
+        public DataTable showSummaryYearPerMonthsInAdminModuleToExport2(int searchYear)
+        {
+            return accessDataLayer.showSummaryYearPerMonthsInAdminModuleToExport2(searchYear);
+        }
         public List<int> getYears()
         {
 
@@ -448,22 +434,90 @@ namespace BusinessLogicLayer
             return accessDataLayer.getAllCoNotariesByNotary(IDNotary, year);
         }
 
+        public DataTable getAllCoNotariesByNotaryToExport1(int IDNotary, int year)
+        {
+
+            return accessDataLayer.getAllCoNotariesByNotaryToExport1(IDNotary, year);
+        }
+        public DataTable getAllCoNotariesByNotaryToExport2(int IDNotary, int year)
+        {
+
+            return accessDataLayer.getAllCoNotariesByNotaryToExport2(IDNotary, year);
+        }
+
         public DataTable getAllOwnWritingsByNotary(int IDNotary, int year)
         {
 
             return accessDataLayer.getAllOwnWritingsByNotary(IDNotary, year);
         }
 
-      /*  public int getFacHonorary(string month, int year, int notaryId, int writingId)
+        public DataTable getAllOwnWritingsByNotaryToExport1(int IDNotary, int year)
         {
 
-            return accessDataLayer.getFacHonorary(getMonth2(month), year, notaryId, writingId);
+            return accessDataLayer.getAllOwnWritingsByNotaryToExport1(IDNotary, year);
+        }
+        public DataTable getAllOwnWritingsByNotaryToExport2(int IDNotary, int year)
+        {
 
-        }*/
+            return accessDataLayer.getAllOwnWritingsByNotaryToExport2(IDNotary, year);
+        }
+
+        /*  public int getFacHonorary(string month, int year, int notaryId, int writingId)
+          {
+
+              return accessDataLayer.getFacHonorary(getMonth2(month), year, notaryId, writingId);
+
+          }*/
 
         public List<int> getAllCoNorariesToUpdate(int writingId, List<string> nameslist)
         {
             return accessDataLayer.getAllCoNorariesToUpdate(writingId, nameslist);
         }
+
+        public List<int> getAllCoNorariesByWriting(int writingId, List<string> nameslist)
+        {
+            return accessDataLayer.getAllCoNorariesByWriting(writingId, nameslist);
+        }
+
+
+        
+
+        public void updateWriting(int writingId, string billingNumber, string billingAddresss,
+            string billingEmail, string date, string eventWriting, int billingAmount, int protocolID, int newProtocolID,
+            string writingNumber, string parts, int clientID, int affairID)
+        {
+
+            accessDataLayer.updateWriting(writingId, billingNumber, billingAddresss,
+                     billingEmail, date, eventWriting, billingAmount, protocolID, newProtocolID,
+                     writingNumber, parts, clientID, affairID);
+        }
+
+        public void updateMovement(int protocolID, int writingID, int billedAmount, int newProtocolID)
+        {
+             accessDataLayer.updateMovement(protocolID, writingID, billedAmount, newProtocolID);
+        }
+
+        public void inserLogin(string username, string password, string email)
+        {
+
+            accessDataLayer.inserLogin(username, password, "admin", email);
+
+        }
+
+        public DataTable loadUserLogin() {
+
+            return accessDataLayer.loadUserLogin();
+        }
+
+        public int getLastFiscalYear() {
+            return accessDataLayer.getLastFiscalYearInDB();
+        }
+
+        public DateTime timer()
+        {
+            DateTime date = DateTime.Now.AddMinutes(2);
+            return date;
+        }
+
     }
 }

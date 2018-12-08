@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterIndex.Master" AutoEventWireup="true" CodeBehind="AdminModule.aspx.cs" Inherits="UI.AdminModule" %>
 <asp:Content ID="contentTitle" ContentPlaceHolderID="contentTitle" runat="server">
-    Modulo Administrador
+    Invicta Legal
 
 </asp:Content>
 <asp:Content ID="contentHead" ContentPlaceHolderID="contentHead" runat="server">
@@ -32,7 +32,7 @@
 
 	<div class="about" id="about">
 		<div class="container">
-			<h3 class="title">Resumen Anual
+			<h3 class="title">Resumen Periodo Fiscal
                 <asp:Label ID="LabelYear" runat="server" Text=""></asp:Label>
 			</h3>
 
@@ -41,16 +41,11 @@
             </asp:DropDownList> 
             <br>
             <br>
-            <asp:Button ID="Button3" runat="server" CssClass="btn btn-lg btn-default" Text="Filtrar por año" OnClick="Button3_Click" />
+            <asp:Button ID="Button3" runat="server" CssClass="btn btn-lg btn-default" Text="Filtrar por periodo fiscal" OnClick="Button3_Click" />
             
             <br><br>
-            <asp:Label ID="Label1" runat="server" Text="Nombre del Archivo"></asp:Label>
-            <asp:TextBox ID="TextBox1" runat="server" placeholder="Nombre del archivo" required="" type="text" Width="299px"></asp:TextBox>
-            <asp:LinkButton ID="LinkButton1" runat="server" CssClass="btn btn-lg btn-default"   Text="Exportar" OnClick="LinkButton1_Click"></asp:LinkButton>
 
-            <asp:Button ID="Button4" CssClass="btn btn-lg btn-default" runat="server" Text="Exportar" OnClick="Button4_Click" />
-            
-            <asp:LinkButton ID="LinkButton2" runat="server" OnClick="LinkButton2_Click">LinkButton</asp:LinkButton>
+            <asp:Button ID="Button4" CssClass="btn btn-lg btn-default" runat="server" Text="Descargar Resumen " OnClick="Button4_Click" />
             
             <br/>
             <br/>
@@ -70,8 +65,9 @@
             </div>
 
             <br>
+            <br>
             <div class="table-responsive">
-                <asp:GridView ID="GridViewEachMonth" class="table " runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Width="680px">
+                <asp:GridView ID="GridViewEachMonth" runat="server" CellPadding="4" class="table " ForeColor="#333333" GridLines="None" Width="680px">
                     <AlternatingRowStyle BackColor="White" />
                     <FooterStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
                     <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
@@ -84,9 +80,9 @@
                     <SortedDescendingHeaderStyle BackColor="#820000" />
                 </asp:GridView>
             </div>
-            
-
-            <div class="clearfix"> </div>
+            <div class="clearfix">
+            </div>
+ 
 
 		</div>
 	</div>
@@ -113,6 +109,10 @@
 
                                     <asp:DropDownList ID="DropDownListMonths"  runat="server" Width="176px" BackColor="White" CssClass="color: White">
                                         
+                                        <asp:ListItem>Octubre</asp:ListItem>
+                                        <asp:ListItem>Noviembre</asp:ListItem>
+                                        <asp:ListItem>Diciembre</asp:ListItem>
+
                                         <asp:ListItem>Enero</asp:ListItem>
                                         <asp:ListItem>Febrero</asp:ListItem>
                                         <asp:ListItem>Marzo</asp:ListItem>
@@ -122,9 +122,7 @@
                                         <asp:ListItem>Julio</asp:ListItem>
                                         <asp:ListItem>Agosto</asp:ListItem>
                                         <asp:ListItem>Setiembre</asp:ListItem>
-                                        <asp:ListItem>Octubre</asp:ListItem>
-                                        <asp:ListItem>Noviembre</asp:ListItem>
-                                        <asp:ListItem>Diciembre</asp:ListItem>
+                                        
 
                                     </asp:DropDownList>
                                     <asp:DropDownList ID="DropDownListYearsMonth"  runat="server" Width="175px" BackColor="White" CssClass="color : White"></asp:DropDownList>
