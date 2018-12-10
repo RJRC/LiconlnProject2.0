@@ -48,7 +48,7 @@ namespace UI
 
             if (!Page.IsPostBack)
             {
-                setData();
+                    setData();
             }
 
             }

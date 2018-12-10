@@ -327,9 +327,9 @@ namespace BusinessLogicLayer
             return accessDataLayer.showSummaryYearPerMonths(idNotary, year);
         }
 
-        public int getAllMovemetsByIdNotary(int iDNotary)
+        public int getAllMovemetsByIdNotary(int iDNotary, int year)
         {
-            return accessDataLayer.getAllMovemetsByIdNotary(iDNotary);
+            return accessDataLayer.getAllMovemetsByIdNotary(iDNotary, year);
         }
 
         public DataTable showCo_NotaryWritingByID(int idWriting)
@@ -517,6 +517,22 @@ namespace BusinessLogicLayer
         {
             DateTime date = DateTime.Now.AddMinutes(2);
             return date;
+        }
+
+        public void createNewYear() {
+            accessDataLayer.createNewYear();
+        }
+
+        public int getActualFiscalYear() {
+            return accessDataLayer.getActualFiscalYear();
+        }
+
+        public Login loadUser(int id) {
+            return accessDataLayer.loadUser(id);
+        }
+
+        public void deleteUser(string id) {
+            accessDataLayer.deleteUser(int.Parse(id));
         }
 
     }

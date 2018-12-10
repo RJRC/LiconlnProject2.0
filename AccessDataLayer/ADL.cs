@@ -337,7 +337,7 @@ namespace AccessDataLayer
 
                 foreach (proc_SummaryMonths_Result item in summary.ToList())
                 {
-                    var movementsSummaryYear = database.proc_SummaryMovementsByNotaryID(item.NotaryID);
+                    var movementsSummaryYear = database.proc_SummaryMovementsByNotaryID(item.NotaryID, year);
                     int allMovements = 0;
                     foreach (int item2 in movementsSummaryYear.ToList())
                     {
@@ -781,8 +781,8 @@ namespace AccessDataLayer
             return table;
         }
 
-        public int getAllMovemetsByIdNotary(int idNotary) { //Label writing
-            var movementsSummaryYear = database.proc_SummaryMovementsByNotaryID(idNotary);
+        public int getAllMovemetsByIdNotary(int idNotary, int year) { //Label writing
+            var movementsSummaryYear = database.proc_SummaryMovementsByNotaryID(idNotary, year);
             int allMovements = 0;
             foreach (int item2 in movementsSummaryYear.ToList())
             {
@@ -1001,7 +1001,7 @@ namespace AccessDataLayer
             database.proc_Create_Notary(name, initials, rbt, enabled, int.Parse(saldo), getActualFiscalYear());
         }
 
-        private int getActualFiscalYear() {
+        public int getActualFiscalYear() {
             int year = int.Parse(DateTime.Now.ToString("yyyy"));
             return year;
         }
@@ -1632,5 +1632,48 @@ namespace AccessDataLayer
             return table;
 
         }
+
+
+        public void createNewYear() {
+
+            var summary = database.proc_Get_Notaries();
+
+            int nextYear = getLastFiscalYearInDB() + 1;
+
+            foreach (proc_Get_Notaries_Result item in summary.ToList())
+            {
+                int notaryiD = item.Codigo_Notario;
+                int actualBalance = item.Saldo_Mensual_Ideal;
+
+                database.proc_Create_NewYear(notaryiD, actualBalance, nextYear);
+            }
+        }
+
+        public void isJanuary()
+        {
+
+            var summary = database.proc_Get_Notaries();
+
+            foreach (proc_Get_Notaries_Result item in summary.ToList())
+            {
+                int notaryiD = item.Codigo_Notario;
+                int actualBalance = item.Saldo_Mensual_Ideal;
+
+                database.proc_Create_NewYear(notaryiD, actualBalance, getActualFiscalYear());
+            }
+        }
+
+        public Login loadUser(int userID)
+        {
+            return database.Login.Single(u => u.LoginID == userID);
+
+        }
+
+        public void deleteUser(int id)
+        {
+            database.proc_Delete_UserLoginByID(id);
+        }
+
     }
+
 }

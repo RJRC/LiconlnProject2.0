@@ -58,7 +58,6 @@
           <ScalarProperty Name="ProtocolID" ColumnName="ProtocolID" />
           <ScalarProperty Name="NotaryID" ColumnName="NotaryID" />
           <ScalarProperty Name="ActualBalance" ColumnName="ActualBalance" />
-          <ScalarProperty Name="Carry" ColumnName="Carry" />
           <ScalarProperty Name="Month" ColumnName="Month" />
           <ScalarProperty Name="Year" ColumnName="Year" />
         </MappingFragment>
@@ -86,6 +85,7 @@
     <FunctionImportMapping FunctionImportName="proc_Create_Affair" FunctionName="LincolnDBModel.Store.proc_Create_Affair" />
     <FunctionImportMapping FunctionImportName="proc_Create_Client" FunctionName="LincolnDBModel.Store.proc_Create_Client" />
     <FunctionImportMapping FunctionImportName="proc_Create_Movement" FunctionName="LincolnDBModel.Store.proc_Create_Movement" />
+    <FunctionImportMapping FunctionImportName="proc_Create_NewYear" FunctionName="LincolnDBModel.Store.proc_Create_NewYear" />
     <FunctionImportMapping FunctionImportName="proc_Create_Notary" FunctionName="LincolnDBModel.Store.proc_Create_Notary" />
     <FunctionImportMapping FunctionImportName="proc_Create_Protocol" FunctionName="LincolnDBModel.Store.proc_Create_Protocol" />
     <FunctionImportMapping FunctionImportName="proc_Create_Writing" FunctionName="LincolnDBModel.Store.proc_Create_Writing" />

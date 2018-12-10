@@ -76,6 +76,15 @@ namespace UI {
         protected global::System.Web.UI.WebControls.Button Button4;
         
         /// <summary>
+        /// Control ButtonEjemploApertura.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonEjemploApertura;
+        
+        /// <summary>
         /// Control GridViewYear.
         /// </summary>
         /// <remarks>

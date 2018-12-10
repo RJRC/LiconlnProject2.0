@@ -15,13 +15,19 @@ namespace UI
         private string monthToSearch = "";
         private int idNotary = 0;
         Notary notary;
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
             if (Session["Login"].ToString().Equals("1"))
             {
+               
 
-                load();
+                
+                if (!Page.IsPostBack)
+                {
+                    load();
+                }
 
                 if (!Session["UpdateWritingToAlert"].Equals("Por Defecto"))
                 {
@@ -52,7 +58,7 @@ namespace UI
             LabelAvailable.Text = notary.NotaryAvailable;
             idNotary = notary.NotaryID;
             Session["NotaryID"] = idNotary;
-            int allwritingsByNotary = bll.getAllMovemetsByIdNotary(notary.NotaryID);
+            int allwritingsByNotary = bll.getAllMovemetsByIdNotary(notary.NotaryID, bll.getActualFiscalYear());
             LabelTotalYear.Text = allwritingsByNotary + "";
 
             /*Resumen de cada Mes*/
@@ -76,6 +82,8 @@ namespace UI
 
             LabelMonth.Text = bll.getMonth();
             LabelYear.Text = bll.getLastFiscalYear() + "";
+
+
             GridViewMonths.DataSource = bll.loadAllWritingsByProtocol(notary.NotaryID);
             GridViewMonths.DataBind();
             LabelAnualActualLimitFake.Visible = false;
@@ -174,46 +182,25 @@ namespace UI
 
             monthToSearch = DropDownListMonths.SelectedItem.ToString();
             String year = DropDownListYearsMonth.SelectedItem.ToString();
-            if (validateMonth())
-            {
-                int var = 0;
+
                 try
                 {
-                    if (!year.Equals(""))
-                    {
+
 
                         int realyear = int.Parse(year);
 
-                        if (realyear > 2017 && realyear < 2040)
-                        {
-                            LabelMonth.Text = monthToSearch;
-                            GridViewMonthsSearch.DataSource = bll.loadAllWritingsByProtocol(idNotary, monthToSearch, bll.getLastFiscalYear());
+                 idNotary = int.Parse(Session["NotaryID"].ToString());
+                LabelMonth.Text = monthToSearch;
+                //alert(idNotary+ " " + monthToSearch + " " + realyear);
+                            GridViewMonthsSearch.DataSource = bll.loadAllWritingsByProtocol(idNotary, monthToSearch, realyear);
                             GridViewMonthsSearch.DataBind();
-
+                   
                             GridViewMonths.DataSource = null;
-                            GridViewMonths.DataBind();
+                            GridViewMonths.DataBind(); 
+                   /* GridViewMonthsSearch.Visible = true;
+                    GridViewMonths.Visible = false;*/
                             clearCoNotary();
-                           // Session["Varload"] = 1;
-
-                        }
-                        else
-                        {
-                            alert("Ingrese un año entre 2018 y 2040");
-
-                        }
-                        var = 1;
-                    }
-                    if (var == 0)
-                    {
-                        LabelMonth.Text = monthToSearch;
-                        GridViewMonthsSearch.DataSource = bll.loadAllWritingsByProtocol(idNotary, monthToSearch, int.Parse(DateTime.Now.ToString("yyyy")));
-                        GridViewMonthsSearch.DataBind();
-
-                        GridViewMonths.DataSource = null;
-                        GridViewMonths.DataBind();
-                        clearCoNotary();
-                        //Session["Varload"] = 1;
-                    }
+ 
                 }
                 catch (Exception e)
                 {
@@ -221,12 +208,7 @@ namespace UI
                     alert("Existe un error en el Año");
 
                 }
-            }
-            else
-            {
-                alert("Existe un error al ingresar el Mes");
-            }
-
+            
         }
 
         private Boolean validateMonth()
@@ -303,8 +285,11 @@ namespace UI
 
         protected void ButtonActual_Click(object sender, EventArgs e)
         {
-            GridViewMonthsSearch.DataSource = null;
-            GridViewMonthsSearch.DataBind();
+             GridViewMonthsSearch.DataSource = null;
+             GridViewMonthsSearch.DataBind();
+            /*GridViewMonthsSearch.Visible = false;
+            GridViewMonths.Visible = true;*/
+
             int varr = int.Parse(Session["NotaryID"].ToString());
             GridViewMonths.DataSource = bll.loadAllWritingsByProtocol(varr);
             GridViewMonths.DataBind();
@@ -313,7 +298,6 @@ namespace UI
             GridView1.DataSource = null;
             GridView1.DataBind();
             LabelMonth.Text = bll.getMonth();
-            Session["Varload"] = "1";
         }
 
         protected void GridViewMonths_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -332,7 +316,6 @@ namespace UI
                 GridView1.DataSource = bll.showCo_NotaryWritingByIDWithOutCero(id);
                 GridView1.DataBind();
                 Label2.Text = "Co-Notariado";
-                Session["Varload"]  = 1;
             }
 
 
@@ -405,11 +388,6 @@ namespace UI
 
 
 
-        protected void GridViewMonths_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         protected void GridViewMonthsSearch_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             if (e.CommandName == "showCo-Notariado")
@@ -422,8 +400,9 @@ namespace UI
                 
                 int id = int.Parse(writingID);
 
-                GridViewMonths.DataSource = null;
-                GridViewMonths.DataBind();
+                 /* GridViewMonths.DataSource = null;
+                  GridViewMonths.DataBind();*/
+                //GridViewMonths.Visible = false;
 
                  GridView1.DataSource = bll.showCo_NotaryWritingByIDWithOutCero(id);
                  GridView1.DataBind();
@@ -502,33 +481,7 @@ namespace UI
             }
         }
 
-        protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
-        {
-            if (e.CommandName == "modifyCommand")
-            {
-                /*Button Update*/
-                int crow;
-                crow = Convert.ToInt32(e.CommandArgument.ToString());
-                // alert(crow + "");
-
-                string writingID = GridViewMonthsSearch.Rows[crow].Cells[1].Text;
-
-                //alert(writingID);
-                //string writingID = GridViewMonths.Rows[crow].Cells[2].Text; //obtener un dato de la tabla 
-                //alert(writingID);
-                int id = int.Parse(writingID);
-                //Response.Redirect("NotaryUpdate.aspx?id=code");
-                //alert("Se esta trabajando en esta sección " + "Codigo del Notario > " + code);
-
-                /* GridView1.DataSource = bll.showCo_NotaryWritingByID(id);
-                 GridView1.DataBind();
-                 Label2.Text = "Co-Notariado";*/
-                alert(writingID);
-                Session["WritingIDConotary"] = writingID;
-                Session["Varload"] = 1;
-
-            }
-        }
+       
 
         private void clearCoNotary() {
             GridView1.DataSource = null;
@@ -554,22 +507,38 @@ namespace UI
         {
 
             int year = int.Parse(DropDownListYears.SelectedItem.ToString());
-
+            idNotary = int.Parse(Session["NotaryID"].ToString());
             GridViewOwnWritings.DataSource = bll.getAllOwnWritingsByNotary(idNotary,year );
             GridViewCo_NotaryWritings.DataSource = bll.getAllCoNotariesByNotary(idNotary, year);
             GridViewOwnWritings.DataBind();
             GridViewCo_NotaryWritings.DataBind();
             LabelYear.Text = year + "";
+            Session["ExportYear"] = year + "";
 
         }
 
         protected void ButtonDownload_Click(object sender, EventArgs e)
         {
-            Session["ExportYear"] = LabelYear.Text;
+            
+
+            if (Session["ExportYear"].ToString().Equals("Por Defecto"))
+            {
+                Session["ExportYear"] = LabelYear.Text;
+            }
+
+            
+            
+
+           // alert(Session["ExportYear"].ToString());
+            
+
+            
             Session["ExportType"] = "2";
             
             Response.Redirect("Export.aspx");
-
+            
         }
+
+       
     }
 }

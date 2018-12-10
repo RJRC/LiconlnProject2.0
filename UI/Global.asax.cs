@@ -40,6 +40,9 @@ namespace UI
             Session["UpdateProtocolID"] = "Por Defecto";
             Session["UpdateFacNotary"] = "Por Defecto";
 
+
+            Session["UpdateRegisterID"] = "Por Defecto";
+
             Session["Counter"] = new int();
             Session["limit"] = new DateTime();
 

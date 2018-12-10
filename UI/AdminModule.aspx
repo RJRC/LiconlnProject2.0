@@ -46,6 +46,7 @@
             <br><br>
 
             <asp:Button ID="Button4" CssClass="btn btn-lg btn-default" runat="server" Text="Descargar Resumen " OnClick="Button4_Click" />
+            <asp:Button ID="ButtonEjemploApertura" CssClass="btn btn-lg btn-default" runat="server" Text="Aperturar Nuevo Año" OnClick="ButtonEjemploApertura_Click"/>
             
             <br/>
             <br/>

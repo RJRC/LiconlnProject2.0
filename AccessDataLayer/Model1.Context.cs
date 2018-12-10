@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Entities
+namespace Entities 
 {
     using System;
     using System.Data.Entity;
@@ -81,6 +81,23 @@ namespace Entities
                 new ObjectParameter("billedAmount", typeof(decimal));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("proc_Create_Movement", protocolIDParameter, writingIDParameter, billedAmountParameter);
+        }
+    
+        public virtual int proc_Create_NewYear(Nullable<int> notaryID, Nullable<int> balanceLimitMonth, Nullable<int> year)
+        {
+            var notaryIDParameter = notaryID.HasValue ?
+                new ObjectParameter("notaryID", notaryID) :
+                new ObjectParameter("notaryID", typeof(int));
+    
+            var balanceLimitMonthParameter = balanceLimitMonth.HasValue ?
+                new ObjectParameter("balanceLimitMonth", balanceLimitMonth) :
+                new ObjectParameter("balanceLimitMonth", typeof(int));
+    
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("year", year) :
+                new ObjectParameter("year", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("proc_Create_NewYear", notaryIDParameter, balanceLimitMonthParameter, yearParameter);
         }
     
         public virtual int proc_Create_Notary(string name, string initials, string enabled, string availability, Nullable<int> balanceLimitMonth, Nullable<int> year)
@@ -489,13 +506,17 @@ namespace Entities
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<proc_SummaryMonths_Result>("proc_SummaryMonths", monthParameter, yearParameter);
         }
     
-        public virtual ObjectResult<Nullable<int>> proc_SummaryMovementsByNotaryID(Nullable<int> notaryID)
+        public virtual ObjectResult<Nullable<int>> proc_SummaryMovementsByNotaryID(Nullable<int> notaryID, Nullable<int> year)
         {
             var notaryIDParameter = notaryID.HasValue ?
                 new ObjectParameter("notaryID", notaryID) :
                 new ObjectParameter("notaryID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("proc_SummaryMovementsByNotaryID", notaryIDParameter);
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("year", year) :
+                new ObjectParameter("year", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("proc_SummaryMovementsByNotaryID", notaryIDParameter, yearParameter);
         }
     
         public virtual ObjectResult<Nullable<int>> proc_SummaryMovementsByNotaryIDAndMonth(Nullable<int> notaryID, string month, Nullable<int> year)

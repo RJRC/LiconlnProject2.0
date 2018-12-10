@@ -24,7 +24,6 @@ namespace Entities
         public int ProtocolID { get; set; }
         public int NotaryID { get; set; }
         public int ActualBalance { get; set; }
-        public int Carry { get; set; }
         public string Month { get; set; }
         public int Year { get; set; }
     

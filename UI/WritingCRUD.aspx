@@ -185,7 +185,7 @@
                      <br>
 
             <div class="table-responsive">
-                <asp:GridView ID="GridViewMonths" class="table" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" OnRowCommand="GridViewMonths_RowCommand" OnSelectedIndexChanged="GridViewMonths_SelectedIndexChanged">
+                <asp:GridView ID="GridViewMonths" class="table" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" OnRowCommand="GridViewMonths_RowCommand" >
                     <AlternatingRowStyle BackColor="White" />
                     <Columns>
                         <asp:ButtonField ButtonType="Button" ControlStyle-CssClass="btn btn-default" CommandName="showCo-Notariado" Text="Co-Notariado" >
@@ -245,7 +245,7 @@
                      <br>
                      
                      <div class="table-responsive">
-                     <asp:GridView ID="GridView1" class="table" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Width="688px" OnRowCommand="GridView1_RowCommand">
+                     <asp:GridView ID="GridView1" class="table" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Width="688px" >
 
                          <AlternatingRowStyle BackColor="White"  />
                          <FooterStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
@@ -300,7 +300,7 @@
                      <br>
 
             <div class="table-responsive">
-                <asp:GridView ID="GridViewOwnWritings" class="table" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" OnRowCommand="GridViewMonths_RowCommand" OnSelectedIndexChanged="GridViewMonths_SelectedIndexChanged">
+                <asp:GridView ID="GridViewOwnWritings" class="table" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" OnRowCommand="GridViewMonths_RowCommand" >
                     <AlternatingRowStyle BackColor="White" />
                     <FooterStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
                     <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />

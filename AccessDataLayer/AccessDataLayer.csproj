@@ -89,7 +89,7 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.Context.cs</LastGenOutput>
-      <CustomToolNamespace>Entities</CustomToolNamespace>
+      <CustomToolNamespace>Entities </CustomToolNamespace>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

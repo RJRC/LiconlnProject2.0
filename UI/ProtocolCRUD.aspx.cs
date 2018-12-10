@@ -17,7 +17,7 @@ namespace UI
             if (Session["Login"].ToString().Equals("1"))
             {
                   load();
-                  Session["Varload"] = 0;
+                Session["Varload"] = 0;
             }
             else
             {

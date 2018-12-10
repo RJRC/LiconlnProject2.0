@@ -55,7 +55,7 @@ function hideURLbar(){ window.scrollTo(0,1); }</script>
                                 <asp:TextBox ID="TextBox2" runat="server" type="password" placeholder="Contraseña" required=""></asp:TextBox>
                                 <asp:TextBox ID="TextBox3" runat="server" type="password" placeholder="Confirmar Contraseña" required=""></asp:TextBox>
                                 <asp:TextBox ID="TextBox4" runat="server" type="email" placeholder="Email" required=""></asp:TextBox>
-                                <asp:Button ID="ButtonUpdate" class="btnn" runat="server" Text="Modificar" OnClick="ButtonUpdate_Click"  />
+                                <asp:Button ID="ButtonUpdate" class="btnn" runat="server" Text="Agregar" OnClick="ButtonUpdate_Click"  />
 							
 						</div>
 					</div>
@@ -74,6 +74,11 @@ function hideURLbar(){ window.scrollTo(0,1); }</script>
         <div class="clearfix"></div>
         <br>
        
+                           </ContentTemplate>  
+         </asp:UpdatePanel>
+
+        <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                 <ContentTemplate>
 
 	<div class="contact" id="">
 		<div class="container">
@@ -82,7 +87,7 @@ function hideURLbar(){ window.scrollTo(0,1); }</script>
 
             <br/>
              <div class="table-responsive">
-                <asp:GridView ID="GridView1" class="table " runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Width="680px">
+                <asp:GridView ID="GridView1" class="table " runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Width="680px" OnRowCommand="GridView1_RowCommand">
                     <AlternatingRowStyle BackColor="White" />
                     <Columns>
                         <asp:ButtonField ButtonType="Button" CommandName="updateButton" ControlStyle-CssClass="btn btn-warning" Text="Modificar" />
@@ -102,9 +107,8 @@ function hideURLbar(){ window.scrollTo(0,1); }</script>
 
 		</div>
 	</div>
-                           </ContentTemplate>  
+                       </ContentTemplate>  
          </asp:UpdatePanel>
-
 
         </form>
 </asp:Content>

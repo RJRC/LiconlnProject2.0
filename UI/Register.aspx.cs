@@ -39,6 +39,8 @@ namespace UI
             else {
                 alert("No coinciden las contraseñas");
             }
+
+            load();
         }
 
         private void alert(String message)
@@ -54,6 +56,45 @@ namespace UI
              TextBox2.Text = "";
              TextBox3.Text = "";
              TextBox4.Text = "";
+        }
+
+        protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "updateButton")
+            {
+                int crow;
+                crow = Convert.ToInt32(e.CommandArgument.ToString());
+
+                string id = GridView1.Rows[crow].Cells[2].Text;
+
+                Session["UpdateRegisterID"] = id;
+            
+                Response.Redirect("UpdateRegisteraspx.aspx");
+
+            }
+
+            if (e.CommandName == "deleteButton")
+            {
+                int crow;
+                crow = Convert.ToInt32(e.CommandArgument.ToString());
+
+                string id = GridView1.Rows[crow].Cells[2].Text;
+                int var = 0; 
+
+                foreach (GridViewRow r in GridView1.Rows) {
+
+                    var++;
+                }
+                if (var != 1) {
+                    bll.deleteUser(id);
+                    load();
+                    alert("El Usuario se eliminó con éxito");
+                } else {
+                    alert("No se puede eliminar, solo existe 1 Usuario");
+                }
+
+            }
+
         }
     }
 }

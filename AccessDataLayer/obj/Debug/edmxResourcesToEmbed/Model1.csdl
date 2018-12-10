@@ -58,7 +58,6 @@
     <Property Name="ProtocolID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="NotaryID" Type="Int32" Nullable="false" />
     <Property Name="ActualBalance" Type="Int32" Nullable="false" />
-    <Property Name="Carry" Type="Int32" Nullable="false" />
     <Property Name="Month" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Year" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Movement" Relationship="Self.FK__Movement__Protoc__571DF1D5" FromRole="Protocol" ToRole="Movement" />
@@ -205,6 +204,11 @@
       <Parameter Name="writingID" Mode="In" Type="Int32" />
       <Parameter Name="billedAmount" Mode="In" Type="Decimal" />
     </FunctionImport>
+    <FunctionImport Name="proc_Create_NewYear">
+      <Parameter Name="notaryID" Mode="In" Type="Int32" />
+      <Parameter Name="balanceLimitMonth" Mode="In" Type="Int32" />
+      <Parameter Name="year" Mode="In" Type="Int32" />
+    </FunctionImport>
     <FunctionImport Name="proc_Create_Notary">
       <Parameter Name="name" Mode="In" Type="String" />
       <Parameter Name="initials" Mode="In" Type="String" />
@@ -324,6 +328,7 @@
     </FunctionImport>
     <FunctionImport Name="proc_SummaryMovementsByNotaryID" ReturnType="Collection(Int32)">
       <Parameter Name="notaryID" Mode="In" Type="Int32" />
+      <Parameter Name="year" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="proc_SummaryMovementsByNotaryIDAndMonth" ReturnType="Collection(Int32)">
       <Parameter Name="notaryID" Mode="In" Type="Int32" />

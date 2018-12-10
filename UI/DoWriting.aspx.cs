@@ -35,7 +35,6 @@ namespace UI
         {
             if (Session["Login"].ToString().Equals("1"))
             {
-
             }
             else
             {
@@ -186,7 +185,7 @@ namespace UI
                                     }
                                     else
                                     {
-                                        alert("El año seleccionado no esta disponible mes " + month);
+                                        alert("El año seleccionado no esta disponible");
                                     }
                                 }
                                 else {

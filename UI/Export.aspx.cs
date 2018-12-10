@@ -21,7 +21,6 @@ namespace UI
         {
             if (Session["Login"].ToString().Equals("1"))
             {
-
                 
             }
             else
@@ -213,11 +212,10 @@ namespace UI
 
                 case "2":
 
-                    
 
                     string j = Session["ExportYear"].ToString();
                     int year2 = int.Parse(j);
-
+                    
                     string idNotaryfake = Session["NotaryID"].ToString();
                     int idNotary = int.Parse(idNotaryfake);
 
@@ -237,7 +235,8 @@ namespace UI
 
 
                     System.Diagnostics.Process.Start(mdoc2 + "\\" + TextBox1.Text + ".pdf");
-
+                    
+                    
                     break;
 
             }
@@ -504,14 +503,14 @@ namespace UI
             BaseFont btnAuthor2 = BaseFont.CreateFont(BaseFont.TIMES_ROMAN, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
             Font fntAuthor2 = new Font(btnAuthor2, 12, 2, Color.BLACK);
             prgAuthor2.Alignment = Element.ALIGN_LEFT;
-            prgAuthor2.Add(new Chunk("Facturacion Propia", fntAuthor2));
+            prgAuthor2.Add(new Chunk("Facturación Propia", fntAuthor2));
             
             //Titulo
             Paragraph prgAuthor3 = new Paragraph();
             BaseFont btnAuthor3 = BaseFont.CreateFont(BaseFont.TIMES_ROMAN, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
             Font fntAuthor3 = new Font(btnAuthor3, 12, 2, Color.BLACK);
             prgAuthor3.Alignment = Element.ALIGN_LEFT;
-            prgAuthor3.Add(new Chunk("Facturacion CoNotariada", fntAuthor3));
+            prgAuthor3.Add(new Chunk("Facturación CoNotariada", fntAuthor3));
             
 
             //Titulo
@@ -544,5 +543,14 @@ namespace UI
             fs.Close();
         }
 
+        private void alert(String message)
+        {
+            string script = @"<script type='text/javascript'>
+                            alert(' " + message + "'); </script>";
+            script = string.Format(script);
+            ScriptManager.RegisterStartupScript(this, typeof(Page), "alerta", script, false);
+        }
+
     }
+
 }

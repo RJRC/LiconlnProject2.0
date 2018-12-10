@@ -58,7 +58,6 @@
           <Property Name="ProtocolID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NotaryID" Type="int" Nullable="false" />
           <Property Name="ActualBalance" Type="int" Nullable="false" />
-          <Property Name="Carry" Type="int" Nullable="false" />
           <Property Name="Month" Type="nvarchar" MaxLength="25" Nullable="false" />
           <Property Name="Year" Type="int" Nullable="false" />
         </EntityType>
@@ -165,6 +164,11 @@
           <Parameter Name="protocolID" Type="int" Mode="In" />
           <Parameter Name="writingID" Type="int" Mode="In" />
           <Parameter Name="billedAmount" Type="money" Mode="In" />
+        </Function>
+        <Function Name="proc_Create_NewYear" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="notaryID" Type="int" Mode="In" />
+          <Parameter Name="balanceLimitMonth" Type="int" Mode="In" />
+          <Parameter Name="year" Type="int" Mode="In" />
         </Function>
         <Function Name="proc_Create_Notary" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="name" Type="nvarchar" Mode="In" />
@@ -285,6 +289,7 @@
         </Function>
         <Function Name="proc_SummaryMovementsByNotaryID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="notaryID" Type="int" Mode="In" />
+          <Parameter Name="year" Type="int" Mode="In" />
         </Function>
         <Function Name="proc_SummaryMovementsByNotaryIDAndMonth" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="notaryID" Type="int" Mode="In" />
@@ -452,7 +457,6 @@
           <Property Name="ProtocolID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NotaryID" Type="Int32" Nullable="false" />
           <Property Name="ActualBalance" Type="Int32" Nullable="false" />
-          <Property Name="Carry" Type="Int32" Nullable="false" />
           <Property Name="Month" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Year" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Movement" Relationship="Self.FK__Movement__Protoc__571DF1D5" FromRole="Protocol" ToRole="Movement" />
@@ -599,6 +603,11 @@
             <Parameter Name="writingID" Mode="In" Type="Int32" />
             <Parameter Name="billedAmount" Mode="In" Type="Decimal" />
           </FunctionImport>
+          <FunctionImport Name="proc_Create_NewYear">
+            <Parameter Name="notaryID" Mode="In" Type="Int32" />
+            <Parameter Name="balanceLimitMonth" Mode="In" Type="Int32" />
+            <Parameter Name="year" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="proc_Create_Notary">
             <Parameter Name="name" Mode="In" Type="String" />
             <Parameter Name="initials" Mode="In" Type="String" />
@@ -718,6 +727,7 @@
           </FunctionImport>
           <FunctionImport Name="proc_SummaryMovementsByNotaryID" ReturnType="Collection(Int32)">
             <Parameter Name="notaryID" Mode="In" Type="Int32" />
+            <Parameter Name="year" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="proc_SummaryMovementsByNotaryIDAndMonth" ReturnType="Collection(Int32)">
             <Parameter Name="notaryID" Mode="In" Type="Int32" />
@@ -1040,7 +1050,6 @@
                 <ScalarProperty Name="ProtocolID" ColumnName="ProtocolID" />
                 <ScalarProperty Name="NotaryID" ColumnName="NotaryID" />
                 <ScalarProperty Name="ActualBalance" ColumnName="ActualBalance" />
-                <ScalarProperty Name="Carry" ColumnName="Carry" />
                 <ScalarProperty Name="Month" ColumnName="Month" />
                 <ScalarProperty Name="Year" ColumnName="Year" />
               </MappingFragment>
@@ -1068,6 +1077,7 @@
           <FunctionImportMapping FunctionImportName="proc_Create_Affair" FunctionName="LincolnDBModel.Store.proc_Create_Affair" />
           <FunctionImportMapping FunctionImportName="proc_Create_Client" FunctionName="LincolnDBModel.Store.proc_Create_Client" />
           <FunctionImportMapping FunctionImportName="proc_Create_Movement" FunctionName="LincolnDBModel.Store.proc_Create_Movement" />
+          <FunctionImportMapping FunctionImportName="proc_Create_NewYear" FunctionName="LincolnDBModel.Store.proc_Create_NewYear" />
           <FunctionImportMapping FunctionImportName="proc_Create_Notary" FunctionName="LincolnDBModel.Store.proc_Create_Notary" />
           <FunctionImportMapping FunctionImportName="proc_Create_Protocol" FunctionName="LincolnDBModel.Store.proc_Create_Protocol" />
           <FunctionImportMapping FunctionImportName="proc_Create_Writing" FunctionName="LincolnDBModel.Store.proc_Create_Writing" />

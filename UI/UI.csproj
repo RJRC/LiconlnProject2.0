@@ -107,6 +107,7 @@
     <Content Include="NotaryUpdate.aspx" />
     <Content Include="ProtocolCRUD.aspx" />
     <Content Include="Register.aspx" />
+    <Content Include="UpdateRegisteraspx.aspx" />
     <Content Include="UpdateWriting.aspx" />
     <Content Include="User.aspx" />
     <Content Include="Web.config">
@@ -237,6 +238,13 @@
     </Compile>
     <Compile Include="Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UpdateRegisteraspx.aspx.cs">
+      <DependentUpon>UpdateRegisteraspx.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UpdateRegisteraspx.aspx.designer.cs">
+      <DependentUpon>UpdateRegisteraspx.aspx</DependentUpon>
     </Compile>
     <Compile Include="UpdateWriting.aspx.cs">
       <DependentUpon>UpdateWriting.aspx</DependentUpon>

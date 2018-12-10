@@ -53,7 +53,6 @@
     <Property Name="ProtocolID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="NotaryID" Type="int" Nullable="false" />
     <Property Name="ActualBalance" Type="int" Nullable="false" />
-    <Property Name="Carry" Type="int" Nullable="false" />
     <Property Name="Month" Type="nvarchar" MaxLength="25" Nullable="false" />
     <Property Name="Year" Type="int" Nullable="false" />
   </EntityType>
@@ -160,6 +159,11 @@
     <Parameter Name="protocolID" Type="int" Mode="In" />
     <Parameter Name="writingID" Type="int" Mode="In" />
     <Parameter Name="billedAmount" Type="money" Mode="In" />
+  </Function>
+  <Function Name="proc_Create_NewYear" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="notaryID" Type="int" Mode="In" />
+    <Parameter Name="balanceLimitMonth" Type="int" Mode="In" />
+    <Parameter Name="year" Type="int" Mode="In" />
   </Function>
   <Function Name="proc_Create_Notary" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="name" Type="nvarchar" Mode="In" />
@@ -280,6 +284,7 @@
   </Function>
   <Function Name="proc_SummaryMovementsByNotaryID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="notaryID" Type="int" Mode="In" />
+    <Parameter Name="year" Type="int" Mode="In" />
   </Function>
   <Function Name="proc_SummaryMovementsByNotaryIDAndMonth" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="notaryID" Type="int" Mode="In" />

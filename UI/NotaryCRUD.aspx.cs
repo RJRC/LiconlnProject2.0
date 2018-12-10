@@ -17,7 +17,6 @@ namespace UI
         {
             if (Session["Login"].ToString().Equals("1"))
             {
-
                 load();
 
             }

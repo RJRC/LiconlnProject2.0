@@ -51,7 +51,7 @@
              </div>
 
                      <br>
-                     <asp:Button ID="ButtonDeleted" class="btn btn-lg btn-default" runat="server" Text="Ver Ocultados" OnClick="ButtonDeleted_Click" />
+                     <asp:Button ID="ButtonDeleted" class="btn btn-lg btn-default" runat="server" Text="Mostrar Ocultados" OnClick="ButtonDeleted_Click" />
                      <br>         
                      <br>
                      <div class="table-responsive">

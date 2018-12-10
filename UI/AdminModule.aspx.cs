@@ -19,6 +19,7 @@ namespace UI
 
                 if (!Page.IsPostBack)
                 {
+
                     load();
                 }
             }
@@ -90,6 +91,9 @@ namespace UI
         private void loadSummaryYears(int year) {
             GridViewEachMonth.DataSource = bll.showSummaryYearPerMonthsInAdminModule(year);
             GridViewEachMonth.DataBind();
+
+
+            LabelYear.Text = year + "";
             GridViewYear.DataSource = bll.showSummaryYear(year);
             GridViewYear.DataBind();
         }
@@ -179,6 +183,12 @@ namespace UI
             Response.Redirect("Export.aspx");
         }
 
+        protected void ButtonEjemploApertura_Click(object sender, EventArgs e)
+        {
 
+            bll.createNewYear();
+
+            alert("Se aperturo el periodo fiscal " + bll.getLastFiscalYear());
+        }
     }
 }
